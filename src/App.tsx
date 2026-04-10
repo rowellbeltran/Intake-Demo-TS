@@ -445,23 +445,6 @@ function ReadinessMeter({ value }: ReadinessMeterProps): JSX.Element {
   );
 }
 
-interface StatCardProps {
-  title: string;
-  value: number;
-  color: string;
-}
-
-function StatCard({ title, value, color }: StatCardProps): JSX.Element {
-  return (
-    <div style={{ background: "linear-gradient(135deg, color 0%, color 100%)", borderRadius: 10, padding: 16, boxShadow: "0 4px 12px rgba(0,0,0,0.1)", border: "1px solid rgba(255,255,255,0.2)", minWidth: 140 }}>
-      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-        <h4 style={{ textAlign: "center", margin: 0, fontSize: 13, fontWeight: "600", color: color, opacity: 0.9 }}>{title}</h4>
-        <div style={{ fontSize: 36, fontWeight: "bold", color: color, textAlign: "center" }}>{value}</div>
-      </div>
-    </div>
-  );
-}
-
 interface PieChartProps {
   data: PieChartData[];
 }
