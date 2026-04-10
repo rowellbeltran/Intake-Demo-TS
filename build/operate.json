@@ -1,6 +1,6 @@
 {
   "$schema": "https://cloud.uipath.com/draft/2024-12/operate",
-  "projectId": "a884d1aa-0c4d-4c26-b1e0-0319200f844c",
+  "projectId": "0ec3b3d9-37ab-4214-a296-61191e3d08c3",
   "main": "index.html",
   "contentType": "webapp",
   "targetFramework": "Portable",

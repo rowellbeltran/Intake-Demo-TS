@@ -507,83 +507,84 @@ export default function App(): JSX.Element {
       {/* ENHANCED HEADER */}
       <div style={{ background: "linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%)", padding: "40px 32px", boxShadow: "0 8px 24px rgba(37, 99, 235, 0.2)", textAlign: "center", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", top: 0, right: 0, opacity: 0.1, fontSize: 200, lineHeight: 1 }}>📋</div>
-        <h1 style={{ color: "#fff", margin: 0, fontSize: 40, fontWeight: "900", letterSpacing: "-1px" }}>Intake Visits</h1>
-        <p style={{ color: "rgba(255, 255, 255, 0.9)", margin: "12px 0 0 0", fontSize: 15, fontWeight: "500", letterSpacing: "0.3px" }}>Patient Medical Information Intake Portal</p>
+        <h1 style={{ color: "#fff", margin: 0, fontSize: 40, fontWeight: "900", letterSpacing: "-1px" }}>Patient Medical Information Intake Portal</h1>
       </div>
 
-      {/* TABS */}
-      <div style={{ display: "flex", background: "linear-gradient(90deg, #ffffff 0%, #f8fafc 100%)", borderBottom: "1px solid #e2e8f0", paddingLeft: 24, boxShadow: "0 1px 3px rgba(0,0,0,0.02)" }}>
-        {(["dashboard", "upcoming", "completed"] as const).map(tabView => (
-          <div 
-            key={tabView}
-            style={{
-              padding: "14px 28px", 
-              cursor: "pointer",
-              background: view === tabView ? "linear-gradient(135deg, #2563eb 0%, #1e40af 100%)" : "transparent",
-              color: view === tabView ? "#fff" : "#64748b",
-              fontWeight: view === tabView ? 600 : 500,
-              fontSize: 14,
-              borderRadius: view === tabView ? "8px 8px 0 0" : "0",
-              marginBottom: view === tabView ? "-1px" : "0",
-              transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-              display: "flex",
-              alignItems: "center",
-              gap: 8,
-              margin: view === tabView ? "0" : "0"
-            }}
-            onClick={() => {
-              setView(tabView);
-              setSelectedPatient(null);
-              setShowROI(false);
-            }}
-            onMouseEnter={(e) => {
-              const el = e.currentTarget as HTMLDivElement;
-              if (view !== tabView) {
-                el.style.background = "#f1f5f9";
-                el.style.color = "#334155";
-              }
-            }}
-            onMouseLeave={(e) => {
-              const el = e.currentTarget as HTMLDivElement;
-              if (view !== tabView) {
-                el.style.background = "transparent";
-                el.style.color = "#64748b";
-              }
-            }}
-          >
-            {tabView === "dashboard" && "📊 Dashboard"}
-            {tabView === "upcoming" && "📋 Upcoming"}
-            {tabView === "completed" && "✅ Completed"}
-          </div>
-        ))}
-      </div>
+      <div style={{ display: "flex", flex: 1 }}>
+        {/* SIDEBAR */}
+        <div style={{ width: 200, background: "#fff", borderRight: "1px solid #e2e8f0", padding: "16px", boxShadow: "1px 0 3px rgba(0,0,0,0.04)" }}>
+          {(["dashboard", "upcoming", "completed"] as const).map(tabView => (
+            <div 
+              key={tabView}
+              style={{
+                padding: "12px 16px", 
+                cursor: "pointer",
+                background: view === tabView ? "linear-gradient(135deg, #2563eb 0%, #1e40af 100%)" : "transparent",
+                color: view === tabView ? "#fff" : "#64748b",
+                fontWeight: view === tabView ? 600 : 500,
+                fontSize: 14,
+                borderRadius: "8px",
+                transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                marginBottom: "8px"
+              }}
+              onClick={() => {
+                setView(tabView);
+                setSelectedPatient(null);
+                setShowROI(false);
+              }}
+              onMouseEnter={(e) => {
+                const el = e.currentTarget as HTMLDivElement;
+                if (view !== tabView) {
+                  el.style.background = "#f1f5f9";
+                  el.style.color = "#334155";
+                }
+              }}
+              onMouseLeave={(e) => {
+                const el = e.currentTarget as HTMLDivElement;
+                if (view !== tabView) {
+                  el.style.background = "transparent";
+                  el.style.color = "#64748b";
+                }
+              }}
+            >
+              {tabView === "dashboard" && "📊 Dashboard"}
+              {tabView === "upcoming" && "📋 Upcoming"}
+              {tabView === "completed" && "✅ Completed"}
+            </div>
+          ))}
+        </div>
 
-      <div style={{ flex: 1, padding: 32, maxWidth: "1600px", margin: "0 auto", width: "100%" }}>
-        {!selectedPatient ? (
-          view === "dashboard" ? (
-            <DashboardPage patients={patients} />
+        {/* MAIN CONTENT */}
+        <div style={{ flex: 1, padding: 32, maxWidth: "1600px", margin: "0 auto", width: "100%" }}>
+          {!selectedPatient ? (
+            view === "dashboard" ? (
+              <DashboardPage patients={patients} />
+            ) : (
+              <QueuePage patients={filtered} onSelect={setSelectedPatient} />
+            )
+          ) : showROI ? (
+            <CreateROIPage
+              patient={selectedPatient}
+              onBack={() => setShowROI(false)}
+              onSubmit={(roi) => {
+                if (!patientDetails[selectedPatient.id]) {
+                  patientDetails[selectedPatient.id] = { ...defaultDetails };
+                }
+                patientDetails[selectedPatient.id].roi.push(roi);
+                setShowROI(false);
+              }}
+            />
           ) : (
-            <QueuePage patients={filtered} onSelect={setSelectedPatient} />
-          )
-        ) : showROI ? (
-          <CreateROIPage
-            patient={selectedPatient}
-            onBack={() => setShowROI(false)}
-            onSubmit={(roi) => {
-              if (!patientDetails[selectedPatient.id]) {
-                patientDetails[selectedPatient.id] = { ...defaultDetails };
-              }
-              patientDetails[selectedPatient.id].roi.push(roi);
-              setShowROI(false);
-            }}
-          />
-        ) : (
-          <PatientRecord
-            patient={selectedPatient}
-            onBack={() => setSelectedPatient(null)}
-            onCreateROI={() => setShowROI(true)}
-          />
-        )}
+            <PatientRecord
+              patient={selectedPatient}
+              onBack={() => setSelectedPatient(null)}
+              onCreateROI={() => setShowROI(true)}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
@@ -1066,54 +1067,53 @@ function DashboardPage({ patients }: DashboardPageProps): JSX.Element {
         <div style={{ fontSize: 14, color: "#6b7280" }}>Last updated: {new Date().toLocaleDateString()}</div>
       </div>
       
-      {/* SINGLE ROW - 2 COLUMNS WITH IMPROVED SPACING */}
-      <div style={{ display: "grid", gridTemplateColumns: "490px 1fr", gap: 32, marginBottom: 48 }}>
-        {/* First column: Total Upcoming, Total Completed, and Stage/Status Distribution stacked */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-          {/* Upcoming and Completed side by side */}
-          <div style={{ display: "flex", gap: 10, justifyContent: "space-between" }}>
-            <div style={{ background: "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)", borderRadius: 14, padding: 18, boxShadow: "0 4px 16px rgba(59, 130, 246, 0.15)", border: "1px solid rgba(255,255,255,0.12)", flex: 1, transition: "all 0.3s ease", cursor: "pointer" }} onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(-3px)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(59, 130, 246, 0.25)"; }} onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 4px 16px rgba(59, 130, 246, 0.15)"; }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
-                <div>
-                  <div style={{ fontSize: 11, color: "rgba(255,255,255,0.85)", marginBottom: 8, fontWeight: "600", letterSpacing: "0.4px", textTransform: "uppercase" }}>Upcoming</div>
-                  <div style={{ fontSize: 40, fontWeight: "800", color: "#fff", lineHeight: 1 }}>{totalUpcoming}</div>
-                </div>
-                <div style={{ fontSize: 44, opacity: 0.15, marginTop: -4 }}>📋</div>
+      {/* THREE COLUMN LAYOUT - TOP ROW */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 32, marginBottom: 48 }}>
+        {/* Left Column: Upcoming and Completed stacked */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+          <div style={{ background: "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)", borderRadius: 14, padding: 18, boxShadow: "0 4px 16px rgba(59, 130, 246, 0.15)", border: "1px solid rgba(255,255,255,0.12)", transition: "all 0.3s ease", cursor: "pointer" }} onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(-3px)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(59, 130, 246, 0.25)"; }} onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 4px 16px rgba(59, 130, 246, 0.15)"; }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
+              <div>
+                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.85)", marginBottom: 8, fontWeight: "600", letterSpacing: "0.4px", textTransform: "uppercase" }}>Upcoming</div>
+                <div style={{ fontSize: 40, fontWeight: "800", color: "#fff", lineHeight: 1 }}>{totalUpcoming}</div>
               </div>
-            </div>
-            <div style={{ background: "linear-gradient(135deg, #10b981 0%, #059669 100%)", borderRadius: 14, padding: 18, boxShadow: "0 4px 16px rgba(16, 185, 129, 0.15)", border: "1px solid rgba(255,255,255,0.12)", flex: 1, transition: "all 0.3s ease", cursor: "pointer" }} onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(-3px)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(16, 185, 129, 0.25)"; }} onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 4px 16px rgba(16, 185, 129, 0.15)"; }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
-                <div>
-                  <div style={{ fontSize: 11, color: "rgba(255,255,255,0.85)", marginBottom: 8, fontWeight: "600", letterSpacing: "0.4px", textTransform: "uppercase" }}>Completed</div>
-                  <div style={{ fontSize: 40, fontWeight: "800", color: "#fff", lineHeight: 1 }}>{totalCompleted}</div>
-                </div>
-                <div style={{ fontSize: 44, opacity: 0.15, marginTop: -4 }}>✅</div>
-              </div>
+              <div style={{ fontSize: 44, opacity: 0.15, marginTop: -4 }}>📋</div>
             </div>
           </div>
-
-          {/* Stage Distribution */}
-          <div style={{ background: "#fff", borderRadius: 14, padding: 20, boxShadow: "0 2px 8px rgba(0,0,0,0.06)", border: "1px solid #eff6fc", display: "flex", flexDirection: "column", justifyContent: "center", transition: "all 0.3s ease" }} onMouseEnter={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(0,0,0,0.12)"} onMouseLeave={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 2px 8px rgba(0,0,0,0.06)"}>
-            <h4 style={{ textAlign: "left", marginTop: 0, marginBottom: 12, fontSize: 14, fontWeight: "700", color: "#1f2937", letterSpacing: "0.2px" }}>Stage Distribution</h4>
-            <PieChart data={stages.map((stage, i) => ({
-              label: stage,
-              value: patients.filter(p => p.stage === stage).length,
-              color: colors[i]
-            }))}/>
-          </div>
-
-          {/* Status Overview */}
-          <div style={{ background: "#fff", borderRadius: 14, padding: 20, boxShadow: "0 2px 8px rgba(0,0,0,0.06)", border: "1px solid #eff6fc", display: "flex", flexDirection: "column", justifyContent: "center", transition: "all 0.3s ease" }} onMouseEnter={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(0,0,0,0.12)"} onMouseLeave={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 2px 8px rgba(0,0,0,0.06)"}>
-            <h4 style={{ textAlign: "left", marginTop: 0, marginBottom: 12, fontSize: 14, fontWeight: "700", color: "#1f2937", letterSpacing: "0.2px" }}>Status Overview</h4>
-            <PieChart data={[
-              { label: "New", value: newCount, color: "#2563eb" },
-              { label: "In Progress", value: inProgressCount, color: "#facc15" },
-              { label: "Completed", value: completedCount, color: "#16a34a" }
-            ]}/>
+          <div style={{ background: "linear-gradient(135deg, #10b981 0%, #059669 100%)", borderRadius: 14, padding: 18, boxShadow: "0 4px 16px rgba(16, 185, 129, 0.15)", border: "1px solid rgba(255,255,255,0.12)", transition: "all 0.3s ease", cursor: "pointer" }} onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(-3px)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(16, 185, 129, 0.25)"; }} onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 4px 16px rgba(16, 185, 129, 0.15)"; }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
+              <div>
+                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.85)", marginBottom: 8, fontWeight: "600", letterSpacing: "0.4px", textTransform: "uppercase" }}>Completed</div>
+                <div style={{ fontSize: 40, fontWeight: "800", color: "#fff", lineHeight: 1 }}>{totalCompleted}</div>
+              </div>
+              <div style={{ fontSize: 44, opacity: 0.15, marginTop: -4 }}>✅</div>
+            </div>
           </div>
         </div>
 
-        {/* Second column - Weekly Visits Trend */}
+        {/* Middle Column: Stage Distribution */}
+        <div style={{ background: "#fff", borderRadius: 14, padding: 20, boxShadow: "0 2px 8px rgba(0,0,0,0.06)", border: "1px solid #eff6fc", display: "flex", flexDirection: "column", justifyContent: "center", transition: "all 0.3s ease" }} onMouseEnter={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(0,0,0,0.12)"} onMouseLeave={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 2px 8px rgba(0,0,0,0.06)"}>
+          <h4 style={{ textAlign: "left", marginTop: 0, marginBottom: 12, fontSize: 14, fontWeight: "700", color: "#1f2937", letterSpacing: "0.2px" }}>Stage Distribution</h4>
+          <PieChart data={stages.map((stage, i) => ({
+            label: stage,
+            value: patients.filter(p => p.stage === stage).length,
+            color: colors[i]
+          }))}/>
+        </div>
+
+        {/* Right Column: Status Overview */}
+        <div style={{ background: "#fff", borderRadius: 14, padding: 20, boxShadow: "0 2px 8px rgba(0,0,0,0.06)", border: "1px solid #eff6fc", display: "flex", flexDirection: "column", justifyContent: "center", transition: "all 0.3s ease" }} onMouseEnter={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(0,0,0,0.12)"} onMouseLeave={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 2px 8px rgba(0,0,0,0.06)"}>
+          <h4 style={{ textAlign: "left", marginTop: 0, marginBottom: 12, fontSize: 14, fontWeight: "700", color: "#1f2937", letterSpacing: "0.2px" }}>Status Overview</h4>
+          <PieChart data={[
+            { label: "New", value: newCount, color: "#2563eb" },
+            { label: "In Progress", value: inProgressCount, color: "#facc15" },
+            { label: "Completed", value: completedCount, color: "#16a34a" }
+          ]}/>
+        </div>
+      </div>
+
+      {/* WEEKLY VISITS TREND */}
+      <div style={{ marginBottom: 48 }}>
         <div style={{ background: "#fff", borderRadius: 14, padding: "28px 28px 28px 24px", boxShadow: "0 2px 8px rgba(0,0,0,0.06)", border: "1px solid #eff6fc", display: "flex", flexDirection: "column", transition: "all 0.3s ease" }} onMouseEnter={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(0,0,0,0.12)"} onMouseLeave={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 2px 8px rgba(0,0,0,0.06)"}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
             <h4 style={{ textAlign: "left", marginTop: 0, marginBottom: 0, fontSize: 15, fontWeight: "700", color: "#1f2937", letterSpacing: "0.2px" }}>Weekly Visits Trend - YTD</h4>
@@ -1128,28 +1128,28 @@ function DashboardPage({ patients }: DashboardPageProps): JSX.Element {
               </div>
             </div>
           </div>
-          <div style={{ position: "relative", flex: 1, minHeight: 380 }}>
-            <svg width="100%" height="100%" viewBox="0 0 1000 400" preserveAspectRatio="none" style={{ position: "absolute", top: 0, left: 0 }}>
+          <div style={{ position: "relative", flex: 1, minHeight: 304 }}>
+            <svg width="100%" height="100%" viewBox="0 0 1000 320" preserveAspectRatio="xMidYMid meet" style={{ position: "absolute", top: 0, left: 0 }}>
               {[0, 25, 50, 75, 100].map((y, i) => (
-                <line key={`grid-${i}`} x1="60" y1={360 - (y / 100) * 320} x2="1000" y2={360 - (y / 100) * 320} stroke="#e5e7eb" strokeWidth="2" strokeDasharray="5" opacity="0.6"/>
+                <line key={`grid-${i}`} x1="60" y1={280 - (y / 100) * 240} x2="1000" y2={280 - (y / 100) * 240} stroke="#e5e7eb" strokeWidth="2" strokeDasharray="5" opacity="0.6"/>
               ))}
               {/* Left Y-axis labels for Visits */}
               {[0, 20, 40, 60, 80, 100].map((val, i) => (
-                <text key={`label-visits-${i}`} x="40" y={365 - (val / 100) * 320} fontSize="12" fill="#2563eb" textAnchor="end" fontWeight="500">{val}</text>
+                <text key={`label-visits-${i}`} x="40" y={285 - (val / 100) * 240} fontSize="12" fill="#2563eb" textAnchor="end" fontWeight="500">{val}</text>
               ))}
               {/* Right Y-axis labels for AHT */}
               {[0, 6, 12, 18, 24, 30].map((val, i) => (
-                <text key={`label-aht-${i}`} x="970" y={365 - (val / 30) * 320} fontSize="12" fill="#10b981" textAnchor="start" fontWeight="500">{val}</text>
+                <text key={`label-aht-${i}`} x="970" y={285 - (val / 30) * 240} fontSize="12" fill="#10b981" textAnchor="start" fontWeight="500">{val}</text>
               ))}
               {/* Y-axis titles */}
-              <text x="15" y="200" fontSize="14" fill="#2563eb" fontWeight="600" textAnchor="middle" transform="rotate(-90 15 200)">Visit Count</text>
-              <text x="985" y="200" fontSize="14" fill="#10b981" fontWeight="600" textAnchor="middle" transform="rotate(90 985 200)">AHT (minutes)</text>
+              <text x="15" y="160" fontSize="14" fill="#2563eb" fontWeight="600" textAnchor="middle" transform="rotate(-90 15 160)">Visit Count</text>
+              <text x="985" y="160" fontSize="14" fill="#10b981" fontWeight="600" textAnchor="middle" transform="rotate(90 985 160)">AHT (minutes)</text>
               {/* Bars for AHT */}
               {weeklyVisits.map((item, i) => {
                 const barWidth = 40;
                 const x = 60 + (i / (weeklyVisits.length - 1)) * 880 - (barWidth / 2);
-                const barHeight = (item.aht / 30) * 320;
-                const y = 360 - barHeight;
+                const barHeight = (item.aht / 30) * 240;
+                const y = 280 - barHeight;
                 return (
                   <rect
                     key={`bar-${i}`}
@@ -1166,7 +1166,7 @@ function DashboardPage({ patients }: DashboardPageProps): JSX.Element {
               <polyline
                 points={weeklyVisits.map((item, i) => {
                   const x = 60 + (i / (weeklyVisits.length - 1)) * 880;
-                  const y = 360 - (item.visits / 100) * 320;
+                  const y = 280 - (item.visits / 100) * 240;
                   return `${x},${y}`;
                 }).join(" ")}
                 fill="none"
@@ -1178,7 +1178,7 @@ function DashboardPage({ patients }: DashboardPageProps): JSX.Element {
               {/* Line Points */}
               {weeklyVisits.map((item, i) => {
                 const x = 60 + (i / (weeklyVisits.length - 1)) * 880;
-                const y = 360 - (item.visits / 100) * 320;
+                const y = 280 - (item.visits / 100) * 240;
                 return (
                   <g key={`point-${i}`}>
                     <circle cx={x} cy={y} r="7" fill="#fff" stroke="#2563eb" strokeWidth="3"/>
@@ -1190,7 +1190,7 @@ function DashboardPage({ patients }: DashboardPageProps): JSX.Element {
               {weeklyVisits.map((item, i) => {
                 const x = 60 + (i / (weeklyVisits.length - 1)) * 880;
                 return (
-                  <text key={`week-${i}`} x={x} y={390} fontSize="16" fill="#9ca3af" textAnchor="middle" fontWeight="500">{item.week}</text>
+                  <text key={`week-${i}`} x={x} y={310} fontSize="16" fill="#9ca3af" textAnchor="middle" fontWeight="500">{item.week}</text>
                 );
               })}
             </svg>
