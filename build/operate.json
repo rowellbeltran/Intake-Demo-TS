@@ -1,0 +1,16 @@
+{
+  "$schema": "https://cloud.uipath.com/draft/2024-12/operate",
+  "projectId": "6abd7071-5428-4248-b66b-b8e9fdffcee6",
+  "main": "index.html",
+  "contentType": "webapp",
+  "targetFramework": "Portable",
+  "targetRuntime": "Coded",
+  "runtimeOptions": {
+    "requiresUserInteraction": false,
+    "isAttended": false
+  },
+  "designOptions": {
+    "projectProfile": "Development",
+    "outputType": "webapp"
+  }
+}

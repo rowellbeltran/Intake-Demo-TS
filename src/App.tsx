@@ -497,6 +497,7 @@ export default function App(): JSX.Element {
   const [view, setView] = useState<"dashboard" | "upcoming" | "completed">("dashboard");
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
   const [showROI, setShowROI] = useState<boolean>(false);
+  const [nurseFilter, setNurseFilter] = useState<string>("");
 
   const filtered = patients.filter(p =>
     view === "completed" ? p.status === "Completed" : view === "upcoming" ? p.status !== "Completed" : true
@@ -534,6 +535,7 @@ export default function App(): JSX.Element {
                 setView(tabView);
                 setSelectedPatient(null);
                 setShowROI(false);
+                setNurseFilter("");
               }}
               onMouseEnter={(e) => {
                 const el = e.currentTarget as HTMLDivElement;
@@ -561,9 +563,14 @@ export default function App(): JSX.Element {
         <div style={{ flex: 1, padding: 32, maxWidth: "1600px", margin: "0 auto", width: "100%" }}>
           {!selectedPatient ? (
             view === "dashboard" ? (
-              <DashboardPage patients={patients} />
+              <DashboardPage patients={patients} onNavigateToUpcoming={(nurseName) => {
+                setView("upcoming");
+                setSelectedPatient(null);
+                setShowROI(false);
+                setNurseFilter(nurseName || "");
+              }} />
             ) : (
-              <QueuePage patients={filtered} onSelect={setSelectedPatient} />
+              <QueuePage patients={filtered} onSelect={setSelectedPatient} initialNurseFilter={nurseFilter} />
             )
           ) : showROI ? (
             <CreateROIPage
@@ -594,11 +601,37 @@ export default function App(): JSX.Element {
 interface QueuePageProps {
   patients: Patient[];
   onSelect: (patient: Patient) => void;
+  initialNurseFilter?: string;
 }
 
-function QueuePage({ patients, onSelect }: QueuePageProps): JSX.Element {
+function QueuePage({ patients, onSelect, initialNurseFilter = "" }: QueuePageProps): JSX.Element {
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [stageFilter, setStageFilter] = useState<string>("");
+  const [statusFilter, setStatusFilter] = useState<string>("");
+  const [providerFilter, setProviderFilter] = useState<string>("");
+  const [nurseFilterLocal, setNurseFilterLocal] = useState<string>(initialNurseFilter);
+
   const isCompleted = patients.length > 0 && patients[0].status === "Completed";
   const header = isCompleted ? "Completed Visits" : "Upcoming Visits";
+
+  // Get unique values for filters
+  const uniqueStages = Array.from(new Set(patients.map(p => p.stage)));
+  const uniqueStatuses = Array.from(new Set(patients.map(p => p.status)));
+  const uniqueProviders = Array.from(new Set(patients.map(p => p.provider)));
+  const uniqueNurses = Array.from(new Set(patients.map(p => p.nurse)));
+
+  // Filter patients based on criteria
+  const filteredPatients = patients.filter(p => {
+    const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         p.mrn.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         p.nurse.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesStage = !stageFilter || p.stage === stageFilter;
+    const matchesStatus = !statusFilter || p.status === statusFilter;
+    const matchesProvider = !providerFilter || p.provider === providerFilter;
+    const matchesNurse = !nurseFilterLocal || p.nurse === nurseFilterLocal;
+    
+    return matchesSearch && matchesStage && matchesStatus && matchesProvider && matchesNurse;
+  });
 
   const getStatusColor = (status: string): { bg: string; text: string } => {
     switch (status) {
@@ -628,11 +661,111 @@ function QueuePage({ patients, onSelect }: QueuePageProps): JSX.Element {
     }
   };
 
+  const filterStyles = {
+    container: { display: "flex", gap: 12, marginBottom: 24, flexWrap: "wrap" as const, alignItems: "center" },
+    input: { padding: "8px 12px", borderRadius: 6, border: "1px solid #e2e8f0", fontSize: 13, minWidth: 180 },
+    select: { padding: "8px 12px", borderRadius: 6, border: "1px solid #e2e8f0", fontSize: 13, minWidth: 150, background: "#fff" },
+    label: { fontSize: 13, fontWeight: 600, color: "#64748b" }
+  };
+
   return (
     <div>
       <h2 style={{ color: "#1f2937", textAlign: "left", marginBottom: 24, fontSize: 28, fontWeight: 700, letterSpacing: "-0.5px" }}>
         {header}
       </h2>
+
+      {/* Filter Controls */}
+      <div style={filterStyles.container}>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <label style={filterStyles.label}>Search:</label>
+          <input
+            type="text"
+            placeholder="Name, MRN, or Nurse..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={filterStyles.input}
+          />
+        </div>
+
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <label style={filterStyles.label}>Stage:</label>
+          <select value={stageFilter} onChange={(e) => setStageFilter(e.target.value)} style={filterStyles.select}>
+            <option value="">All Stages</option>
+            {uniqueStages.map(stage => (
+              <option key={stage} value={stage}>{stage}</option>
+            ))}
+          </select>
+        </div>
+
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <label style={filterStyles.label}>Status:</label>
+          <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} style={filterStyles.select}>
+            <option value="">All Statuses</option>
+            {uniqueStatuses.map(status => (
+              <option key={status} value={status}>{status}</option>
+            ))}
+          </select>
+        </div>
+
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <label style={filterStyles.label}>Provider:</label>
+          <select value={providerFilter} onChange={(e) => setProviderFilter(e.target.value)} style={filterStyles.select}>
+            <option value="">All Providers</option>
+            {uniqueProviders.map(provider => (
+              <option key={provider} value={provider}>{provider}</option>
+            ))}
+          </select>
+        </div>
+
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <label style={filterStyles.label}>Nurse:</label>
+          <select value={nurseFilterLocal} onChange={(e) => setNurseFilterLocal(e.target.value)} style={filterStyles.select}>
+            <option value="">All Nurses</option>
+            {uniqueNurses.map(nurse => (
+              <option key={nurse} value={nurse}>{nurse}</option>
+            ))}
+          </select>
+        </div>
+
+        {(searchTerm || stageFilter || statusFilter || providerFilter || nurseFilterLocal) && (
+          <div style={{ display: "flex", alignItems: "center", gap: 12, marginLeft: "auto" }}>
+            <div style={{ fontSize: 12, color: "#64748b" }}>
+              Showing {filteredPatients.length} of {patients.length} records
+            </div>
+            <button
+              onClick={() => {
+                setSearchTerm("");
+                setStageFilter("");
+                setStatusFilter("");
+                setProviderFilter("");
+                setNurseFilterLocal("");
+              }}
+              style={{
+                padding: "6px 16px",
+                background: "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
+                color: "#fff",
+                border: "none",
+                borderRadius: 6,
+                fontSize: 12,
+                fontWeight: 600,
+                cursor: "pointer",
+                transition: "all 0.2s ease"
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.background = "linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)";
+                (e.currentTarget as HTMLButtonElement).style.transform = "translateY(-2px)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.background = "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)";
+                (e.currentTarget as HTMLButtonElement).style.transform = "translateY(0)";
+              }}
+            >
+              ✕ Clear Filters
+            </button>
+          </div>
+        )}
+      </div>
+
       <table style={{ width: "100%", borderCollapse: "collapse", background: "#fff", textAlign: "left", borderRadius: 12, overflow: "hidden", boxShadow: "0 2px 8px rgba(0,0,0,0.04)" }}>
         <thead style={{ background: "linear-gradient(90deg, #f8fafc 0%, #f1f5f9 100%)", borderBottom: "2px solid #e2e8f0" }}>
           <tr>
@@ -642,7 +775,7 @@ function QueuePage({ patients, onSelect }: QueuePageProps): JSX.Element {
           </tr>
         </thead>
         <tbody>
-          {patients.map((p, idx) => (
+          {filteredPatients.map((p, idx) => (
             <tr 
               key={p.id} 
               onClick={() => onSelect(p)} 
@@ -1038,9 +1171,10 @@ function CreateROIPage({ patient, onBack, onSubmit }: CreateROIPageProps): JSX.E
 // ============ DASHBOARD PAGE ============
 interface DashboardPageProps {
   patients: Patient[];
+  onNavigateToUpcoming: (nurseName?: string) => void;
 }
 
-function DashboardPage({ patients }: DashboardPageProps): JSX.Element {
+function DashboardPage({ patients, onNavigateToUpcoming }: DashboardPageProps): JSX.Element {
   const totalUpcoming = patients.filter(p => p.status !== "Completed").length;
   const totalCompleted = patients.filter(p => p.status === "Completed").length;
   const newCount = patients.filter(p => p.status === "New").length;
@@ -1214,7 +1348,7 @@ function DashboardPage({ patients }: DashboardPageProps): JSX.Element {
             </thead>
             <tbody>
               {Object.entries(aprnStats).map(([nurse, stats], idx) => (
-                <tr key={nurse} style={{ background: idx % 2 === 0 ? "#fff" : "#f9fafb", borderBottom: "1px solid #f0f0f0", transition: "background 0.2s" }} onMouseEnter={(e) => (e.currentTarget as HTMLTableRowElement).style.background = "#f0f9ff"} onMouseLeave={(e) => (e.currentTarget as HTMLTableRowElement).style.background = idx % 2 === 0 ? "#fff" : "#f9fafb"}>
+                <tr key={nurse} onClick={() => onNavigateToUpcoming(nurse)} style={{ background: idx % 2 === 0 ? "#fff" : "#f9fafb", borderBottom: "1px solid #f0f0f0", transition: "background 0.2s", cursor: "pointer" }} onMouseEnter={(e) => (e.currentTarget as HTMLTableRowElement).style.background = "#f0f9ff"} onMouseLeave={(e) => (e.currentTarget as HTMLTableRowElement).style.background = idx % 2 === 0 ? "#fff" : "#f9fafb"}>
                   <td style={{ ...td, fontSize: 13, padding: 14, fontWeight: "600", color: "#1f2937" }}>{nurse}</td>
                   <td style={{ ...td, fontSize: 13, textAlign: "center", color: "#dc2626", fontWeight: "bold", padding: 14 }}>
                     <div style={{ background: "#fee2e2", padding: "6px 12px", borderRadius: 6, display: "inline-block", minWidth: "30px", fontSize: 12 }}>{stats.pending}</div>
