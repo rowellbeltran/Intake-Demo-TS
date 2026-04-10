@@ -508,7 +508,7 @@ export default function App(): JSX.Element {
       <div style={{ background: "linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%)", padding: "40px 32px", boxShadow: "0 8px 24px rgba(37, 99, 235, 0.2)", textAlign: "center", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", top: 0, right: 0, opacity: 0.1, fontSize: 200, lineHeight: 1 }}>📋</div>
         <h1 style={{ color: "#fff", margin: 0, fontSize: 40, fontWeight: "900", letterSpacing: "-1px" }}>Intake Visits</h1>
-        <p style={{ color: "rgba(255, 255, 255, 0.9)", margin: "12px 0 0 0", fontSize: 15, fontWeight: "500", letterSpacing: "0.3px" }}>Streamline your patient intake management</p>
+        <p style={{ color: "rgba(255, 255, 255, 0.9)", margin: "12px 0 0 0", fontSize: 15, fontWeight: "500", letterSpacing: "0.3px" }}>Patient Medical Information Intake Portal</p>
       </div>
 
       {/* TABS */}
