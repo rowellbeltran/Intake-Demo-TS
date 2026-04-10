@@ -54,6 +54,7 @@ interface VisitToday {
 interface WeeklyVisit {
   week: string;
   visits: number;
+  aht: number;
 }
 
 interface PieChartData {
@@ -105,7 +106,17 @@ const patients: Patient[] = [
   { id: 5, name: "Robert Martinez", mrn: "MRN-005", date: "2026-04-13", provider: "Dr. Garcia", nurse: "Lisa Wong, RN", stage: "Data Validated", status: "In Progress", exception: "None", readiness: 75 },
   { id: 6, name: "Emily Chen", mrn: "MRN-006", date: "2026-04-14", provider: "Dr. Taylor", nurse: "David Kumar, RN", stage: "Patient Record Updated", status: "In Progress", exception: "Pending Approval", readiness: 50 },
   { id: 7, name: "David Thompson", mrn: "MRN-007", date: "2026-04-15", provider: "Dr. Anderson", nurse: "Jennifer Lee, RN", stage: "Data Prepared", status: "New", exception: "None", readiness: 20 },
-  { id: 8, name: "Lisa Anderson", mrn: "MRN-008", date: "2026-04-16", provider: "Dr. Martinez", nurse: "Robert Thompson, RN", stage: "Data Validated", status: "In Progress", exception: "Lab Results Pending", readiness: 65 }
+  { id: 8, name: "Lisa Anderson", mrn: "MRN-008", date: "2026-04-16", provider: "Dr. Martinez", nurse: "Robert Thompson, RN", stage: "Data Validated", status: "In Progress", exception: "Lab Results Pending", readiness: 65 },
+  
+  // COMPLETED VISITS - Historical Data
+  { id: 9, name: "James Wilson", mrn: "MRN-009", date: "2026-04-04", provider: "Dr. Harris", nurse: "Sarah Johnson, RN", stage: "Readiness Evaluated", status: "Completed", exception: "None", readiness: 100 },
+  { id: 10, name: "Patricia Moore", mrn: "MRN-010", date: "2026-04-03", provider: "Dr. Clark", nurse: "Michael Chen, RN", stage: "Readiness Evaluated", status: "Completed", exception: "None", readiness: 100 },
+  { id: 11, name: "Christopher Davis", mrn: "MRN-011", date: "2026-04-02", provider: "Dr. Lewis", nurse: "Emily Rodriguez, RN", stage: "Readiness Evaluated", status: "Completed", exception: "None", readiness: 100 },
+  { id: 12, name: "Jennifer Martinez", mrn: "MRN-012", date: "2026-04-01", provider: "Dr. Walker", nurse: "James Patterson, RN", stage: "Readiness Evaluated", status: "Completed", exception: "None", readiness: 100 },
+  { id: 13, name: "Daniel Rodriguez", mrn: "MRN-013", date: "2026-03-31", provider: "Dr. Young", nurse: "Lisa Wong, RN", stage: "Readiness Evaluated", status: "Completed", exception: "None", readiness: 100 },
+  { id: 14, name: "Maria Garcia", mrn: "MRN-014", date: "2026-03-30", provider: "Dr. Hernandez", nurse: "David Kumar, RN", stage: "Readiness Evaluated", status: "Completed", exception: "None", readiness: 100 },
+  { id: 15, name: "Thomas Anderson", mrn: "MRN-015", date: "2026-03-29", provider: "Dr. Lopez", nurse: "Jennifer Lee, RN", stage: "Readiness Evaluated", status: "Completed", exception: "None", readiness: 100 },
+  { id: 16, name: "Angela Thomas", mrn: "MRN-016", date: "2026-03-28", provider: "Dr. Martinez", nurse: "Robert Thompson, RN", stage: "Readiness Evaluated", status: "Completed", exception: "None", readiness: 100 }
 ];
 
 const defaultDetails: PatientDetail = {
@@ -191,6 +202,128 @@ const patientDetails: Record<number, PatientDetail> = {
     careGaps: ["Physical Therapy", "Annual Physical"],
     nurseSummary: "Follow-up on surgery recovery. Reinforce importance of physical therapy attendance.",
     roi: []
+  },
+  4: {
+    ...defaultDetails,
+    visits: [
+      { type: "General Checkup", date: "2025-10-05" },
+      { type: "Neurology", date: "2025-09-20" }
+    ],
+    allergies: { 
+      reconciled: ["Penicillin", "Codeine"], 
+      unreconciled: ["Latex"] 
+    },
+    medications: { 
+      reconciled: ["Gabapentin", "Levothyroxine"], 
+      unreconciled: ["Sertraline"] 
+    },
+    immunizations: { 
+      reconciled: ["Flu Shot"], 
+      unreconciled: ["COVID Booster", "Pneumonia", "Shingles"] 
+    },
+    careGaps: ["Thyroid Function Test", "Mental Health Screening", "Neurological Assessment"],
+    nurseSummary: "Monitor neurological symptoms. Verify thyroid medication compliance. Screen for depression.",
+    roi: [
+      { id: 4, facility: "Neurology Clinic", requestedDate: "2026-04-05", status: "Patient Signature Pending" }
+    ]
+  },
+  5: {
+    ...defaultDetails,
+    visits: [
+      { type: "Gastroenterology", date: "2025-11-10" },
+      { type: "General Checkup", date: "2025-10-15" }
+    ],
+    allergies: { 
+      reconciled: ["Shellfish", "Soy"], 
+      unreconciled: ["Nuts", "Sesame"] 
+    },
+    medications: { 
+      reconciled: ["Omeprazole", "Simvastatin"], 
+      unreconciled: ["Metformin"] 
+    },
+    immunizations: { 
+      reconciled: ["Pneumonia", "Flu Shot", "COVID Booster"], 
+      unreconciled: ["Shingles"] 
+    },
+    careGaps: ["Colonoscopy", "Liver Function Tests", "Dietary Consultation"],
+    nurseSummary: "Schedule colonoscopy screening. Review dietary modifications. Monitor GI symptoms.",
+    roi: [
+      { id: 5, facility: "GI Specialists", requestedDate: "2026-04-04", status: "Sent to Facility" },
+      { id: 6, facility: "Lab Services", requestedDate: "2026-04-02", status: "Completed" }
+    ]
+  },
+  6: {
+    ...defaultDetails,
+    visits: [
+      { type: "Rheumatology", date: "2025-11-01" },
+      { type: "Physical Therapy", date: "2025-10-20" }
+    ],
+    allergies: { 
+      reconciled: ["Aspirin", "NSAIDs"], 
+      unreconciled: ["Sulfa"] 
+    },
+    medications: { 
+      reconciled: ["Methotrexate", "Prednisone"], 
+      unreconciled: ["Hydroxychloroquine"] 
+    },
+    immunizations: { 
+      reconciled: ["Flu Shot"], 
+      unreconciled: ["COVID Booster", "Pneumonia", "Shingles"] 
+    },
+    careGaps: ["Blood Work", "Rheumatology Follow-up", "Joint Assessment"],
+    nurseSummary: "Monitor methotrexate side effects. Ensure regular lab work. Assess joint mobility and pain levels.",
+    roi: [
+      { id: 7, facility: "Rheumatology Center", requestedDate: "2026-04-08", status: "Patient Signature Pending" }
+    ]
+  },
+  7: {
+    ...defaultDetails,
+    visits: [
+      { type: "Pulmonary", date: "2025-12-10" },
+      { type: "Sleep Medicine", date: "2025-11-25" }
+    ],
+    allergies: { 
+      reconciled: ["Tree Nuts"], 
+      unreconciled: ["Shellfish", "Fish"] 
+    },
+    medications: { 
+      reconciled: ["Albuterol", "Fluticasone"], 
+      unreconciled: ["Montelukast"] 
+    },
+    immunizations: { 
+      reconciled: ["Flu Shot", "Pneumonia", "COVID Booster"], 
+      unreconciled: ["Shingles"] 
+    },
+    careGaps: ["Pulmonary Function Test", "Sleep Study", "Oxygen Saturation Monitoring"],
+    nurseSummary: "Assess asthma control. Review inhaler technique. Schedule sleep study if indicated.",
+    roi: [
+      { id: 8, facility: "Pulmonology Associates", requestedDate: "2026-04-07", status: "Sent to Facility" }
+    ]
+  },
+  8: {
+    ...defaultDetails,
+    visits: [
+      { type: "Oncology", date: "2025-10-30" },
+      { type: "General Checkup", date: "2025-10-15" }
+    ],
+    allergies: { 
+      reconciled: ["Contrast Dye", "Latex"], 
+      unreconciled: ["Chemotherapy agents"] 
+    },
+    medications: { 
+      reconciled: ["Tamoxifen", "Loratadine"], 
+      unreconciled: ["Vitamin D supplement"] 
+    },
+    immunizations: { 
+      reconciled: ["Flu Shot"], 
+      unreconciled: ["COVID Booster", "Pneumonia"] 
+    },
+    careGaps: ["Oncology Follow-up", "Mammography", "Tumor Markers", "Bone Density Scan"],
+    nurseSummary: "Monitor Tamoxifen side effects. Schedule mammography screening. Assess cancer-related fatigue and quality of life.",
+    roi: [
+      { id: 9, facility: "Cancer Center", requestedDate: "2026-04-06", status: "Completed" },
+      { id: 10, facility: "Imaging Center", requestedDate: "2026-04-05", status: "Patient Signature Pending" }
+    ]
   }
 };
 
@@ -216,23 +349,23 @@ const roiRequests: ROI[] = [
 ];
 
 const weeklyVisits: WeeklyVisit[] = [
-  { week: "Week 1", visits: 12 },
-  { week: "Week 2", visits: 18 },
-  { week: "Week 3", visits: 15 },
-  { week: "Week 4", visits: 22 },
-  { week: "Week 5", visits: 25 }
+  { week: "Week 1", visits: 58, aht: 22 },
+  { week: "Week 2", visits: 72, aht: 18 },
+  { week: "Week 3", visits: 65, aht: 28 },
+  { week: "Week 4", visits: 85, aht: 24 },
+  { week: "Week 5", visits: 92, aht: 26 }
 ];
 
 // ============ STYLES ============
-const card: React.CSSProperties = { background: "#fff", padding: 16, border: "1px solid #ddd", borderRadius: 6 };
-const input: React.CSSProperties = { width: "100%", padding: 6, fontSize: 12, marginTop: 4, border: "1px solid #ccc", borderRadius: 4, background: "#fff" };
-const grid2: React.CSSProperties = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 };
-const grid3: React.CSSProperties = { display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16 };
-const primaryBtn: React.CSSProperties = { padding: "6px 18px", fontSize: 14, background: "#2563eb", color: "#fff", border: "none", borderRadius: 4, minWidth: 0, cursor: "pointer" };
-const backBtn: React.CSSProperties = { width: 100, padding: 8, fontSize: 14, background: "#2563eb", color: "#fff", border: "none", borderRadius: 4, cursor: "pointer" };
+const card: React.CSSProperties = { background: "#fff", padding: 20, border: "1px solid #e2e8f0", borderRadius: 12, boxShadow: "0 2px 8px rgba(0,0,0,0.04)" };
+const input: React.CSSProperties = { width: "100%", padding: 10, fontSize: 14, marginTop: 6, border: "1px solid #e2e8f0", borderRadius: 8, background: "#fff", transition: "all 0.2s" };
+const grid2: React.CSSProperties = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 };
+const grid3: React.CSSProperties = { display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 20 };
+const primaryBtn: React.CSSProperties = { padding: "10px 24px", fontSize: 14, background: "linear-gradient(135deg, #2563eb 0%, #1e40af 100%)", color: "#fff", border: "none", borderRadius: 8, minWidth: 0, cursor: "pointer", fontWeight: 600, transition: "all 0.3s", boxShadow: "0 4px 12px rgba(37, 99, 235, 0.3)" };
+const backBtn: React.CSSProperties = { padding: "8px 14px", fontSize: 12, background: "linear-gradient(135deg, #2563eb 0%, #1e40af 100%)", color: "#fff", border: "none", borderRadius: 6, cursor: "pointer", fontWeight: 600, transition: "all 0.3s", boxShadow: "0 2px 8px rgba(37, 99, 235, 0.2)", alignSelf: "flex-start" };
 
-const th: React.CSSProperties = { padding: 10, textAlign: "left", borderBottom: "1px solid #ddd", fontSize: 14 };
-const td: React.CSSProperties = { padding: 10, textAlign: "left", borderBottom: "1px solid #eee", fontSize: 13 };
+const th: React.CSSProperties = { padding: 14, textAlign: "left", borderBottom: "1px solid #e2e8f0", fontSize: 13, fontWeight: 600, color: "#475569" };
+const td: React.CSSProperties = { padding: 14, textAlign: "left", borderBottom: "1px solid #f1f5f9", fontSize: 13, color: "#334155" };
 
 // ============ COMPONENTS ============
 interface CardProps {
@@ -243,8 +376,8 @@ interface CardProps {
 function Card({ title, children }: CardProps): JSX.Element {
   return (
     <div style={card}>
-      <h4 style={{ textAlign: "left", marginTop: 4, marginBottom: 12, fontSize: 16, fontWeight: "700" }}>{title}</h4>
-      <div style={{ textAlign: "left", fontSize: 14 }}>{children}</div>
+      <h4 style={{ textAlign: "left", marginTop: 0, marginBottom: 16, fontSize: 15, fontWeight: "700", color: "#1f2937", letterSpacing: "0.2px" }}>{title}</h4>
+      <div style={{ textAlign: "left", fontSize: 14, color: "#475569" }}>{children}</div>
     </div>
   );
 }
@@ -257,8 +390,8 @@ interface SectionCardProps {
 function SectionCard({ title, children }: SectionCardProps): JSX.Element {
   return (
     <div style={card}>
-      <h3 style={{ marginTop: 4, marginBottom: 12, textAlign: "left", fontSize: 18, fontWeight: "700" }}>{title}</h3>
-      <div style={{ textAlign: "left", fontSize: 14 }}>{children}</div>
+      <h3 style={{ marginTop: 0, marginBottom: 16, textAlign: "left", fontSize: 18, fontWeight: "700", color: "#1f2937", letterSpacing: "-0.5px" }}>{title}</h3>
+      <div style={{ textAlign: "left", fontSize: 14, color: "#475569" }}>{children}</div>
     </div>
   );
 }
@@ -320,9 +453,11 @@ interface StatCardProps {
 
 function StatCard({ title, value, color }: StatCardProps): JSX.Element {
   return (
-    <div style={{ ...card, borderLeft: `4px solid ${color}` }}>
-      <div style={{ fontSize: 12, color: "#666", marginBottom: 8 }}>{title}</div>
-      <div style={{ fontSize: 28, fontWeight: "bold", color: color }}>{value}</div>
+    <div style={{ background: "linear-gradient(135deg, color 0%, color 100%)", borderRadius: 10, padding: 16, boxShadow: "0 4px 12px rgba(0,0,0,0.1)", border: "1px solid rgba(255,255,255,0.2)", minWidth: 140 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        <h4 style={{ textAlign: "center", margin: 0, fontSize: 13, fontWeight: "600", color: color, opacity: 0.9 }}>{title}</h4>
+        <div style={{ fontSize: 36, fontWeight: "bold", color: color, textAlign: "center" }}>{value}</div>
+      </div>
     </div>
   );
 }
@@ -385,27 +520,33 @@ export default function App(): JSX.Element {
   );
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh", background: "#f1f5f9" }}>
-      <div style={{ background: "#2563eb", padding: "16px 24px", boxShadow: "0 2px 4px rgba(0,0,0,0.1)", textAlign: "center" }}>
-        <h1 style={{ color: "#fff", margin: 0, fontSize: 24, fontWeight: "bold" }}>Intake Visits</h1>
+    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh", background: "linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%)" }}>
+      {/* ENHANCED HEADER */}
+      <div style={{ background: "linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%)", padding: "40px 32px", boxShadow: "0 8px 24px rgba(37, 99, 235, 0.2)", textAlign: "center", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", top: 0, right: 0, opacity: 0.1, fontSize: 200, lineHeight: 1 }}>📋</div>
+        <h1 style={{ color: "#fff", margin: 0, fontSize: 40, fontWeight: "900", letterSpacing: "-1px" }}>Intake Visits</h1>
+        <p style={{ color: "rgba(255, 255, 255, 0.9)", margin: "12px 0 0 0", fontSize: 15, fontWeight: "500", letterSpacing: "0.3px" }}>Streamline your patient intake management</p>
       </div>
 
-      <div style={{ display: "flex", background: "#fff", borderBottom: "2px solid #e5e7eb", paddingLeft: 0, boxShadow: "0 1px 3px rgba(0,0,0,0.05)" }}>
+      {/* TABS */}
+      <div style={{ display: "flex", background: "linear-gradient(90deg, #ffffff 0%, #f8fafc 100%)", borderBottom: "1px solid #e2e8f0", paddingLeft: 24, boxShadow: "0 1px 3px rgba(0,0,0,0.02)" }}>
         {(["dashboard", "upcoming", "completed"] as const).map(tabView => (
           <div 
             key={tabView}
             style={{
-              padding: "16px 32px", 
-              cursor: "pointer", 
-              borderBottom: view === tabView ? "3px solid #2563eb" : "none",
-              color: view === tabView ? "#2563eb" : "#6b7280",
+              padding: "14px 28px", 
+              cursor: "pointer",
+              background: view === tabView ? "linear-gradient(135deg, #2563eb 0%, #1e40af 100%)" : "transparent",
+              color: view === tabView ? "#fff" : "#64748b",
               fontWeight: view === tabView ? 600 : 500,
-              fontSize: 15,
-              marginBottom: "-2px",
-              transition: "all 0.2s ease",
+              fontSize: 14,
+              borderRadius: view === tabView ? "8px 8px 0 0" : "0",
+              marginBottom: view === tabView ? "-1px" : "0",
+              transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
               display: "flex",
               alignItems: "center",
-              gap: 8
+              gap: 8,
+              margin: view === tabView ? "0" : "0"
             }}
             onClick={() => {
               setView(tabView);
@@ -413,10 +554,18 @@ export default function App(): JSX.Element {
               setShowROI(false);
             }}
             onMouseEnter={(e) => {
-              if (view !== tabView) (e.currentTarget as HTMLDivElement).style.color = "#374151";
+              const el = e.currentTarget as HTMLDivElement;
+              if (view !== tabView) {
+                el.style.background = "#f1f5f9";
+                el.style.color = "#334155";
+              }
             }}
             onMouseLeave={(e) => {
-              if (view !== tabView) (e.currentTarget as HTMLDivElement).style.color = "#6b7280";
+              const el = e.currentTarget as HTMLDivElement;
+              if (view !== tabView) {
+                el.style.background = "transparent";
+                el.style.color = "#64748b";
+              }
             }}
           >
             {tabView === "dashboard" && "📊 Dashboard"}
@@ -426,7 +575,7 @@ export default function App(): JSX.Element {
         ))}
       </div>
 
-      <div style={{ flex: 1, padding: 24 }}>
+      <div style={{ flex: 1, padding: 32, maxWidth: "1600px", margin: "0 auto", width: "100%" }}>
         {!selectedPatient ? (
           view === "dashboard" ? (
             <DashboardPage patients={patients} />
@@ -497,11 +646,11 @@ function QueuePage({ patients, onSelect }: QueuePageProps): JSX.Element {
 
   return (
     <div>
-      <h2 style={{ color: "#222", textAlign: "left", marginBottom: 20 }}>
+      <h2 style={{ color: "#1f2937", textAlign: "left", marginBottom: 24, fontSize: 28, fontWeight: 700, letterSpacing: "-0.5px" }}>
         {header}
       </h2>
-      <table style={{ width: "100%", borderCollapse: "collapse", background: "#fff", textAlign: "left" }}>
-        <thead style={{ background: "#f8fafc" }}>
+      <table style={{ width: "100%", borderCollapse: "collapse", background: "#fff", textAlign: "left", borderRadius: 12, overflow: "hidden", boxShadow: "0 2px 8px rgba(0,0,0,0.04)" }}>
+        <thead style={{ background: "linear-gradient(90deg, #f8fafc 0%, #f1f5f9 100%)", borderBottom: "2px solid #e2e8f0" }}>
           <tr>
             {["Patient", "Date", "Provider", "Nurse", "Stage", "Status", "Exception", "Readiness"].map(h => (
               <th key={h} style={th}>{h}</th>
@@ -580,14 +729,7 @@ function PatientRecord({ patient, onBack, onCreateROI }: PatientRecordProps): JS
   const d = patientDetails[patient.id] || defaultDetails;
   const currentStageIndex = stages.indexOf(patient.stage);
   
-  // Calculate the x2 coordinate for the progress line
-  // The line goes from 4% to 96% of the container width
-  // We want it to stop at the center of each stage marker
-  const progressPercentage = currentStageIndex / (stages.length - 1);
-  const startX = 4; // 4% from left
-  const endX = 96; // 96% from right
-  const lineWidth = endX - startX; // 92% of container
-  const progressX = startX + (lineWidth * progressPercentage); // Calculate x2 position
+  const progressPercentage = stages.length === 1 ? 100 : (currentStageIndex / (stages.length - 1)) * 100;
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
@@ -616,139 +758,167 @@ function PatientRecord({ patient, onBack, onCreateROI }: PatientRecordProps): JS
           </div>
         </div>
 
-        {/* MILESTONES */}
-        <div style={{ display: "flex", justifyContent: "space-between", position: "relative", marginTop: 32, paddingTop: 24, paddingBottom: 32, borderTop: "1px solid #e5e7eb", borderBottom: "1px solid #e5e7eb" }}>
-          <svg style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", pointerEvents: "none" }}>
-            {/* Background line */}
-            <line x1="4%" y1="44" x2="96%" y2="44" stroke="#e5e7eb" strokeWidth="5" strokeLinecap="round"/>
-            
-            {/* Progress line - stops at the center of the current stage marker */}
-            <line 
-              x1="4%" 
-              y1="44" 
-              x2={`${progressX}%`}
-              y2="44" 
-              stroke={colors[Math.min(currentStageIndex, colors.length - 1)]} 
-              strokeWidth="5" 
-              strokeLinecap="round"
-              style={{ transition: "x2 0.3s ease" }}
-            />
-          </svg>
+        {/* STAGES AND READINESS CARDS */}
+        <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: 20 }}>
+          {/* STAGES CARD */}
+          <SectionCard title="Stages">
+            <div style={{ position: "relative", paddingTop: 24, paddingBottom: 24 }}>
+              {/* Background line */}
+              <div style={{
+                position: "absolute",
+                top: "50%",
+                left: "2%",
+                right: "2%",
+                height: 5,
+                background: "#e5e7eb",
+                borderRadius: 3,
+                transform: "translateY(-50%)",
+                zIndex: 0
+              }}/>
+              
+              {/* Progress line */}
+              <div style={{
+                position: "absolute",
+                top: "50%",
+                left: "2%",
+                width: `${2 + (progressPercentage / 100) * 96}%`,
+                height: 5,
+                background: colors[Math.min(currentStageIndex, colors.length - 1)],
+                borderRadius: 3,
+                transform: "translateY(-50%)",
+                zIndex: 1,
+                transition: "width 0.3s ease"
+              }}/>
 
-          {stages.map((s, i) => (
-            <div key={s} style={{ textAlign: "center", zIndex: 1, flex: 1 }}>
-              <div style={{ 
-                width: 32, 
-                height: 32, 
-                borderRadius: "50%", 
-                background: colors[i], 
-                color: "#fff", 
-                display: "flex", 
-                alignItems: "center", 
-                justifyContent: "center", 
-                fontWeight: "bold", 
-                fontSize: 14, 
-                border: "3px solid #fff", 
-                boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-                margin: "0 auto"
-              }}>
-                {i + 1}
+              {/* Stage markers */}
+              <div style={{ display: "flex", justifyContent: "space-between", position: "relative", zIndex: 2 }}>
+                {stages.map((s, i) => (
+                  <div key={s} style={{ textAlign: "center", flex: 1 }}>
+                    <div style={{ 
+                      width: 40, 
+                      height: 40, 
+                      borderRadius: "50%", 
+                      background: colors[i], 
+                      color: "#fff", 
+                      display: "flex", 
+                      alignItems: "center", 
+                      justifyContent: "center", 
+                      fontWeight: "bold", 
+                      fontSize: 16, 
+                      border: "3px solid #fff", 
+                      boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+                      margin: "0 auto"
+                    }}>
+                      {i + 1}
+                    </div>
+                    <div style={{ fontSize: 12, marginTop: 12, fontWeight: "500", color: "#374151" }}>{s}</div>
+                  </div>
+                ))}
               </div>
-              <div style={{ fontSize: 12, marginTop: 8, fontWeight: "500", color: "#374151" }}>{s}</div>
             </div>
-          ))}
+            
+            <div style={{ marginTop: 20, padding: "12px", background: "#f0f9ff", borderRadius: 6, fontSize: 13, color: "#1e40af", fontWeight: "500" }}>
+              Current Stage: <strong>{patient.stage}</strong>
+            </div>
+          </SectionCard>
+
+          {/* READINESS CARD */}
+          <SectionCard title="Readiness">
+            <div style={{ paddingTop: 8 }}>
+              <ReadinessMeter value={patient.readiness} />
+              <div style={{ marginTop: 16, padding: "12px", background: patient.readiness < 40 ? "#fee2e2" : patient.readiness < 80 ? "#fef3c7" : "#dcfce7", borderRadius: 6, fontSize: 13, fontWeight: "500", color: patient.readiness < 40 ? "#991b1b" : patient.readiness < 80 ? "#92400e" : "#166534" }}>
+                {patient.readiness < 40 ? "🔴 Not Ready" : patient.readiness < 80 ? "🟡 In Progress" : "🟢 Ready"}
+              </div>
+            </div>
+          </SectionCard>
         </div>
 
-        <div style={{ marginTop: 32 }}>
-          <ReadinessMeter value={patient.readiness} />
+        {/* OTHER CARDS */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginTop: 20 }}>
+          <Card title="Recent Visits">
+            {d.visits.length > 0 ? d.visits.map((v, i) => <div key={i}>• {v.type}</div>) : <div>No visits</div>}
+          </Card>
+          <Card title="Care Gaps">
+            {d.careGaps.length > 0 ? d.careGaps.map((g, i) => <div key={i}>• {g}</div>) : <div>No gaps</div>}
+          </Card>
+          <Card title="Allergies">
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+              <div>
+                <div style={{ color: "green", fontWeight: "bold", marginBottom: 4 }}>Reconciled:</div>
+                {d.allergies.reconciled.length > 0 ? d.allergies.reconciled.map((a, i) => <div key={i}>• {a}</div>) : <div>• None</div>}
+              </div>
+              <div>
+                <div style={{ color: "red", fontWeight: "bold", marginBottom: 4 }}>Unreconciled:</div>
+                {d.allergies.unreconciled.length > 0 ? d.allergies.unreconciled.map((a, i) => <div key={i}>• {a}</div>) : <div>• None</div>}
+              </div>
+            </div>
+          </Card>
+          <Card title="Medications">
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+              <div>
+                <div style={{ color: "green", fontWeight: "bold", marginBottom: 4 }}>Reconciled:</div>
+                {d.medications.reconciled.length > 0 ? d.medications.reconciled.map((m, i) => <div key={i}>• {m}</div>) : <div>• None</div>}
+              </div>
+              <div>
+                <div style={{ color: "red", fontWeight: "bold", marginBottom: 4 }}>Unreconciled:</div>
+                {d.medications.unreconciled.length > 0 ? d.medications.unreconciled.map((m, i) => <div key={i}>• {m}</div>) : <div>• None</div>}
+              </div>
+            </div>
+          </Card>
+          <Card title="Immunizations">
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+              <div>
+                <div style={{ color: "green", fontWeight: "bold", marginBottom: 4 }}>Reconciled:</div>
+                {d.immunizations.reconciled.length > 0 ? d.immunizations.reconciled.map((im, i) => <div key={i}>• {im}</div>) : <div>• None</div>}
+              </div>
+              <div>
+                <div style={{ color: "red", fontWeight: "bold", marginBottom: 4 }}>Unreconciled:</div>
+                {d.immunizations.unreconciled.length > 0 ? d.immunizations.unreconciled.map((im, i) => <div key={i}>• {im}</div>) : <div>• None</div>}
+              </div>
+            </div>
+          </Card>
+          <Card title="Nurse Summary">• {d.nurseSummary}</Card>
         </div>
-      </div>
 
-      {/* CARDS */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-        <Card title="Recent Visits">
-          {d.visits.length > 0 ? d.visits.map((v, i) => <div key={i}>• {v.type}</div>) : <div>No visits</div>}
-        </Card>
-        <Card title="Care Gaps">
-          {d.careGaps.length > 0 ? d.careGaps.map((g, i) => <div key={i}>• {g}</div>) : <div>No gaps</div>}
-        </Card>
-        <Card title="Allergies">
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-            <div>
-              <div style={{ color: "green", fontWeight: "bold", marginBottom: 4 }}>Reconciled:</div>
-              {d.allergies.reconciled.length > 0 ? d.allergies.reconciled.map((a, i) => <div key={i}>• {a}</div>) : <div>• None</div>}
-            </div>
-            <div>
-              <div style={{ color: "red", fontWeight: "bold", marginBottom: 4 }}>Unreconciled:</div>
-              {d.allergies.unreconciled.length > 0 ? d.allergies.unreconciled.map((a, i) => <div key={i}>• {a}</div>) : <div>• None</div>}
-            </div>
-          </div>
-        </Card>
-        <Card title="Medications">
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-            <div>
-              <div style={{ color: "green", fontWeight: "bold", marginBottom: 4 }}>Reconciled:</div>
-              {d.medications.reconciled.length > 0 ? d.medications.reconciled.map((m, i) => <div key={i}>• {m}</div>) : <div>• None</div>}
-            </div>
-            <div>
-              <div style={{ color: "red", fontWeight: "bold", marginBottom: 4 }}>Unreconciled:</div>
-              {d.medications.unreconciled.length > 0 ? d.medications.unreconciled.map((m, i) => <div key={i}>• {m}</div>) : <div>• None</div>}
-            </div>
-          </div>
-        </Card>
-        <Card title="Immunizations">
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-            <div>
-              <div style={{ color: "green", fontWeight: "bold", marginBottom: 4 }}>Reconciled:</div>
-              {d.immunizations.reconciled.length > 0 ? d.immunizations.reconciled.map((im, i) => <div key={i}>• {im}</div>) : <div>• None</div>}
-            </div>
-            <div>
-              <div style={{ color: "red", fontWeight: "bold", marginBottom: 4 }}>Unreconciled:</div>
-              {d.immunizations.unreconciled.length > 0 ? d.immunizations.unreconciled.map((im, i) => <div key={i}>• {im}</div>) : <div>• None</div>}
-            </div>
-          </div>
-        </Card>
-        <Card title="Nurse Summary">• {d.nurseSummary}</Card>
-      </div>
-
-      {/* ROI TABLE */}
-      <div style={card}>
-        <h3>Requested ROI</h3>
-        <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
-          <thead>
-            <tr>
-              {["ID", "Facility", "Requested Date", "Status"].map(h => (
-                <th key={h} style={th}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {d.roi.map(r => (
-              <tr key={r.id}>
-                <td style={td}>{r.id}</td>
-                <td style={td}>{r.facility}</td>
-                <td style={td}>{r.requestedDate}</td>
-                <td style={td}>{r.status}</td>
+        {/* ROI TABLE */}
+        <div style={{ ...card, marginTop: 20 }}>
+          <h3 style={{ textAlign: "left", marginTop: 0, marginBottom: 16, fontSize: 16, fontWeight: "700" }}>Requested ROI</h3>
+          <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
+            <thead>
+              <tr>
+                {["ID", "Facility", "Requested Date", "Status"].map(h => (
+                  <th key={h} style={th}>{h}</th>
+                ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {d.roi.map(r => (
+                <tr key={r.id}>
+                  <td style={td}>{r.id}</td>
+                  <td style={td}>{r.facility}</td>
+                  <td style={td}>{r.requestedDate}</td>
+                  <td style={td}>{r.status}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-      <button
-        style={{
-          ...primaryBtn,
-          display: "inline-block",
-          alignSelf: "flex-start",
-          minWidth: 0,
-          marginTop: 8,
-          padding: "8px 12px",
-          fontSize: 13
-        }}
-        onClick={onCreateROI}
-      >
-        New ROI Request
-      </button>
+        <button
+          style={{
+            ...primaryBtn,
+            display: "inline-block",
+            alignSelf: "flex-start",
+            minWidth: 0,
+            marginTop: 16,
+            padding: "8px 12px",
+            fontSize: 13
+          }}
+          onClick={onCreateROI}
+        >
+          New ROI Request
+        </button>
+      </div>
     </div>
   );
 }
@@ -907,148 +1077,214 @@ function DashboardPage({ patients }: DashboardPageProps): JSX.Element {
   });
 
   return (
-    <div>
-      <h2 style={{ color: "#222", textAlign: "left", marginBottom: 24, fontSize: 28, fontWeight: "bold" }}>Summary</h2>
+    <div style={{ paddingBottom: 40 }}>
+      <div style={{ marginBottom: 40, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <h2 style={{ color: "#1f2937", margin: 0, fontSize: 32, fontWeight: "bold", letterSpacing: "-0.5px" }}>Intake Summary</h2>
+        <div style={{ fontSize: 14, color: "#6b7280" }}>Last updated: {new Date().toLocaleDateString()}</div>
+      </div>
       
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 20, marginBottom: 28 }}>
-        <StatCard title="Total Upcoming" value={totalUpcoming} color="#3b82f6"/>
-        <StatCard title="Total Completed" value={totalCompleted} color="#10b981"/>
-      </div>
+      {/* SINGLE ROW - 2 COLUMNS WITH IMPROVED SPACING */}
+      <div style={{ display: "grid", gridTemplateColumns: "490px 1fr", gap: 32, marginBottom: 48 }}>
+        {/* First column: Total Upcoming, Total Completed, and Stage/Status Distribution stacked */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          {/* Upcoming and Completed side by side */}
+          <div style={{ display: "flex", gap: 10, justifyContent: "space-between" }}>
+            <div style={{ background: "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)", borderRadius: 14, padding: 18, boxShadow: "0 4px 16px rgba(59, 130, 246, 0.15)", border: "1px solid rgba(255,255,255,0.12)", flex: 1, transition: "all 0.3s ease", cursor: "pointer" }} onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(-3px)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(59, 130, 246, 0.25)"; }} onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 4px 16px rgba(59, 130, 246, 0.15)"; }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
+                <div>
+                  <div style={{ fontSize: 11, color: "rgba(255,255,255,0.85)", marginBottom: 8, fontWeight: "600", letterSpacing: "0.4px", textTransform: "uppercase" }}>Upcoming</div>
+                  <div style={{ fontSize: 40, fontWeight: "800", color: "#fff", lineHeight: 1 }}>{totalUpcoming}</div>
+                </div>
+                <div style={{ fontSize: 44, opacity: 0.15, marginTop: -4 }}>📋</div>
+              </div>
+            </div>
+            <div style={{ background: "linear-gradient(135deg, #10b981 0%, #059669 100%)", borderRadius: 14, padding: 18, boxShadow: "0 4px 16px rgba(16, 185, 129, 0.15)", border: "1px solid rgba(255,255,255,0.12)", flex: 1, transition: "all 0.3s ease", cursor: "pointer" }} onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(-3px)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(16, 185, 129, 0.25)"; }} onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 4px 16px rgba(16, 185, 129, 0.15)"; }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
+                <div>
+                  <div style={{ fontSize: 11, color: "rgba(255,255,255,0.85)", marginBottom: 8, fontWeight: "600", letterSpacing: "0.4px", textTransform: "uppercase" }}>Completed</div>
+                  <div style={{ fontSize: 40, fontWeight: "800", color: "#fff", lineHeight: 1 }}>{totalCompleted}</div>
+                </div>
+                <div style={{ fontSize: 44, opacity: 0.15, marginTop: -4 }}>✅</div>
+              </div>
+            </div>
+          </div>
 
-      <Card title="Weekly Visits Trend - YTD">
-        <div style={{ position: "relative", height: 280, marginBottom: 20 }}>
-          <svg width="100%" height="100%" style={{ position: "absolute", top: 0, left: 0 }}>
-            {[0, 25, 50, 75, 100].map((y, i) => (
-              <line key={`grid-${i}`} x1="50" y1={240 - (y / 100) * 200} x2="95%" y2={240 - (y / 100) * 200} stroke="#e5e7eb" strokeWidth="1" strokeDasharray="4"/>
-            ))}
-            {[0, 5, 10, 15, 20, 25].map((val, i) => (
-              <text key={`label-${i}`} x="38" y={245 - (val / 25) * 200} fontSize="12" fill="#666" textAnchor="end" fontWeight="500">{val}</text>
-            ))}
-            {(() => {
-              const median = weeklyVisits.slice().sort((a, b) => a.visits - b.visits)[Math.floor(weeklyVisits.length / 2)].visits;
-              const medianY = 240 - (median / 25) * 200;
-              return (
-                <>
-                  <line key="median" x1="50" y1={medianY} x2="95%" y2={medianY} stroke="#f59e0b" strokeWidth="2.5" strokeDasharray="6"/>
-                  <text x="96%" y={medianY - 8} fontSize="11" fill="#f59e0b" textAnchor="end" fontWeight="bold">Median: {median}</text>
-                </>
-              );
-            })()}
-            {(() => {
-              const peak = Math.max(...weeklyVisits.map(v => v.visits));
-              const peakY = 240 - (peak / 25) * 200;
-              return (
-                <>
-                  <line key="peak" x1="50" y1={peakY} x2="95%" y2={peakY} stroke="#ef4444" strokeWidth="2.5" strokeDasharray="6"/>
-                  <text x="96%" y={peakY - 8} fontSize="11" fill="#ef4444" textAnchor="end" fontWeight="bold">Peak: {peak}</text>
-                </>
-              );
-            })()}
-            <polyline
-              points={weeklyVisits.map((item, i) => {
-                const x = 50 + (i / (weeklyVisits.length - 1)) * 700;
-                const y = 240 - (item.visits / 25) * 200;
-                return `${x},${y}`;
-              }).join(" ")}
-              fill="none"
-              stroke="#2563eb"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            {weeklyVisits.map((item, i) => {
-              const x = 50 + (i / (weeklyVisits.length - 1)) * 700;
-              const y = 240 - (item.visits / 25) * 200;
-              return (
-                <g key={`point-${i}`}>
-                  <circle cx={x} cy={y} r="5" fill="#fff" stroke="#2563eb" strokeWidth="2.5"/>
-                  <text x={x} y={y - 16} fontSize="13" fill="#2563eb" textAnchor="middle" fontWeight="bold">{item.visits}</text>
-                </g>
-              );
-            })}
-            {weeklyVisits.map((item, i) => {
-              const x = 50 + (i / (weeklyVisits.length - 1)) * 700;
-              return (
-                <text key={`week-${i}`} x={x} y={260} fontSize="12" fill="#666" textAnchor="middle" fontWeight="500">{item.week}</text>
-              );
-            })}
-          </svg>
+          {/* Stage Distribution */}
+          <div style={{ background: "#fff", borderRadius: 14, padding: 20, boxShadow: "0 2px 8px rgba(0,0,0,0.06)", border: "1px solid #eff6fc", display: "flex", flexDirection: "column", justifyContent: "center", transition: "all 0.3s ease" }} onMouseEnter={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(0,0,0,0.12)"} onMouseLeave={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 2px 8px rgba(0,0,0,0.06)"}>
+            <h4 style={{ textAlign: "left", marginTop: 0, marginBottom: 12, fontSize: 14, fontWeight: "700", color: "#1f2937", letterSpacing: "0.2px" }}>Stage Distribution</h4>
+            <PieChart data={stages.map((stage, i) => ({
+              label: stage,
+              value: patients.filter(p => p.stage === stage).length,
+              color: colors[i]
+            }))}/>
+          </div>
+
+          {/* Status Overview */}
+          <div style={{ background: "#fff", borderRadius: 14, padding: 20, boxShadow: "0 2px 8px rgba(0,0,0,0.06)", border: "1px solid #eff6fc", display: "flex", flexDirection: "column", justifyContent: "center", transition: "all 0.3s ease" }} onMouseEnter={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(0,0,0,0.12)"} onMouseLeave={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 2px 8px rgba(0,0,0,0.06)"}>
+            <h4 style={{ textAlign: "left", marginTop: 0, marginBottom: 12, fontSize: 14, fontWeight: "700", color: "#1f2937", letterSpacing: "0.2px" }}>Status Overview</h4>
+            <PieChart data={[
+              { label: "New", value: newCount, color: "#2563eb" },
+              { label: "In Progress", value: inProgressCount, color: "#facc15" },
+              { label: "Completed", value: completedCount, color: "#16a34a" }
+            ]}/>
+          </div>
         </div>
-      </Card>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 28 }}>
-        <Card title="Stage Distribution">
-          <PieChart data={stages.map((stage, i) => ({
-            label: stage,
-            value: patients.filter(p => p.stage === stage).length,
-            color: colors[i]
-          }))}/>
-        </Card>
-        <Card title="Status Overview">
-          <PieChart data={[
-            { label: "New", value: newCount, color: "#2563eb" },
-            { label: "In Progress", value: inProgressCount, color: "#facc15" },
-            { label: "Completed", value: completedCount, color: "#16a34a" }
-          ]}/>
-        </Card>
+        {/* Second column - Weekly Visits Trend */}
+        <div style={{ background: "#fff", borderRadius: 14, padding: "28px 28px 28px 24px", boxShadow: "0 2px 8px rgba(0,0,0,0.06)", border: "1px solid #eff6fc", display: "flex", flexDirection: "column", transition: "all 0.3s ease" }} onMouseEnter={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(0,0,0,0.12)"} onMouseLeave={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 2px 8px rgba(0,0,0,0.06)"}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
+            <h4 style={{ textAlign: "left", marginTop: 0, marginBottom: 0, fontSize: 15, fontWeight: "700", color: "#1f2937", letterSpacing: "0.2px" }}>Weekly Visits Trend - YTD</h4>
+            <div style={{ display: "flex", gap: 24, fontSize: 13 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <div style={{ width: 16, height: 16, background: "#10b981", opacity: 0.6, borderRadius: 2 }}/>
+                <span style={{ color: "#6b7280" }}>AHT (minutes)</span>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <div style={{ width: 16, height: 2, background: "#2563eb" }}/>
+                <span style={{ color: "#6b7280" }}>Visits</span>
+              </div>
+            </div>
+          </div>
+          <div style={{ position: "relative", flex: 1, minHeight: 380 }}>
+            <svg width="100%" height="100%" viewBox="0 0 1000 400" preserveAspectRatio="none" style={{ position: "absolute", top: 0, left: 0 }}>
+              {[0, 25, 50, 75, 100].map((y, i) => (
+                <line key={`grid-${i}`} x1="60" y1={360 - (y / 100) * 320} x2="1000" y2={360 - (y / 100) * 320} stroke="#e5e7eb" strokeWidth="2" strokeDasharray="5" opacity="0.6"/>
+              ))}
+              {/* Left Y-axis labels for Visits */}
+              {[0, 20, 40, 60, 80, 100].map((val, i) => (
+                <text key={`label-visits-${i}`} x="40" y={365 - (val / 100) * 320} fontSize="12" fill="#2563eb" textAnchor="end" fontWeight="500">{val}</text>
+              ))}
+              {/* Right Y-axis labels for AHT */}
+              {[0, 6, 12, 18, 24, 30].map((val, i) => (
+                <text key={`label-aht-${i}`} x="970" y={365 - (val / 30) * 320} fontSize="12" fill="#10b981" textAnchor="start" fontWeight="500">{val}</text>
+              ))}
+              {/* Y-axis titles */}
+              <text x="15" y="200" fontSize="14" fill="#2563eb" fontWeight="600" textAnchor="middle" transform="rotate(-90 15 200)">Visit Count</text>
+              <text x="985" y="200" fontSize="14" fill="#10b981" fontWeight="600" textAnchor="middle" transform="rotate(90 985 200)">AHT (minutes)</text>
+              {/* Bars for AHT */}
+              {weeklyVisits.map((item, i) => {
+                const barWidth = 40;
+                const x = 60 + (i / (weeklyVisits.length - 1)) * 880 - (barWidth / 2);
+                const barHeight = (item.aht / 30) * 320;
+                const y = 360 - barHeight;
+                return (
+                  <rect
+                    key={`bar-${i}`}
+                    x={x}
+                    y={y}
+                    width={barWidth}
+                    height={barHeight}
+                    fill="#10b981"
+                    opacity="0.6"
+                  />
+                );
+              })}
+              {/* Line */}
+              <polyline
+                points={weeklyVisits.map((item, i) => {
+                  const x = 60 + (i / (weeklyVisits.length - 1)) * 880;
+                  const y = 360 - (item.visits / 100) * 320;
+                  return `${x},${y}`;
+                }).join(" ")}
+                fill="none"
+                stroke="#2563eb"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              {/* Line Points */}
+              {weeklyVisits.map((item, i) => {
+                const x = 60 + (i / (weeklyVisits.length - 1)) * 880;
+                const y = 360 - (item.visits / 100) * 320;
+                return (
+                  <g key={`point-${i}`}>
+                    <circle cx={x} cy={y} r="7" fill="#fff" stroke="#2563eb" strokeWidth="3"/>
+                    <text x={x} y={y - 20} fontSize="14" fill="#1e40af" textAnchor="middle" fontWeight="bold">{item.visits}</text>
+                  </g>
+                );
+              })}
+              {/* Week Labels */}
+              {weeklyVisits.map((item, i) => {
+                const x = 60 + (i / (weeklyVisits.length - 1)) * 880;
+                return (
+                  <text key={`week-${i}`} x={x} y={390} fontSize="16" fill="#9ca3af" textAnchor="middle" fontWeight="500">{item.week}</text>
+                );
+              })}
+            </svg>
+          </div>
+        </div>
       </div>
 
-      <Card title="Nurse Visit Assignments">
-        <table style={{ width: "100%", borderCollapse: "collapse" }}>
-          <thead>
-            <tr style={{ background: "#f8fafb" }}>
-              <th style={{ ...td, fontWeight: "bold", borderBottom: "2px solid #2563eb", textAlign: "left", padding: 12 }}>Nurse</th>
-              <th style={{ ...td, fontWeight: "bold", borderBottom: "2px solid #2563eb", textAlign: "center", padding: 12 }}>Upcoming</th>
-              <th style={{ ...td, fontWeight: "bold", borderBottom: "2px solid #2563eb", textAlign: "center", padding: 12 }}>Completed</th>
-              <th style={{ ...td, fontWeight: "bold", borderBottom: "2px solid #2563eb", textAlign: "center", padding: 12 }}>Total Visits</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.entries(aprnStats).map(([nurse, stats], idx) => (
-              <tr key={nurse} style={{ background: idx % 2 === 0 ? "#fff" : "#f9fafb", borderBottom: "1px solid #e5e7eb" }}>
-                <td style={{ ...td, fontSize: 13, padding: 12, fontWeight: "500" }}>{nurse}</td>
-                <td style={{ ...td, fontSize: 13, textAlign: "center", color: "#ef4444", fontWeight: "bold", padding: 12 }}>{stats.pending}</td>
-                <td style={{ ...td, fontSize: 13, textAlign: "center", color: "#16a34a", fontWeight: "bold", padding: 12 }}>{stats.completed}</td>
-                <td style={{ ...td, fontSize: 13, textAlign: "center", fontWeight: "bold", padding: 12, borderRadius: "4px", background: "#f3f4f6" }}>{stats.total}</td>
+      {/* TWO COLUMN LAYOUT - NURSE & ROI */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32 }}>
+        {/* Nurse Visit Assignments */}
+        <div style={{ background: "#fff", borderRadius: 14, padding: 28, boxShadow: "0 2px 8px rgba(0,0,0,0.06)", border: "1px solid #eff6fc", transition: "all 0.3s ease" }} onMouseEnter={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(0,0,0,0.12)"} onMouseLeave={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 2px 8px rgba(0,0,0,0.06)"}>
+          <h4 style={{ textAlign: "left", marginTop: 0, marginBottom: 20, fontSize: 15, fontWeight: "700", color: "#1f2937", letterSpacing: "0.2px" }}>Nurse Visit Assignments</h4>
+          <table style={{ width: "100%", borderCollapse: "collapse" }}>
+            <thead>
+              <tr style={{ background: "linear-gradient(90deg, #f9fafb 0%, #f3f4f6 100%)", borderBottom: "2px solid #e5e7eb" }}>
+                <th style={{ ...th, fontWeight: "700", color: "#1f2937", padding: 14, fontSize: 12, borderRadius: "6px 0 0 0" }}>Nurse</th>
+                <th style={{ ...th, fontWeight: "700", color: "#1f2937", padding: 14, fontSize: 12 }}>Pending</th>
+                <th style={{ ...th, fontWeight: "700", color: "#1f2937", padding: 14, fontSize: 12 }}>Completed</th>
+                <th style={{ ...th, fontWeight: "700", color: "#1f2937", padding: 14, fontSize: 12, borderRadius: "0 6px 0 0" }}>Total</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </Card>
+            </thead>
+            <tbody>
+              {Object.entries(aprnStats).map(([nurse, stats], idx) => (
+                <tr key={nurse} style={{ background: idx % 2 === 0 ? "#fff" : "#f9fafb", borderBottom: "1px solid #f0f0f0", transition: "background 0.2s" }} onMouseEnter={(e) => (e.currentTarget as HTMLTableRowElement).style.background = "#f0f9ff"} onMouseLeave={(e) => (e.currentTarget as HTMLTableRowElement).style.background = idx % 2 === 0 ? "#fff" : "#f9fafb"}>
+                  <td style={{ ...td, fontSize: 13, padding: 14, fontWeight: "600", color: "#1f2937" }}>{nurse}</td>
+                  <td style={{ ...td, fontSize: 13, textAlign: "center", color: "#dc2626", fontWeight: "bold", padding: 14 }}>
+                    <div style={{ background: "#fee2e2", padding: "6px 12px", borderRadius: 6, display: "inline-block", minWidth: "30px", fontSize: 12 }}>{stats.pending}</div>
+                  </td>
+                  <td style={{ ...td, fontSize: 13, textAlign: "center", color: "#16a34a", fontWeight: "bold", padding: 14 }}>
+                    <div style={{ background: "#dcfce7", padding: "6px 12px", borderRadius: 6, display: "inline-block", minWidth: "30px", fontSize: 12 }}>{stats.completed}</div>
+                  </td>
+                  <td style={{ ...td, fontSize: 13, textAlign: "center", fontWeight: "bold", padding: 14, color: "#2563eb" }}>
+                    <div style={{ background: "#dbeafe", padding: "6px 12px", borderRadius: 6, display: "inline-block", minWidth: "30px", fontSize: 12 }}>{stats.total}</div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-      <Card title="Recent ROI Requests">
-        <table style={{ width: "100%", borderCollapse: "collapse" }}>
-          <thead>
-            <tr style={{ background: "#f8fafb" }}>
-              <th style={{ ...td, fontWeight: "bold", borderBottom: "2px solid #2563eb", textAlign: "left", padding: 12 }}>Patient</th>
-              <th style={{ ...td, fontWeight: "bold", borderBottom: "2px solid #2563eb", textAlign: "left", padding: 12 }}>Facility</th>
-              <th style={{ ...td, fontWeight: "bold", borderBottom: "2px solid #2563eb", textAlign: "left", padding: 12 }}>Requested Date</th>
-              <th style={{ ...td, fontWeight: "bold", borderBottom: "2px solid #2563eb", textAlign: "center", padding: 12 }}>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {roiRequests.map((roi, idx) => (
-              <tr key={roi.id} style={{ background: idx % 2 === 0 ? "#fff" : "#f9fafb", borderBottom: "1px solid #e5e7eb" }}>
-                <td style={{ ...td, fontSize: 13, padding: 12, fontWeight: "500" }}>{roi.patient}</td>
-                <td style={{ ...td, fontSize: 13, padding: 12 }}>{roi.facility}</td>
-                <td style={{ ...td, fontSize: 13, padding: 12 }}>{roi.requestedDate}</td>
-                <td style={{ ...td, fontSize: 12, textAlign: "center", padding: 12 }}>
-                  <span style={{ 
-                    padding: "4px 12px", 
-                    borderRadius: "6px", 
-                    background: roi.status === "Completed" ? "#dcfce7" : roi.status === "Sent to Facility" ? "#dbeafe" : "#fee2e2",
-                    color: roi.status === "Completed" ? "#166534" : roi.status === "Sent to Facility" ? "#1e40af" : "#991b1b",
-                    fontWeight: "600",
-                    fontSize: 12
-                  }}>
-                    {roi.status}
-                  </span>
-                </td>
+        {/* Recent ROI Requests */}
+        <div style={{ background: "#fff", borderRadius: 14, padding: 28, boxShadow: "0 2px 8px rgba(0,0,0,0.06)", border: "1px solid #eff6fc", transition: "all 0.3s ease" }} onMouseEnter={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(0,0,0,0.12)"} onMouseLeave={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 2px 8px rgba(0,0,0,0.06)"}>
+          <h4 style={{ textAlign: "left", marginTop: 0, marginBottom: 20, fontSize: 15, fontWeight: "700", color: "#1f2937", letterSpacing: "0.2px" }}>Recent ROI Requests</h4>
+          <table style={{ width: "100%", borderCollapse: "collapse" }}>
+            <thead>
+              <tr style={{ background: "linear-gradient(90deg, #f9fafb 0%, #f3f4f6 100%)", borderBottom: "2px solid #e5e7eb" }}>
+                <th style={{ ...th, fontWeight: "700", color: "#1f2937", padding: 14, fontSize: 12, borderRadius: "6px 0 0 0" }}>Patient</th>
+                <th style={{ ...th, fontWeight: "700", color: "#1f2937", padding: 14, fontSize: 12 }}>Facility</th>
+                <th style={{ ...th, fontWeight: "700", color: "#1f2937", padding: 14, fontSize: 12 }}>Date</th>
+                <th style={{ ...th, fontWeight: "700", color: "#1f2937", textAlign: "center", padding: 14, fontSize: 12, borderRadius: "0 6px 0 0" }}>Status</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </Card>
+            </thead>
+            <tbody>
+              {roiRequests.map((roi, idx) => (
+                <tr key={roi.id} style={{ background: idx % 2 === 0 ? "#fff" : "#f9fafb", borderBottom: "1px solid #f0f0f0", transition: "background 0.2s" }} onMouseEnter={(e) => (e.currentTarget as HTMLTableRowElement).style.background = "#f0f9ff"} onMouseLeave={(e) => (e.currentTarget as HTMLTableRowElement).style.background = idx % 2 === 0 ? "#fff" : "#f9fafb"}>
+                  <td style={{ ...td, fontSize: 13, padding: 14, fontWeight: "600", color: "#1f2937" }}>{roi.patient}</td>
+                  <td style={{ ...td, fontSize: 13, padding: 14, color: "#6b7280" }}>{roi.facility}</td>
+                  <td style={{ ...td, fontSize: 13, padding: 14, color: "#6b7280" }}>{roi.requestedDate}</td>
+                  <td style={{ ...td, fontSize: 12, textAlign: "center", padding: 14 }}>
+                    <span style={{ 
+                      padding: "6px 12px", 
+                      borderRadius: "6px", 
+                      background: roi.status === "Completed" ? "#dcfce7" : roi.status === "Sent to Facility" ? "#dbeafe" : "#fee2e2",
+                      color: roi.status === "Completed" ? "#166534" : roi.status === "Sent to Facility" ? "#1e40af" : "#991b1b",
+                      fontWeight: "600",
+                      fontSize: 11,
+                      display: "inline-block"
+                    }}>
+                      {roi.status}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 }
