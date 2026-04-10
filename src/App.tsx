@@ -570,6 +570,11 @@ export default function App(): JSX.Element {
                 setSelectedPatient(null);
                 setShowROI(false);
                 setNurseFilter(nurseName || "");
+              }} onNavigateToCompleted={() => {
+                setView("completed");
+                setSelectedPatient(null);
+                setShowROI(false);
+                setNurseFilter("");
               }} />
             ) : (
               <QueuePage patients={filtered} onSelect={setSelectedPatient} initialNurseFilter={nurseFilter} />
@@ -771,7 +776,7 @@ function QueuePage({ patients, onSelect, initialNurseFilter = "" }: QueuePagePro
       <table style={{ width: "100%", borderCollapse: "collapse", background: "#fff", textAlign: "left", borderRadius: 12, overflow: "hidden", boxShadow: "0 2px 8px rgba(0,0,0,0.04)" }}>
         <thead style={{ background: "linear-gradient(90deg, #f8fafc 0%, #f1f5f9 100%)", borderBottom: "2px solid #e2e8f0" }}>
           <tr>
-            {["Patient", "Date", "Provider", "Nurse", "Stage", "Status", "Exception", "Readiness"].map(h => (
+            {["MRN", "Patient", "Date", "Provider", "Nurse", "Stage", "Status", "Readiness"].map(h => (
               <th key={h} style={th}>{h}</th>
             ))}
           </tr>
@@ -789,6 +794,7 @@ function QueuePage({ patients, onSelect, initialNurseFilter = "" }: QueuePagePro
               onMouseEnter={(e) => (e.currentTarget as HTMLTableRowElement).style.background = "#eff6ff"}
               onMouseLeave={(e) => (e.currentTarget as HTMLTableRowElement).style.background = idx % 2 === 0 ? "#fff" : "#f9fafb"}
             >
+              <td style={td}><span style={{ background: "#f0f0f0", padding: "4px 8px", borderRadius: "4px", fontFamily: "monospace", fontWeight: 600, fontSize: 12 }}>{p.mrn}</span></td>
               <td style={td}>{p.name}</td>
               <td style={td}>{p.date}</td>
               <td style={td}>{p.provider}</td>
@@ -817,7 +823,6 @@ function QueuePage({ patients, onSelect, initialNurseFilter = "" }: QueuePagePro
                   {p.status}
                 </span>
               </td>
-              <td style={td}>{p.exception}</td>
               <td style={{ ...td, padding: 8 }}>
                 <div style={{ background: "#ddd", height: 6, borderRadius: 2 }}>
                   <div style={{ 
@@ -856,12 +861,12 @@ function PatientRecord({ patient, onBack, onCreateROI }: PatientRecordProps): JS
       <div style={card}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr", gap: 16, marginBottom: 20 }}>
           <div>
-            <div style={{ fontSize: 12, color: "#666" }}>Patient Name</div>
-            <div style={{ fontSize: 14, fontWeight: "bold" }}>{patient.name}</div>
-          </div>
-          <div>
             <div style={{ fontSize: 12, color: "#666" }}>MRN</div>
             <div style={{ fontSize: 14, fontWeight: "bold" }}>{patient.mrn}</div>
+          </div>
+          <div>
+            <div style={{ fontSize: 12, color: "#666" }}>Patient Name</div>
+            <div style={{ fontSize: 14, fontWeight: "bold" }}>{patient.name}</div>
           </div>
           <div>
             <div style={{ fontSize: 12, color: "#666" }}>Provider Name</div>
@@ -1174,9 +1179,10 @@ function CreateROIPage({ patient, onBack, onSubmit }: CreateROIPageProps): JSX.E
 interface DashboardPageProps {
   patients: Patient[];
   onNavigateToUpcoming: (nurseName?: string) => void;
+  onNavigateToCompleted: () => void;
 }
 
-function DashboardPage({ patients, onNavigateToUpcoming }: DashboardPageProps): JSX.Element {
+function DashboardPage({ patients, onNavigateToUpcoming, onNavigateToCompleted }: DashboardPageProps): JSX.Element {
   const totalUpcoming = patients.filter(p => p.status !== "Completed").length;
   const totalCompleted = patients.filter(p => p.status === "Completed").length;
   const newCount = patients.filter(p => p.status === "New").length;
@@ -1207,7 +1213,7 @@ function DashboardPage({ patients, onNavigateToUpcoming }: DashboardPageProps): 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 32, marginBottom: 48 }}>
         {/* Left Column: Upcoming and Completed stacked */}
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          <div style={{ background: "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)", borderRadius: 14, padding: 18, boxShadow: "0 4px 16px rgba(59, 130, 246, 0.15)", border: "1px solid rgba(255,255,255,0.12)", transition: "all 0.3s ease", cursor: "pointer" }} onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(-3px)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(59, 130, 246, 0.25)"; }} onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 4px 16px rgba(59, 130, 246, 0.15)"; }}>
+          <div style={{ background: "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)", borderRadius: 14, padding: 18, boxShadow: "0 4px 16px rgba(59, 130, 246, 0.15)", border: "1px solid rgba(255,255,255,0.12)", transition: "all 0.3s ease", cursor: "pointer" }} onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(-3px)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(59, 130, 246, 0.25)"; }} onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 4px 16px rgba(59, 130, 246, 0.15)"; }} onClick={() => onNavigateToUpcoming()}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
               <div>
                 <div style={{ fontSize: 11, color: "rgba(255,255,255,0.85)", marginBottom: 8, fontWeight: "600", letterSpacing: "0.4px", textTransform: "uppercase" }}>Upcoming</div>
@@ -1216,7 +1222,7 @@ function DashboardPage({ patients, onNavigateToUpcoming }: DashboardPageProps): 
               <div style={{ fontSize: 44, opacity: 0.15, marginTop: -4 }}>📋</div>
             </div>
           </div>
-          <div style={{ background: "linear-gradient(135deg, #10b981 0%, #059669 100%)", borderRadius: 14, padding: 18, boxShadow: "0 4px 16px rgba(16, 185, 129, 0.15)", border: "1px solid rgba(255,255,255,0.12)", transition: "all 0.3s ease", cursor: "pointer" }} onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(-3px)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(16, 185, 129, 0.25)"; }} onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 4px 16px rgba(16, 185, 129, 0.15)"; }}>
+          <div style={{ background: "linear-gradient(135deg, #10b981 0%, #059669 100%)", borderRadius: 14, padding: 18, boxShadow: "0 4px 16px rgba(16, 185, 129, 0.15)", border: "1px solid rgba(255,255,255,0.12)", transition: "all 0.3s ease", cursor: "pointer" }} onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(-3px)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(16, 185, 129, 0.25)"; }} onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 4px 16px rgba(16, 185, 129, 0.15)"; }} onClick={() => onNavigateToCompleted()}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
               <div>
                 <div style={{ fontSize: 11, color: "rgba(255,255,255,0.85)", marginBottom: 8, fontWeight: "600", letterSpacing: "0.4px", textTransform: "uppercase" }}>Completed</div>
