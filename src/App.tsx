@@ -381,8 +381,8 @@ const input: React.CSSProperties = {
   boxShadow: "inset 0 1px 2px rgba(0,0,0,0.02)"
 };
 
-const grid2: React.CSSProperties = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 28 };
-const grid3: React.CSSProperties = { display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 28 };
+const grid2: React.CSSProperties = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 };
+const grid3: React.CSSProperties = { display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 24 };
 
 const primaryBtn: React.CSSProperties = { 
   padding: "12px 28px", 
@@ -585,9 +585,9 @@ export default function App(): JSX.Element {
   return (
     <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh", background: "#f9fafb" }}>
       {/* ENHANCED HEADER */}
-      <div style={{ background: "linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #2563eb 100%)", padding: "48px 40px", boxShadow: "0 10px 40px rgba(37, 99, 235, 0.15)", textAlign: "center", position: "relative", overflow: "hidden" }}>
-        <h1 style={{ color: "#fff", margin: 0, fontSize: 42, fontWeight: "900", letterSpacing: "-0.015em", textShadow: "0 2px 4px rgba(0,0,0,0.1)" }}>Family Medicine Intake Portal</h1>
-        <p style={{ color: "rgba(255,255,255,0.9)", marginTop: 12, fontSize: 15, fontWeight: 500, letterSpacing: "0.01em" }}>Strreamlined intake Portal and ROI Coordination</p>
+      <div style={{ background: "linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #2563eb 100%)", padding: "32px 40px", boxShadow: "0 10px 40px rgba(37, 99, 235, 0.15)", textAlign: "center", position: "relative", overflow: "hidden" }}>
+        <h1 style={{ color: "#fff", margin: 0, fontSize: 36, fontWeight: "900", letterSpacing: "-0.015em", textShadow: "0 2px 4px rgba(0,0,0,0.1)" }}>Family Medicine Intake Portal</h1>
+        <p style={{ color: "rgba(255,255,255,0.9)", marginTop: 8, fontSize: 14, fontWeight: 500, letterSpacing: "0.01em" }}>Streamlined Intake Portal and ROI Coordination</p>
       </div>
 
       <div style={{ display: "flex", flex: 1 }}>
@@ -656,7 +656,7 @@ export default function App(): JSX.Element {
         </div>
 
         {/* MAIN CONTENT */}
-        <div style={{ flex: 1, padding: "40px", maxWidth: "1800px", margin: "0 auto", width: "100%", overflowY: "auto" }}>
+        <div style={{ flex: 1, padding: "32px 40px", maxWidth: "none", margin: "0", width: "100%", overflowY: "auto" }}>
           {!selectedPatient ? (
             view === "dashboard" ? (
               <DashboardPage patients={patients} onNavigateToUpcoming={(nurseName) => {
@@ -777,7 +777,7 @@ function QueuePage({ patients, onSelect, initialNurseFilter = "" }: QueuePagePro
       </div>
 
       {/* CONTENT AREA */}
-      <div style={{ flex: 1, padding: "40px", overflowY: "auto" }}>
+      <div style={{ flex: 1, padding: "32px 40px", overflowY: "auto" }}>
         <div style={{ marginBottom: 32, display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
           <div style={{ flex: 1 }}>
             <div style={{ background: "#f0f9ff", padding: "12px 20px", borderRadius: 8, fontSize: 14, color: "#1e40af", fontWeight: 600, display: "inline-block", border: "1px solid #bfdbfe" }}>
@@ -789,7 +789,7 @@ function QueuePage({ patients, onSelect, initialNurseFilter = "" }: QueuePagePro
       {/* Filter Controls */}
       <div style={{ background: "linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%)", borderRadius: 14, padding: 24, marginBottom: 32, border: "2px solid #bfdbfe", boxShadow: "0 2px 8px rgba(59, 130, 246, 0.05)" }}>
         <h3 style={{ color: "#1f2937", fontSize: 13, fontWeight: 800, marginBottom: 20, marginTop: 0, letterSpacing: "0.8px", textTransform: "uppercase", lineHeight: 1.4 }}>Filter Records</h3>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 18, marginBottom: 16 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 16, marginBottom: 16 }}>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <label style={{ fontSize: 11, fontWeight: 800, color: "#334155", marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.8px", lineHeight: 1.3 }}>Search</label>
             <input
@@ -1237,7 +1237,7 @@ function PatientRecord({ patient, onBack, onCreateROI }: PatientRecordProps): JS
                 }}>
                   <h2 style={{ fontSize: 18, fontWeight: "700", color: "#1f2937", marginTop: 0, marginBottom: 20 }}>Clinical Information</h2>
                   
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 24, marginBottom: 24 }}>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 20, marginBottom: 24 }}>
                     <Card title="Complaints">
                       <p style={{ margin: 0, color: "#6b7280", fontSize: 14 }}>Patient presenting with various medical concerns. Please review patient summary for details.</p>
                     </Card>
@@ -1251,7 +1251,7 @@ function PatientRecord({ patient, onBack, onCreateROI }: PatientRecordProps): JS
 
                   {/* RECONCILIATION CARDS */}
                   <h2 style={{ fontSize: 16, fontWeight: "700", color: "#1f2937", marginTop: 0, marginBottom: 16 }}>Reconciliation Status</h2>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16, marginBottom: 24 }}>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 14, marginBottom: 24 }}>
                     <Card title="Allergies">
                       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
                         <div>
