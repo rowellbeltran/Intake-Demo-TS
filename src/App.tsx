@@ -433,17 +433,6 @@ const td: React.CSSProperties = {
   color: "#475569" 
 };
 
-const fieldLabel: React.CSSProperties = {
-  fontSize: 11,
-  fontWeight: 800,
-  color: "#334155",
-  marginBottom: 8,
-  textTransform: "uppercase",
-  letterSpacing: "0.8px",
-  lineHeight: 1.3,
-  display: "block"
-};
-
 // ============ COMPONENTS ============
 interface CardProps {
   title: string;
@@ -1787,7 +1776,7 @@ function DashboardPage({ patients, onNavigateToUpcoming, onNavigateToCompleted }
         <div style={{ display: "grid", gridTemplateColumns: "0.8fr 1.2fr", gap: 32 }}>
           {/* Nurse Visit Assignments */}
           <div style={{ background: "#fff", borderRadius: 12, padding: 36, boxShadow: "0 2px 8px rgba(59, 130, 246, 0.08), 0 1px 3px rgba(0,0,0,0.05)", border: "1px solid #e0e7ff", borderTop: "4px solid #2563eb", transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)" }} onMouseEnter={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(59, 130, 246, 0.12)"} onMouseLeave={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 2px 8px rgba(59, 130, 246, 0.08), 0 1px 3px rgba(0,0,0,0.05)"}>
-          <h4 style={{ textAlign: "left", marginTop: 0, marginBottom: 24, fontSize: 13, fontWeight: 800, color: "#1e293b", letterSpacing: "0.8px", textTransform: "uppercase", lineHeight: 1.2 }} aria-label="Nurse Visit Assignments section" role="heading" aria-level={2}>Nurse Visit Assignments</h4>
+          <h4 style={{ textAlign: "left", marginTop: 0, marginBottom: 24, fontSize: 13, fontWeight: 800, color: "#1e293b", letterSpacing: "0.8px", textTransform: "uppercase", lineHeight: 1.2 }} aria-label="Nurse Visit Assignments section" aria-level={2}>Nurse Visit Assignments</h4>
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
               <tr style={{ background: "linear-gradient(90deg, #f9fafb 0%, #f3f4f6 100%)", borderBottom: "2px solid #e5e7eb" }}>
@@ -1818,7 +1807,7 @@ function DashboardPage({ patients, onNavigateToUpcoming, onNavigateToCompleted }
 
           {/* Recent ROI Requests */}
           <div style={{ background: "#fff", borderRadius: 12, padding: 36, boxShadow: "0 2px 8px rgba(59, 130, 246, 0.08), 0 1px 3px rgba(0,0,0,0.05)", border: "1px solid #e0e7ff", borderTop: "4px solid #f59e0b", transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)" }} onMouseEnter={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(59, 130, 246, 0.12)"} onMouseLeave={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 2px 8px rgba(59, 130, 246, 0.08), 0 1px 3px rgba(0,0,0,0.05)"}>
-            <h4 style={{ textAlign: "left", marginTop: 0, marginBottom: 24, fontSize: 13, fontWeight: 800, color: "#1e293b", letterSpacing: "0.8px", textTransform: "uppercase", lineHeight: 1.2 }} aria-label="Recent ROI Requests section" role="heading" aria-level={2}>Recent ROI Requests</h4>
+            <h4 style={{ textAlign: "left", marginTop: 0, marginBottom: 24, fontSize: 13, fontWeight: 800, color: "#1e293b", letterSpacing: "0.8px", textTransform: "uppercase", lineHeight: 1.2 }} aria-label="Recent ROI Requests section" aria-level={2}>Recent ROI Requests</h4>
             <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
               <tr style={{ background: "linear-gradient(90deg, #f9fafb 0%, #f3f4f6 100%)", borderBottom: "2px solid #e5e7eb" }}>
