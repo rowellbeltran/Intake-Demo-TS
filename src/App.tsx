@@ -215,7 +215,7 @@ const patientDetails: Record<number, PatientDetail> = {
       reconciled: ["Penicillin", "Codeine"], 
       unreconciled: ["Latex"] 
     },
-    medications: { 
+    medications: {
       reconciled: ["Gabapentin", "Levothyroxine"], 
       unreconciled: ["Sertraline"] 
     },
@@ -359,15 +359,90 @@ const weeklyVisits: WeeklyVisit[] = [
 ];
 
 // ============ STYLES ============
-const card: React.CSSProperties = { background: "#fff", padding: 20, border: "1px solid #e2e8f0", borderRadius: 12, boxShadow: "0 2px 8px rgba(0,0,0,0.04)" };
-const input: React.CSSProperties = { width: "100%", padding: 10, fontSize: 14, marginTop: 6, border: "1px solid #e2e8f0", borderRadius: 8, background: "#fff", transition: "all 0.2s" };
-const grid2: React.CSSProperties = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 };
-const grid3: React.CSSProperties = { display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 20 };
-const primaryBtn: React.CSSProperties = { padding: "10px 24px", fontSize: 14, background: "linear-gradient(135deg, #2563eb 0%, #1e40af 100%)", color: "#fff", border: "none", borderRadius: 8, minWidth: 0, cursor: "pointer", fontWeight: 600, transition: "all 0.3s", boxShadow: "0 4px 12px rgba(37, 99, 235, 0.3)" };
-const backBtn: React.CSSProperties = { padding: "8px 14px", fontSize: 12, background: "linear-gradient(135deg, #2563eb 0%, #1e40af 100%)", color: "#fff", border: "none", borderRadius: 6, cursor: "pointer", fontWeight: 600, transition: "all 0.3s", boxShadow: "0 2px 8px rgba(37, 99, 235, 0.2)", alignSelf: "flex-start" };
+const card: React.CSSProperties = { 
+  background: "#fff", 
+  padding: 24, 
+  border: "1px solid #e0e7ff", 
+  borderRadius: 12, 
+  boxShadow: "0 2px 8px rgba(59, 130, 246, 0.08), 0 1px 3px rgba(0,0,0,0.05)",
+  transition: "all 0.3s ease"
+};
 
-const th: React.CSSProperties = { padding: 14, textAlign: "left", borderBottom: "1px solid #e2e8f0", fontSize: 13, fontWeight: 600, color: "#475569" };
-const td: React.CSSProperties = { padding: 14, textAlign: "left", borderBottom: "1px solid #f1f5f9", fontSize: 13, color: "#334155" };
+const input: React.CSSProperties = { 
+  width: "100%", 
+  padding: "11px 13px", 
+  fontSize: 14, 
+  marginTop: 6, 
+  border: "1.5px solid #e0e7ff", 
+  borderRadius: 8, 
+  background: "#f8fafc",
+  color: "#1f2937",
+  transition: "all 0.3s ease",
+  boxShadow: "inset 0 1px 2px rgba(0,0,0,0.02)"
+};
+
+const grid2: React.CSSProperties = { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 28 };
+const grid3: React.CSSProperties = { display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 28 };
+
+const primaryBtn: React.CSSProperties = { 
+  padding: "12px 28px", 
+  fontSize: 14, 
+  fontWeight: 600,
+  background: "linear-gradient(135deg, #2563eb 0%, #1e40af 100%)", 
+  color: "#fff", 
+  border: "none", 
+  borderRadius: 8,
+  cursor: "pointer", 
+  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+  boxShadow: "0 4px 14px rgba(37, 99, 235, 0.3)",
+  minWidth: "fit-content",
+  whiteSpace: "nowrap",
+  letterSpacing: "0.3px"
+};
+
+const backBtn: React.CSSProperties = { 
+  padding: "11px 18px", 
+  fontSize: 13, 
+  fontWeight: 600,
+  background: "#f8fafc", 
+  color: "#374151", 
+  border: "1.5px solid #e0e7ff", 
+  borderRadius: 8, 
+  cursor: "pointer", 
+  transition: "all 0.3s ease",
+  alignSelf: "flex-start",
+  boxShadow: "0 1px 3px rgba(0,0,0,0.05)"
+};
+
+const th: React.CSSProperties = { 
+  padding: 14, 
+  textAlign: "left", 
+  borderBottom: "2px solid #e5e7eb", 
+  fontSize: 12, 
+  fontWeight: 700, 
+  color: "#374151",
+  textTransform: "uppercase",
+  letterSpacing: "0.05em"
+};
+
+const td: React.CSSProperties = { 
+  padding: 14, 
+  textAlign: "left", 
+  borderBottom: "1px solid #f3f4f6", 
+  fontSize: 13, 
+  color: "#475569" 
+};
+
+const fieldLabel: React.CSSProperties = {
+  fontSize: 11,
+  fontWeight: 800,
+  color: "#334155",
+  marginBottom: 8,
+  textTransform: "uppercase",
+  letterSpacing: "0.8px",
+  lineHeight: 1.3,
+  display: "block"
+};
 
 // ============ COMPONENTS ============
 interface CardProps {
@@ -378,8 +453,8 @@ interface CardProps {
 function Card({ title, children }: CardProps): JSX.Element {
   return (
     <div style={card}>
-      <h4 style={{ textAlign: "left", marginTop: 0, marginBottom: 16, fontSize: 15, fontWeight: "700", color: "#1f2937", letterSpacing: "0.2px" }}>{title}</h4>
-      <div style={{ textAlign: "left", fontSize: 14, color: "#475569" }}>{children}</div>
+      <h4 style={{ textAlign: "left", marginTop: 0, marginBottom: 16, fontSize: 15, fontWeight: "700", color: "#1f2937", letterSpacing: "-0.025em" }}>{title}</h4>
+      <div style={{ textAlign: "left", fontSize: 14, color: "#6b7280", lineHeight: 1.6 }}>{children}</div>
     </div>
   );
 }
@@ -392,8 +467,8 @@ interface SectionCardProps {
 function SectionCard({ title, children }: SectionCardProps): JSX.Element {
   return (
     <div style={card}>
-      <h3 style={{ marginTop: 0, marginBottom: 16, textAlign: "left", fontSize: 18, fontWeight: "700", color: "#1f2937", letterSpacing: "-0.5px" }}>{title}</h3>
-      <div style={{ textAlign: "left", fontSize: 14, color: "#475569" }}>{children}</div>
+      <h3 style={{ marginTop: 0, marginBottom: 20, textAlign: "left", fontSize: 17, fontWeight: "700", color: "#1f2937", letterSpacing: "-0.025em" }}>{title}</h3>
+      <div style={{ textAlign: "left", fontSize: 14, color: "#6b7280", lineHeight: 1.6 }}>{children}</div>
     </div>
   );
 }
@@ -409,14 +484,20 @@ function Checkbox<T extends Record<string, boolean | string>>({ label, obj, k, s
   const isChecked = typeof obj[k] === "boolean" ? (obj[k] as boolean) : false;
   
   return (
-    <label style={{ display: "flex", gap: 6, textAlign: "left", fontSize: 14, alignItems: "center", cursor: "pointer" }}>
+    <label style={{ display: "flex", gap: 10, textAlign: "left", fontSize: 14, alignItems: "center", cursor: "pointer", userSelect: "none" }}>
       <input 
         type="checkbox" 
         checked={isChecked}
         onChange={(e) => set({ ...obj, [k]: e.target.checked } as T)} 
-        style={{ accentColor: "#2563eb", width: 18, height: 18, border: "2px solid #999", borderRadius: 3, cursor: "pointer", background: "#fff" }}
+        style={{ 
+          accentColor: "#2563eb", 
+          width: 18, 
+          height: 18, 
+          cursor: "pointer",
+          flexShrink: 0
+        }}
       />
-      {label}
+      <span style={{ color: "#374151" }}>{label}</span>
     </label>
   );
 }
@@ -426,22 +507,27 @@ interface ReadinessMeterProps {
 }
 
 function ReadinessMeter({ value }: ReadinessMeterProps): JSX.Element {
-  const color = value < 40 ? "#ef4444" : value < 80 ? "#facc15" : "#10b981";
+  const color = value < 40 ? "#ef4444" : value < 80 ? "#f59e0b" : "#10b981";
+  const statusText = value < 40 ? "Not Ready" : value < 80 ? "In Progress" : "Ready";
+  const statusEmoji = value < 40 ? "🔴" : value < 80 ? "🟡" : "🟢";
+  
   return (
     <div style={{ textAlign: "left", fontSize: 14 }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
-        <b style={{ fontSize: 15, color: "#1f2937" }}>Readiness</b>
-        <span style={{ fontSize: 18, fontWeight: "bold", color: color }}>{value}%</span>
+      <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", marginBottom: 12 }}>
+        <span style={{ fontSize: 18, fontWeight: "700", color: color }}>{value}%</span>
       </div>
-      <div style={{ background: "#e5e7eb", height: 12, borderRadius: 6, overflow: "hidden", boxShadow: "inset 0 1px 2px rgba(0,0,0,0.05)" }}>
+      <div style={{ background: "#e5e7eb", height: 8, borderRadius: 4, overflow: "hidden" }}>
         <div style={{ 
           width: value + "%", 
-          height: 12, 
-          background: `linear-gradient(90deg, ${color}, ${color})`,
-          borderRadius: 6,
-          transition: "width 0.4s ease",
-          boxShadow: `0 2px 4px ${color}40`
+          height: 8, 
+          background: `linear-gradient(90deg, ${color}88, ${color})`,
+          borderRadius: 4,
+          transition: "width 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
         }}/>
+      </div>
+      <div style={{ marginTop: 12, padding: "10px 12px", background: color + "15", borderLeft: `3px solid ${color}`, borderRadius: 4, display: "flex", alignItems: "center", gap: 8 }}>
+        <span style={{ fontSize: 16 }}>{statusEmoji}</span>
+        <span style={{ color: color, fontWeight: 600 }}>{statusText}</span>
       </div>
     </div>
   );
@@ -472,21 +558,23 @@ function PieChart({ data }: PieChartProps): JSX.Element {
     
     return (
       <g key={item.label}>
-        <path d={pathData} fill={item.color} stroke="#fff" strokeWidth="2"/>
+        <path d={pathData} fill={item.color} stroke="#fff" strokeWidth="2" opacity="0.9"/>
       </g>
     );
   });
   
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 20, justifyContent: "center" }}>
-      <svg width="120" height="120" viewBox="0 0 100 100">
+    <div style={{ display: "flex", alignItems: "center", gap: 24, justifyContent: "center" }}>
+      <svg width="140" height="140" viewBox="0 0 100 100">
         {slices}
       </svg>
-      <div style={{ display: "flex", flexDirection: "column", gap: 4, fontSize: 10 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 8, fontSize: 13 }}>
         {data.map(item => (
-          <div key={item.label} style={{ display: "flex", alignItems: "center", gap: 6 }}>
-            <div style={{ width: 8, height: 8, background: item.color, borderRadius: 1 }}/>
-            <span>{item.label}: {item.value}</span>
+          <div key={item.label} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <div style={{ width: 12, height: 12, background: item.color, borderRadius: 3 }}/>
+            <span style={{ color: "#475569" }}>
+              <strong style={{ color: "#1f2937" }}>{item.label}:</strong> {item.value}
+            </span>
           </div>
         ))}
       </div>
@@ -506,63 +594,80 @@ export default function App(): JSX.Element {
   );
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh", background: "linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%)" }}>
+    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh", background: "#f9fafb" }}>
       {/* ENHANCED HEADER */}
-      <div style={{ background: "linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%)", padding: "40px 32px", boxShadow: "0 8px 24px rgba(37, 99, 235, 0.2)", textAlign: "center", position: "relative", overflow: "hidden" }}>
-        <div style={{ position: "absolute", top: 0, right: 0, opacity: 0.1, fontSize: 200, lineHeight: 1 }}>📋</div>
-        <h1 style={{ color: "#fff", margin: 0, fontSize: 40, fontWeight: "900", letterSpacing: "-1px" }}>Patient Medical Information Intake Portal</h1>
+      <div style={{ background: "linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #2563eb 100%)", padding: "48px 40px", boxShadow: "0 10px 40px rgba(37, 99, 235, 0.15)", textAlign: "center", position: "relative", overflow: "hidden" }}>
+        <h1 style={{ color: "#fff", margin: 0, fontSize: 42, fontWeight: "900", letterSpacing: "-0.015em", textShadow: "0 2px 4px rgba(0,0,0,0.1)" }}>Family Medicine Intake Portal</h1>
+        <p style={{ color: "rgba(255,255,255,0.9)", marginTop: 12, fontSize: 15, fontWeight: 500, letterSpacing: "0.01em" }}>Strreamlined intake Portal and ROI Coordination</p>
       </div>
 
       <div style={{ display: "flex", flex: 1 }}>
         {/* SIDEBAR */}
-        <div style={{ width: 200, background: "#fff", borderRight: "1px solid #e2e8f0", padding: "16px", boxShadow: "1px 0 3px rgba(0,0,0,0.04)" }}>
-          {(["dashboard", "upcoming", "completed"] as const).map(tabView => (
-            <div 
-              key={tabView}
-              style={{
-                padding: "12px 16px", 
-                cursor: "pointer",
-                background: view === tabView ? "linear-gradient(135deg, #2563eb 0%, #1e40af 100%)" : "transparent",
-                color: view === tabView ? "#fff" : "#64748b",
-                fontWeight: view === tabView ? 600 : 500,
-                fontSize: 14,
-                borderRadius: "8px",
-                transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-                display: "flex",
-                alignItems: "center",
-                gap: 8,
-                marginBottom: "8px"
-              }}
-              onClick={() => {
-                setView(tabView);
-                setSelectedPatient(null);
-                setShowROI(false);
-                setNurseFilter("");
-              }}
-              onMouseEnter={(e) => {
-                const el = e.currentTarget as HTMLDivElement;
-                if (view !== tabView) {
-                  el.style.background = "#f1f5f9";
-                  el.style.color = "#334155";
-                }
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget as HTMLDivElement;
-                if (view !== tabView) {
-                  el.style.background = "transparent";
-                  el.style.color = "#64748b";
-                }
-              }}
-            >
-              {tabView === "dashboard" && "📊 Dashboard"}
-              {tabView === "upcoming" && "📋 Upcoming"}
-              {tabView === "completed" && "✅ Completed"}
-            </div>
-          ))}
+        <div style={{ width: 280, background: "linear-gradient(180deg, #f0f1f3 0%, #e5e7eb 100%)", borderRight: "2px solid #d1d5db", padding: "32px 0", boxShadow: "2px 0 8px rgba(0,0,0,0.04)", display: "flex", flexDirection: "column", gap: "8px" }}>
+          {(["dashboard", "upcoming", "completed"] as const).map(tabView => {
+            const labels = {
+              dashboard: "Dashboard",
+              upcoming: "Upcoming",
+              completed: "Completed"
+            };
+            return (
+              <div 
+                key={tabView}
+                style={{
+                  padding: "16px 20px", 
+                  cursor: "pointer",
+                  background: view === tabView ? "linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)" : "transparent",
+                  color: view === tabView ? "#1e40af" : "#4b5563",
+                  fontWeight: view === tabView ? "700" : "500",
+                  fontSize: 16,
+                  borderRadius: "8px",
+                  transition: "all 0.3s ease-in-out",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 12,
+                  marginBottom: "0",
+                  marginLeft: "12px",
+                  marginRight: "12px",
+                  borderLeft: view === tabView ? "4px solid #2563eb" : "4px solid transparent",
+                  letterSpacing: "0.3px",
+                  boxShadow: view === tabView ? "0 4px 12px rgba(37, 99, 235, 0.12)" : "none",
+                  textTransform: "uppercase",
+                  position: "relative",
+                  overflow: "hidden"
+                }}
+                onClick={() => {
+                  setView(tabView);
+                  setSelectedPatient(null);
+                  setShowROI(false);
+                  setNurseFilter("");
+                }}
+                onMouseEnter={(e) => {
+                  const el = e.currentTarget as HTMLDivElement;
+                  if (view !== tabView) {
+                    el.style.background = "#f3f4f6";
+                    el.style.color = "#1f2937";
+                    el.style.transform = "translateX(4px)";
+                    el.style.boxShadow = "0 2px 8px rgba(0,0,0,0.08)";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  const el = e.currentTarget as HTMLDivElement;
+                  if (view !== tabView) {
+                    el.style.background = "transparent";
+                    el.style.color = "#4b5563";
+                    el.style.transform = "translateX(0)";
+                    el.style.boxShadow = "none";
+                  }
+                }}
+              >
+                <span>{labels[tabView]}</span>
+              </div>
+            );
+          })}
         </div>
 
         {/* MAIN CONTENT */}
-        <div style={{ flex: 1, padding: 32, maxWidth: "1600px", margin: "0 auto", width: "100%" }}>
+        <div style={{ flex: 1, padding: "40px", maxWidth: "1800px", margin: "0 auto", width: "100%", overflowY: "auto" }}>
           {!selectedPatient ? (
             view === "dashboard" ? (
               <DashboardPage patients={patients} onNavigateToUpcoming={(nurseName) => {
@@ -668,76 +773,90 @@ function QueuePage({ patients, onSelect, initialNurseFilter = "" }: QueuePagePro
     }
   };
 
-  const filterStyles = {
-    container: { display: "flex", gap: 12, marginBottom: 24, flexWrap: "wrap" as const, alignItems: "center" },
-    input: { padding: "8px 12px", borderRadius: 6, border: "1px solid #e2e8f0", fontSize: 13, minWidth: 180 },
-    select: { padding: "8px 12px", borderRadius: 6, border: "1px solid #e2e8f0", fontSize: 13, minWidth: 150, background: "#fff" },
-    label: { fontSize: 13, fontWeight: 600, color: "#64748b" }
-  };
-
   return (
-    <div>
-      <h2 style={{ color: "#1f2937", textAlign: "left", marginBottom: 24, fontSize: 28, fontWeight: 700, letterSpacing: "-0.5px" }}>
-        {header}
-      </h2>
+    <div style={{ display: "flex", flexDirection: "column", gap: 0, minHeight: "100vh" }}>
+      {/* PAGE HEADER */}
+      <div style={{ background: "linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)", padding: "40px 40px", marginBottom: "0", borderBottom: "2px solid #bfdbfe", position: "relative", overflow: "hidden" }}>
+        <div>
+          <h2 style={{ color: "#0f172a", textAlign: "left", marginBottom: 6, fontSize: 44, fontWeight: 950, letterSpacing: "-0.025em", position: "relative", zIndex: 1, lineHeight: 1.1 }}>
+            {header}
+          </h2>
+          <p style={{ color: "#64748b", fontSize: 16, margin: 0, fontWeight: 500, position: "relative", zIndex: 1, lineHeight: 1.5 }}>
+            {header === "Completed Visits" ? "Review and analyze past patient visits" : "Review upcoming visits and manage schedules"}
+          </p>
+        </div>
+      </div>
+
+      {/* CONTENT AREA */}
+      <div style={{ flex: 1, padding: "40px", overflowY: "auto" }}>
+        <div style={{ marginBottom: 32, display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+          <div style={{ flex: 1 }}>
+            <div style={{ background: "#f0f9ff", padding: "12px 20px", borderRadius: 8, fontSize: 14, color: "#1e40af", fontWeight: 600, display: "inline-block", border: "1px solid #bfdbfe" }}>
+              Total Records: <strong style={{ color: "#1e40af", fontSize: 16 }}>{filteredPatients.length}</strong> of <strong style={{ color: "#1e40af", fontSize: 16 }}>{patients.length}</strong>
+            </div>
+          </div>
+        </div>
 
       {/* Filter Controls */}
-      <div style={filterStyles.container}>
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <label style={filterStyles.label}>Search:</label>
-          <input
-            type="text"
-            placeholder="Name, MRN, or Nurse..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            style={filterStyles.input}
-          />
-        </div>
+      <div style={{ background: "linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%)", borderRadius: 14, padding: 24, marginBottom: 32, border: "2px solid #bfdbfe", boxShadow: "0 2px 8px rgba(59, 130, 246, 0.05)" }}>
+        <h3 style={{ color: "#1f2937", fontSize: 13, fontWeight: 800, marginBottom: 20, marginTop: 0, letterSpacing: "0.8px", textTransform: "uppercase", lineHeight: 1.4 }}>Filter Records</h3>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 18, marginBottom: 16 }}>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <label style={{ fontSize: 11, fontWeight: 800, color: "#334155", marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.8px", lineHeight: 1.3 }}>Search</label>
+            <input
+              type="text"
+              placeholder="Name, MRN, or Nurse..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              style={{ ...input, marginTop: 0, borderRadius: 8, fontSize: 14 }}
+            />
+          </div>
 
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <label style={filterStyles.label}>Stage:</label>
-          <select value={stageFilter} onChange={(e) => setStageFilter(e.target.value)} style={filterStyles.select}>
-            <option value="">All Stages</option>
-            {uniqueStages.map(stage => (
-              <option key={stage} value={stage}>{stage}</option>
-            ))}
-          </select>
-        </div>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <label style={{ fontSize: 11, fontWeight: 800, color: "#334155", marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.8px", lineHeight: 1.3 }}>Stage</label>
+            <select value={stageFilter} onChange={(e) => setStageFilter(e.target.value)} style={{ ...input, marginTop: 0, background: "#fff", borderRadius: 8, fontSize: 14 }}>
+              <option value="">All Stages</option>
+              {uniqueStages.map(stage => (
+                <option key={stage} value={stage}>{stage}</option>
+              ))}
+            </select>
+          </div>
 
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <label style={filterStyles.label}>Status:</label>
-          <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} style={filterStyles.select}>
-            <option value="">All Statuses</option>
-            {uniqueStatuses.map(status => (
-              <option key={status} value={status}>{status}</option>
-            ))}
-          </select>
-        </div>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <label style={{ fontSize: 11, fontWeight: 800, color: "#334155", marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.8px", lineHeight: 1.3 }}>Status</label>
+            <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} style={{ ...input, marginTop: 0, background: "#fff", borderRadius: 8, fontSize: 14 }}>
+              <option value="">All Statuses</option>
+              {uniqueStatuses.map(status => (
+                <option key={status} value={status}>{status}</option>
+              ))}
+            </select>
+          </div>
 
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <label style={filterStyles.label}>Provider:</label>
-          <select value={providerFilter} onChange={(e) => setProviderFilter(e.target.value)} style={filterStyles.select}>
-            <option value="">All Providers</option>
-            {uniqueProviders.map(provider => (
-              <option key={provider} value={provider}>{provider}</option>
-            ))}
-          </select>
-        </div>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <label style={{ fontSize: 11, fontWeight: 800, color: "#334155", marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.8px", lineHeight: 1.3 }}>Provider</label>
+            <select value={providerFilter} onChange={(e) => setProviderFilter(e.target.value)} style={{ ...input, marginTop: 0, background: "#fff", borderRadius: 8, fontSize: 14 }}>
+              <option value="">All Providers</option>
+              {uniqueProviders.map(provider => (
+                <option key={provider} value={provider}>{provider}</option>
+              ))}
+            </select>
+          </div>
 
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <label style={filterStyles.label}>Nurse:</label>
-          <select value={nurseFilterLocal} onChange={(e) => setNurseFilterLocal(e.target.value)} style={filterStyles.select}>
-            <option value="">All Nurses</option>
-            {uniqueNurses.map(nurse => (
-              <option key={nurse} value={nurse}>{nurse}</option>
-            ))}
-          </select>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <label style={{ fontSize: 11, fontWeight: 800, color: "#334155", marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.8px", lineHeight: 1.3 }}>Nurse</label>
+            <select value={nurseFilterLocal} onChange={(e) => setNurseFilterLocal(e.target.value)} style={{ ...input, marginTop: 0, background: "#fff", borderRadius: 8, fontSize: 14 }}>
+              <option value="">All Nurses</option>
+              {uniqueNurses.map(nurse => (
+                <option key={nurse} value={nurse}>{nurse}</option>
+              ))}
+            </select>
+          </div>
         </div>
 
         {(searchTerm || stageFilter || statusFilter || providerFilter || nurseFilterLocal) && (
-          <div style={{ display: "flex", alignItems: "center", gap: 12, marginLeft: "auto" }}>
-            <div style={{ fontSize: 12, color: "#64748b" }}>
-              Showing {filteredPatients.length} of {patients.length} records
+          <div style={{ display: "flex", alignItems: "center", gap: 16, padding: "16px", background: "#f0f9ff", borderRadius: 10, border: "1px solid #bfdbfe" }}>
+            <div style={{ fontSize: 14, color: "#1e40af", flex: 1, fontWeight: 600 }}>
+              📊 Showing <strong>{filteredPatients.length}</strong> of <strong>{patients.length}</strong> records
             </div>
             <button
               onClick={() => {
@@ -748,23 +867,24 @@ function QueuePage({ patients, onSelect, initialNurseFilter = "" }: QueuePagePro
                 setNurseFilterLocal("");
               }}
               style={{
-                padding: "6px 16px",
-                background: "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
+                padding: "10px 18px",
+                background: "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)",
                 color: "#fff",
                 border: "none",
-                borderRadius: 6,
-                fontSize: 12,
+                borderRadius: 8,
+                fontSize: 14,
                 fontWeight: 600,
                 cursor: "pointer",
-                transition: "all 0.2s ease"
+                transition: "all 0.3s ease",
+                boxShadow: "0 2px 8px rgba(59, 130, 246, 0.2)"
               }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.background = "linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)";
                 (e.currentTarget as HTMLButtonElement).style.transform = "translateY(-2px)";
+                (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 6px 16px rgba(59, 130, 246, 0.35)";
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.background = "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)";
                 (e.currentTarget as HTMLButtonElement).style.transform = "translateY(0)";
+                (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 2px 8px rgba(59, 130, 246, 0.2)";
               }}
             >
               ✕ Clear Filters
@@ -773,71 +893,90 @@ function QueuePage({ patients, onSelect, initialNurseFilter = "" }: QueuePagePro
         )}
       </div>
 
-      <table style={{ width: "100%", borderCollapse: "collapse", background: "#fff", textAlign: "left", borderRadius: 12, overflow: "hidden", boxShadow: "0 2px 8px rgba(0,0,0,0.04)" }}>
-        <thead style={{ background: "linear-gradient(90deg, #f8fafc 0%, #f1f5f9 100%)", borderBottom: "2px solid #e2e8f0" }}>
-          <tr>
-            {["MRN", "Patient", "Date", "Provider", "Nurse", "Stage", "Status", "Readiness"].map(h => (
-              <th key={h} style={th}>{h}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {filteredPatients.map((p, idx) => (
-            <tr 
-              key={p.id} 
-              onClick={() => onSelect(p)} 
-              style={{
-                cursor: "pointer",
-                background: idx % 2 === 0 ? "#fff" : "#f9fafb",
-                transition: "background 0.2s"
-              }}
-              onMouseEnter={(e) => (e.currentTarget as HTMLTableRowElement).style.background = "#eff6ff"}
-              onMouseLeave={(e) => (e.currentTarget as HTMLTableRowElement).style.background = idx % 2 === 0 ? "#fff" : "#f9fafb"}
-            >
-              <td style={td}><span style={{ background: "#f0f0f0", padding: "4px 8px", borderRadius: "4px", fontFamily: "monospace", fontWeight: 600, fontSize: 12 }}>{p.mrn}</span></td>
-              <td style={td}>{p.name}</td>
-              <td style={td}>{p.date}</td>
-              <td style={td}>{p.provider}</td>
-              <td style={td}>{p.nurse}</td>
-              <td style={td}>
-                <span style={{ 
-                  padding: "3px 8px", 
-                  borderRadius: "3px", 
-                  background: getStageColor(p.stage).bg,
-                  color: getStageColor(p.stage).text,
-                  fontWeight: "bold",
-                  fontSize: 12
-                }}>
-                  {p.stage}
-                </span>
-              </td>
-              <td style={td}>
-                <span style={{ 
-                  padding: "3px 8px", 
-                  borderRadius: "3px", 
-                  background: getStatusColor(p.status).bg,
-                  color: getStatusColor(p.status).text,
-                  fontWeight: "bold",
-                  fontSize: 12
-                }}>
-                  {p.status}
-                </span>
-              </td>
-              <td style={{ ...td, padding: 8 }}>
-                <div style={{ background: "#ddd", height: 6, borderRadius: 2 }}>
-                  <div style={{ 
-                    width: p.readiness + "%", 
-                    height: 6, 
-                    background: p.readiness < 40 ? "#ef4444" : p.readiness < 80 ? "#facc15" : "#16a34a", 
-                    borderRadius: 2 
-                  }}/>
-                </div>
-                <div style={{ fontSize: 11, marginTop: 2, textAlign: "center" }}>{p.readiness}%</div>
-              </td>
+      <div style={{ background: "#fff", borderRadius: 14, border: "2px solid #bfdbfe", boxShadow: "0 4px 16px rgba(59, 130, 246, 0.06)", overflow: "hidden" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse" }}>
+          <thead style={{ background: "linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)", borderBottom: "2px solid #bfdbfe" }}>
+            <tr>
+              {["MRN", "Patient", "Date", "Provider", "Nurse", "Stage", "Status", "Readiness"].map(h => (
+                <th key={h} style={{...th, fontWeight: 850, color: "#1e293b", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.9px", paddingTop: 16, paddingBottom: 16, lineHeight: 1.2 }}>{h}</th>
+              ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {filteredPatients.map((p, idx) => (
+              <tr 
+                key={p.id} 
+                onClick={() => onSelect(p)} 
+                style={{
+                  cursor: "pointer",
+                  background: idx % 2 === 0 ? "#fff" : "#f9fafb",
+                  transition: "all 0.2s ease",
+                  borderBottom: "1px solid #f0f0f0"
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLTableRowElement).style.background = "#f0f9ff";
+                  (e.currentTarget as HTMLTableRowElement).style.boxShadow = "inset 0 0 0 1px #bfdbfe";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLTableRowElement).style.background = idx % 2 === 0 ? "#fff" : "#f9fafb";
+                  (e.currentTarget as HTMLTableRowElement).style.boxShadow = "none";
+                }}
+              >
+                <td style={{...td, paddingTop: 14, paddingBottom: 14}}><code style={{ background: "#f3f4f6", padding: "6px 10px", borderRadius: "6px", fontFamily: "monospace", fontWeight: 600, fontSize: 13, color: "#1f2937" }}>{p.mrn}</code></td>
+                <td style={{...td, paddingTop: 14, paddingBottom: 14}}><strong style={{ color: "#0f172a", fontSize: 14, fontWeight: 750, letterSpacing: "-0.3px" }}>{p.name}</strong></td>
+                <td style={{...td, paddingTop: 14, paddingBottom: 14, fontSize: 13, fontWeight: 600, color: "#334155"}}>{p.date}</td>
+                <td style={{...td, paddingTop: 14, paddingBottom: 14, fontSize: 13, fontWeight: 600, color: "#334155"}}>{p.provider}</td>
+                <td style={{...td, paddingTop: 14, paddingBottom: 14, fontSize: 13, fontWeight: 600, color: "#334155"}}>{p.nurse}</td>
+                <td style={{...td, paddingTop: 14, paddingBottom: 14}}>
+                  <span style={{ 
+                    padding: "7px 14px", 
+                    borderRadius: "8px", 
+                    background: getStageColor(p.stage).bg,
+                    color: getStageColor(p.stage).text,
+                    fontWeight: "800",
+                    fontSize: 11,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.85px",
+                    lineHeight: 1.2
+                  }}>
+                    {p.stage}
+                  </span>
+                </td>
+                <td style={{...td, paddingTop: 14, paddingBottom: 14}}>
+                  <span style={{ 
+                    padding: "7px 14px", 
+                    borderRadius: "8px", 
+                    background: getStatusColor(p.status).bg,
+                    color: getStatusColor(p.status).text,
+                    fontWeight: "800",
+                    fontSize: 11,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.85px",
+                    lineHeight: 1.2
+                  }}>
+                    {p.status}
+                  </span>
+                </td>
+                <td style={{ ...td, padding: 14 }}>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                    <div style={{ background: "#e5e7eb", height: 7, borderRadius: 4, overflow: "hidden" }}>
+                      <div style={{ 
+                        width: p.readiness + "%", 
+                        height: 7, 
+                        background: p.readiness < 40 ? "#ef4444" : p.readiness < 80 ? "#f59e0b" : "#10b981", 
+                        borderRadius: 4,
+                        transition: "width 0.3s ease"
+                      }}/>
+                    </div>
+                    <div style={{ fontSize: 11, textAlign: "center", color: "#475569", fontWeight: 750, letterSpacing: "0.4px" }}>{p.readiness}%</div>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
     </div>
   );
 }
@@ -852,196 +991,463 @@ interface PatientRecordProps {
 function PatientRecord({ patient, onBack, onCreateROI }: PatientRecordProps): JSX.Element {
   const d = patientDetails[patient.id] || defaultDetails;
   const currentStageIndex = stages.indexOf(patient.stage);
-  
   const progressPercentage = stages.length === 1 ? 100 : (currentStageIndex / (stages.length - 1)) * 100;
+  const [activeTab, setActiveTab] = useState<"intake" | "roi" | "chart">("intake");
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
       <button style={backBtn} onClick={onBack}>← Back</button>
-      <div style={card}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr", gap: 16, marginBottom: 20 }}>
+
+      {/* MAIN LAYOUT WITH SIDEBAR */}
+      <div style={{ display: "flex", gap: 20, alignItems: "stretch" }}>
+        
+        {/* LEFT SIDEBAR - PATIENT INFO */}
+        <div style={{
+          background: "linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%)",
+          color: "#fff",
+          borderRadius: 12,
+          padding: 16,
+          boxShadow: "0 4px 12px rgba(37, 99, 235, 0.2)",
+          display: "flex",
+          flexDirection: "column",
+          gap: 12,
+          minWidth: 280,
+          maxWidth: 280,
+          alignSelf: "stretch",
+          wordWrap: "break-word",
+          overflowWrap: "break-word"
+        }}>
           <div>
-            <div style={{ fontSize: 12, color: "#666" }}>MRN</div>
-            <div style={{ fontSize: 14, fontWeight: "bold" }}>{patient.mrn}</div>
+            <div style={{ fontSize: 11, opacity: 0.85, marginBottom: 6, textTransform: "uppercase", letterSpacing: 0.7, fontWeight: "700" }}>Patient Name</div>
+            <div style={{ fontSize: 22, fontWeight: "700", lineHeight: 1.2 }}>{patient.name}</div>
           </div>
-          <div>
-            <div style={{ fontSize: 12, color: "#666" }}>Patient Name</div>
-            <div style={{ fontSize: 14, fontWeight: "bold" }}>{patient.name}</div>
+          <div style={{ borderTop: "1px solid rgba(255,255,255,0.2)", paddingTop: 16 }}>
+            <div style={{ fontSize: 11, opacity: 0.85, marginBottom: 6, textTransform: "uppercase", letterSpacing: 0.7, fontWeight: "700" }}>MRN</div>
+            <div style={{ fontSize: 16, fontWeight: "600", fontFamily: "monospace" }}>{patient.mrn}</div>
           </div>
-          <div>
-            <div style={{ fontSize: 12, color: "#666" }}>Provider Name</div>
-            <div style={{ fontSize: 14, fontWeight: "bold" }}>{patient.provider}</div>
+          <div style={{ borderTop: "1px solid rgba(255,255,255,0.2)", paddingTop: 16 }}>
+            <div style={{ fontSize: 11, opacity: 0.85, marginBottom: 6, textTransform: "uppercase", letterSpacing: 0.7, fontWeight: "700" }}>Visit Date</div>
+            <div style={{ fontSize: 14, fontWeight: "600" }}>{patient.date}</div>
           </div>
-          <div>
-            <div style={{ fontSize: 12, color: "#666" }}>Nurse</div>
-            <div style={{ fontSize: 14, fontWeight: "bold" }}>{patient.nurse}</div>
+          <div style={{ borderTop: "1px solid rgba(255,255,255,0.2)", paddingTop: 16 }}>
+            <div style={{ fontSize: 11, opacity: 0.85, marginBottom: 6, textTransform: "uppercase", letterSpacing: 0.7, fontWeight: "700" }}>Provider</div>
+            <div style={{ fontSize: 14, fontWeight: "600" }}>{patient.provider}</div>
           </div>
-          <div>
-            <div style={{ fontSize: 12, color: "#666" }}>Visit Date</div>
-            <div style={{ fontSize: 14, fontWeight: "bold" }}>{patient.date}</div>
+          <div style={{ borderTop: "1px solid rgba(255,255,255,0.2)", paddingTop: 16 }}>
+            <div style={{ fontSize: 11, opacity: 0.85, marginBottom: 6, textTransform: "uppercase", letterSpacing: 0.7, fontWeight: "700" }}>Nurse</div>
+            <div style={{ fontSize: 14, fontWeight: "600" }}>{patient.nurse}</div>
+          </div>
+          <div style={{ background: "linear-gradient(135deg, #fcd34d 0%, #f97316 100%)", border: "none", borderRadius: 8, padding: "12px 14px", marginTop: 8, boxShadow: "0 4px 12px rgba(217, 119, 6, 0.3)" }}>
+            <div style={{ fontSize: 11, opacity: 1, marginBottom: 6, textTransform: "uppercase", letterSpacing: 0.7, fontWeight: "700", color: "#fff" }}>⭐ Intake Summary</div>
+            <div style={{ fontSize: 14, fontWeight: "600", lineHeight: 1.4, wordWrap: "break-word", overflowWrap: "break-word", hyphens: "auto", color: "#fff" }}>• {d.nurseSummary}</div>
           </div>
         </div>
 
-        {/* STAGES AND READINESS CARDS */}
-        <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: 20 }}>
-          {/* STAGES CARD */}
-          <SectionCard title="Stages">
-            <div style={{ position: "relative", paddingTop: 24, paddingBottom: 24 }}>
-              {/* Background line */}
-              <div style={{
-                position: "absolute",
-                top: "50%",
-                left: "2%",
-                right: "2%",
-                height: 5,
-                background: "#e5e7eb",
-                borderRadius: 3,
-                transform: "translateY(-50%)",
-                zIndex: 0
-              }}/>
-              
-              {/* Progress line */}
-              <div style={{
-                position: "absolute",
-                top: "50%",
-                left: "2%",
-                width: `${2 + (progressPercentage / 100) * 96}%`,
-                height: 5,
-                background: colors[Math.min(currentStageIndex, colors.length - 1)],
-                borderRadius: 3,
-                transform: "translateY(-50%)",
-                zIndex: 1,
-                transition: "width 0.3s ease"
-              }}/>
+        {/* RIGHT CONTENT AREA */}
+        <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 0 }}>
+          
+          {/* TAB NAVIGATION */}
+          <div style={{
+            display: "flex",
+            gap: 12,
+            marginBottom: 28,
+            padding: "8px",
+            background: "linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)",
+            borderRadius: 14,
+            border: "1px solid #e2e8f0",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.04)"
+          }}>
+            <button
+              onClick={() => setActiveTab("intake")}
+              style={{
+                background: activeTab === "intake" 
+                  ? "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)" 
+                  : "transparent",
+                border: activeTab === "intake" ? "none" : "1px solid transparent",
+                padding: "12px 24px",
+                fontSize: 14,
+                fontWeight: activeTab === "intake" ? "700" : "600",
+                color: activeTab === "intake" ? "#fff" : "#64748b",
+                cursor: "pointer",
+                transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                flex: 1,
+                textAlign: "center",
+                borderRadius: 10,
+                boxShadow: activeTab === "intake" ? "0 4px 12px rgba(59, 130, 246, 0.28)" : "none",
+                transform: activeTab === "intake" ? "translateY(-1px)" : "translateY(0)",
+                outline: "none"
+              }}
+              onMouseEnter={(e) => {
+                if (activeTab !== "intake") {
+                  (e.currentTarget as HTMLButtonElement).style.background = "rgba(99, 102, 241, 0.08)";
+                  (e.currentTarget as HTMLButtonElement).style.color = "#1e293b";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (activeTab !== "intake") {
+                  (e.currentTarget as HTMLButtonElement).style.background = "transparent";
+                  (e.currentTarget as HTMLButtonElement).style.color = "#64748b";
+                }
+              }}
+            >
+              Intake
+            </button>
+            <button
+              onClick={() => setActiveTab("chart")}
+              style={{
+                background: activeTab === "chart" 
+                  ? "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)" 
+                  : "transparent",
+                border: activeTab === "chart" ? "none" : "1px solid transparent",
+                padding: "12px 24px",
+                fontSize: 14,
+                fontWeight: activeTab === "chart" ? "700" : "600",
+                color: activeTab === "chart" ? "#fff" : "#64748b",
+                cursor: "pointer",
+                transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                flex: 1,
+                textAlign: "center",
+                borderRadius: 10,
+                boxShadow: activeTab === "chart" ? "0 4px 12px rgba(59, 130, 246, 0.28)" : "none",
+                transform: activeTab === "chart" ? "translateY(-1px)" : "translateY(0)",
+                outline: "none"
+              }}
+              onMouseEnter={(e) => {
+                if (activeTab !== "chart") {
+                  (e.currentTarget as HTMLButtonElement).style.background = "rgba(99, 102, 241, 0.08)";
+                  (e.currentTarget as HTMLButtonElement).style.color = "#1e293b";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (activeTab !== "chart") {
+                  (e.currentTarget as HTMLButtonElement).style.background = "transparent";
+                  (e.currentTarget as HTMLButtonElement).style.color = "#64748b";
+                }
+              }}
+            >
+              Patient Chart
+            </button>
+            <button
+              onClick={() => setActiveTab("roi")}
+              style={{
+                background: activeTab === "roi" 
+                  ? "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)" 
+                  : "transparent",
+                border: activeTab === "roi" ? "none" : "1px solid transparent",
+                padding: "12px 24px",
+                fontSize: 14,
+                fontWeight: activeTab === "roi" ? "700" : "600",
+                color: activeTab === "roi" ? "#fff" : "#64748b",
+                cursor: "pointer",
+                transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                flex: 1,
+                textAlign: "center",
+                borderRadius: 10,
+                boxShadow: activeTab === "roi" ? "0 4px 12px rgba(59, 130, 246, 0.28)" : "none",
+                transform: activeTab === "roi" ? "translateY(-1px)" : "translateY(0)",
+                outline: "none"
+              }}
+              onMouseEnter={(e) => {
+                if (activeTab !== "roi") {
+                  (e.currentTarget as HTMLButtonElement).style.background = "rgba(99, 102, 241, 0.08)";
+                  (e.currentTarget as HTMLButtonElement).style.color = "#1e293b";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (activeTab !== "roi") {
+                  (e.currentTarget as HTMLButtonElement).style.background = "transparent";
+                  (e.currentTarget as HTMLButtonElement).style.color = "#64748b";
+                }
+              }}
+            >
+              Release of Information
+            </button>
+          </div>
 
-              {/* Stage markers */}
-              <div style={{ display: "flex", justifyContent: "space-between", position: "relative", zIndex: 2 }}>
-                {stages.map((s, i) => (
-                  <div key={s} style={{ textAlign: "center", flex: 1 }}>
-                    <div style={{ 
-                      width: 40, 
-                      height: 40, 
-                      borderRadius: "50%", 
-                      background: colors[i], 
-                      color: "#fff", 
-                      display: "flex", 
-                      alignItems: "center", 
-                      justifyContent: "center", 
-                      fontWeight: "bold", 
-                      fontSize: 16, 
-                      border: "3px solid #fff", 
-                      boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
-                      margin: "0 auto"
-                    }}>
-                      {i + 1}
-                    </div>
-                    <div style={{ fontSize: 12, marginTop: 12, fontWeight: "500", color: "#374151" }}>{s}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
+          {/* TAB CONTENT */}
+          <div style={{ flex: 1, overflowY: "auto", display: "flex", flexDirection: "column", gap: 24 }}>
             
-            <div style={{ marginTop: 20, padding: "12px", background: "#f0f9ff", borderRadius: 6, fontSize: 13, color: "#1e40af", fontWeight: "500" }}>
-              Current Stage: <strong>{patient.stage}</strong>
-            </div>
-          </SectionCard>
+            {/* INTAKE SUMMARY TAB */}
+            {activeTab === "intake" && (
+              <>
+                <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: 24 }}>
+                  {/* STAGES CARD */}
+                  <SectionCard title="Intake Progress">
+                    <div style={{ position: "relative", paddingTop: 24, paddingBottom: 24 }}>
+                      {/* Background line */}
+                      <div style={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "2%",
+                        right: "2%",
+                        height: 5,
+                        background: "#e5e7eb",
+                        borderRadius: 3,
+                        transform: "translateY(-50%)",
+                        zIndex: 0
+                      }}/>
+                      
+                      {/* Progress line */}
+                      <div style={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "2%",
+                        width: `${2 + (progressPercentage / 100) * 96}%`,
+                        height: 5,
+                        background: colors[Math.min(currentStageIndex, colors.length - 1)],
+                        borderRadius: 3,
+                        transform: "translateY(-50%)",
+                        zIndex: 1,
+                        transition: "width 0.3s ease"
+                      }}/>
 
-          {/* READINESS CARD */}
-          <SectionCard title="Readiness">
-            <div style={{ paddingTop: 8 }}>
-              <ReadinessMeter value={patient.readiness} />
-              <div style={{ marginTop: 16, padding: "12px", background: patient.readiness < 40 ? "#fee2e2" : patient.readiness < 80 ? "#fef3c7" : "#dcfce7", borderRadius: 6, fontSize: 13, fontWeight: "500", color: patient.readiness < 40 ? "#991b1b" : patient.readiness < 80 ? "#92400e" : "#166534" }}>
-                {patient.readiness < 40 ? "🔴 Not Ready" : patient.readiness < 80 ? "🟡 In Progress" : "🟢 Ready"}
+                      {/* Stage markers */}
+                      <div style={{ display: "flex", justifyContent: "space-between", position: "relative", zIndex: 2 }}>
+                        {stages.map((s, i) => (
+                          <div key={s} style={{ textAlign: "center", flex: 1 }}>
+                            <div style={{ 
+                              width: 40, 
+                              height: 40, 
+                              borderRadius: "50%", 
+                              background: colors[i], 
+                              color: "#fff", 
+                              display: "flex", 
+                              alignItems: "center", 
+                              justifyContent: "center", 
+                              fontWeight: "bold", 
+                              fontSize: 16, 
+                              border: "3px solid #fff", 
+                              boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+                              margin: "0 auto"
+                            }}>
+                              {i + 1}
+                            </div>
+                            <div style={{ fontSize: 12, marginTop: 12, fontWeight: "500", color: "#374151" }}>{s}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    <div style={{ marginTop: 20, padding: "12px 16px", background: "#f0f9ff", borderRadius: 8, fontSize: 13, color: "#1e40af", fontWeight: "500", border: "1px solid #bfdbfe" }}>
+                      Current Stage: <strong>{patient.stage}</strong>
+                    </div>
+                  </SectionCard>
+
+                  {/* READINESS CARD */}
+                  <SectionCard title="Readiness">
+                    <div style={{ paddingTop: 8 }}>
+                      <ReadinessMeter value={patient.readiness} />
+                    </div>
+                  </SectionCard>
+                </div>
+
+                {/* CLINICAL INFORMATION SECTION */}
+                <div style={{
+                  borderTop: "1px solid #e5e7eb",
+                  paddingTop: 24
+                }}>
+                  <h2 style={{ fontSize: 18, fontWeight: "700", color: "#1f2937", marginTop: 0, marginBottom: 20 }}>Clinical Information</h2>
+                  
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 24, marginBottom: 24 }}>
+                    <Card title="Complaints">
+                      <p style={{ margin: 0, color: "#6b7280", fontSize: 14 }}>Patient presenting with various medical concerns. Please review patient summary for details.</p>
+                    </Card>
+                    <Card title="Recent Visits">
+                      {d.visits.length > 0 ? d.visits.map((v, i) => <div key={i}>• {v.type}</div>) : <div>No visits</div>}
+                    </Card>
+                    <Card title="Care Gaps">
+                      {d.careGaps.length > 0 ? d.careGaps.map((g, i) => <div key={i}>• {g}</div>) : <div>No gaps</div>}
+                    </Card>
+                  </div>
+
+                  {/* RECONCILIATION CARDS */}
+                  <h2 style={{ fontSize: 16, fontWeight: "700", color: "#1f2937", marginTop: 0, marginBottom: 16 }}>Reconciliation Status</h2>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16, marginBottom: 24 }}>
+                    <Card title="Allergies">
+                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                        <div>
+                          <div style={{ color: "#16a34a", fontWeight: "600", marginBottom: 6, fontSize: 13 }}>✓ Reconciled</div>
+                          {d.allergies.reconciled.length > 0 ? d.allergies.reconciled.map((a, i) => <div key={i} style={{ fontSize: 13, marginBottom: 4 }}>• {a}</div>) : <div style={{ fontSize: 13 }}>None</div>}
+                        </div>
+                        <div>
+                          <div style={{ color: "#dc2626", fontWeight: "600", marginBottom: 6, fontSize: 13 }}>✗ Pending</div>
+                          {d.allergies.unreconciled.length > 0 ? d.allergies.unreconciled.map((a, i) => <div key={i} style={{ fontSize: 13, marginBottom: 4 }}>• {a}</div>) : <div style={{ fontSize: 13 }}>None</div>}
+                        </div>
+                      </div>
+                    </Card>
+                    <Card title="Medications">
+                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                        <div>
+                          <div style={{ color: "#16a34a", fontWeight: "600", marginBottom: 6, fontSize: 13 }}>✓ Reconciled</div>
+                          {d.medications.reconciled.length > 0 ? d.medications.reconciled.map((m, i) => <div key={i} style={{ fontSize: 13, marginBottom: 4 }}>• {m}</div>) : <div style={{ fontSize: 13 }}>None</div>}
+                        </div>
+                        <div>
+                          <div style={{ color: "#dc2626", fontWeight: "600", marginBottom: 6, fontSize: 13 }}>✗ Pending</div>
+                          {d.medications.unreconciled.length > 0 ? d.medications.unreconciled.map((m, i) => <div key={i} style={{ fontSize: 13, marginBottom: 4 }}>• {m}</div>) : <div style={{ fontSize: 13 }}>None</div>}
+                        </div>
+                      </div>
+                    </Card>
+                    <Card title="Immunizations">
+                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                        <div>
+                          <div style={{ color: "#16a34a", fontWeight: "600", marginBottom: 6, fontSize: 13 }}>✓ Reconciled</div>
+                          {d.immunizations.reconciled.length > 0 ? d.immunizations.reconciled.map((im, i) => <div key={i} style={{ fontSize: 13, marginBottom: 4 }}>• {im}</div>) : <div style={{ fontSize: 13 }}>None</div>}
+                        </div>
+                        <div>
+                          <div style={{ color: "#dc2626", fontWeight: "600", marginBottom: 6, fontSize: 13 }}>✗ Pending</div>
+                          {d.immunizations.unreconciled.length > 0 ? d.immunizations.unreconciled.map((im, i) => <div key={i} style={{ fontSize: 13, marginBottom: 4 }}>• {im}</div>) : <div style={{ fontSize: 13 }}>None</div>}
+                        </div>
+                      </div>
+                    </Card>
+                  </div>
+
+                </div>
+              </>
+            )}
+
+            {/* ROI TAB */}
+            {activeTab === "roi" && (
+              <div style={{
+                borderTop: "1px solid #e5e7eb",
+                paddingTop: 24
+              }}>
+                <div style={{
+                  background: "#fff",
+                  borderRadius: 12,
+                  padding: 24,
+                  boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+                  border: "1px solid #e5e7eb"
+                }}>
+                  <h3 style={{ textAlign: "left", marginTop: 0, marginBottom: 16, fontSize: 16, fontWeight: "700", color: "#1f2937" }}>Release of Information (ROI) Requests</h3>
+                  <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
+                    <thead>
+                      <tr>
+                        {["ID", "Facility", "Requested Date", "Status"].map(h => (
+                          <th key={h} style={th}>{h}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {d.roi.map(r => (
+                        <tr key={r.id}>
+                          <td style={td}>{r.id}</td>
+                          <td style={td}>{r.facility}</td>
+                          <td style={td}>{r.requestedDate}</td>
+                          <td style={td}>{r.status}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  
+                  {patient.status !== "Completed" && (
+                    <button
+                      style={{
+                        ...primaryBtn,
+                        display: "inline-block",
+                        alignSelf: "flex-start",
+                        minWidth: 0,
+                        marginTop: 20,
+                        padding: "10px 16px",
+                        fontSize: 14
+                      }}
+                      onClick={onCreateROI}
+                    >
+                      + New ROI Request
+                    </button>
+                  )}
+                </div>
               </div>
-            </div>
-          </SectionCard>
+            )}
+
+            {/* PATIENT CHART TAB */}
+            {activeTab === "chart" && (
+              <div style={{
+                borderTop: "1px solid #e5e7eb",
+                paddingTop: 24
+              }}>
+                <div style={{
+                  background: "#fff",
+                  borderRadius: 12,
+                  padding: 24,
+                  boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+                  border: "1px solid #e5e7eb"
+                }}>
+                  <h3 style={{ textAlign: "left", marginTop: 0, marginBottom: 24, fontSize: 16, fontWeight: "700", color: "#1f2937" }}>Patient Chart</h3>
+                  
+                  {/* Row 1: Vital Signs, Current Medications, Allergies */}
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 20, marginBottom: 20 }}>
+                    <Card title="Vital Signs">
+                      <div style={{ color: "#6b7280", fontSize: 14 }}>
+                        <p style={{ margin: "0 0 8px 0" }}>• BP: 128/82 mmHg</p>
+                        <p style={{ margin: "0 0 8px 0" }}>• HR: 72 bpm</p>
+                        <p style={{ margin: "0 0 8px 0" }}>• Temp: 98.6°F</p>
+                        <p style={{ margin: 0 }}>• O2: 98% (RA)</p>
+                      </div>
+                    </Card>
+                    <Card title="Current Medications">
+                      <ul style={{ margin: 0, paddingLeft: 20, color: "#6b7280", fontSize: 14 }}>
+                        <li>Lisinopril - 10mg daily</li>
+                        <li>Metformin - 500mg twice daily</li>
+                        <li>Atorvastatin - 20mg daily</li>
+                      </ul>
+                    </Card>
+                    <Card title="Allergies">
+                      <div style={{ color: "#6b7280", fontSize: 14 }}>
+                        {d.allergies.reconciled.length > 0 || d.allergies.unreconciled.length > 0 ? (
+                          <>
+                            {d.allergies.reconciled.map((a, i) => <div key={i} style={{ marginBottom: 4 }}>• {a}</div>)}
+                            {d.allergies.unreconciled.map((a, i) => <div key={i} style={{ marginBottom: 4, opacity: 0.6 }}>• {a} (pending)</div>)}
+                          </>
+                        ) : (
+                          <div>No allergies</div>
+                        )}
+                      </div>
+                    </Card>
+                  </div>
+
+                  {/* Health Care Maintenance Section */}
+                  <h4 style={{ textAlign: "left", marginTop: 24, marginBottom: 16, fontSize: 14, fontWeight: "700", color: "#1f2937", letterSpacing: "0.2px" }}>Health Care Maintenance</h4>
+                  
+                  {/* Row 1: Immunizations, Physicals */}
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 20 }}>
+                    <Card title="Immunizations">
+                      <ul style={{ margin: 0, paddingLeft: 20, color: "#6b7280", fontSize: 14 }}>
+                        <li>COVID-19 (Moderna) - 01/15/2025</li>
+                        <li>Influenza (Quad) - 09/20/2024</li>
+                        <li>Tdap - 02/10/2020</li>
+                      </ul>
+                    </Card>
+                    <Card title="Physicals">
+                      <ul style={{ margin: 0, paddingLeft: 20, color: "#6b7280", fontSize: 14 }}>
+                        <li>Annual Physical - 03/15/2025 - Normal</li>
+                        <li>Follow-up Visit - 01/20/2025 - Normal</li>
+                        <li>Pre-op Exam - 11/10/2024 - Cleared</li>
+                      </ul>
+                    </Card>
+                  </div>
+
+                  {/* Row 2: Screening, Bloodwork/Labs */}
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+                    <Card title="Screening">
+                      <ul style={{ margin: 0, paddingLeft: 20, color: "#6b7280", fontSize: 14 }}>
+                        <li>Blood Pressure - Normal - 03/15/2025</li>
+                        <li>Cholesterol - Elevated - 01/20/2025</li>
+                        <li>Cancer Screening - Due</li>
+                      </ul>
+                    </Card>
+                    <Card title="Bloodwork/Labs">
+                      <ul style={{ margin: 0, paddingLeft: 20, color: "#6b7280", fontSize: 14 }}>
+                        <li>CBC - Normal - 03/10/2025</li>
+                        <li>CMP - Normal - 03/10/2025</li>
+                        <li>Lipid Panel - High chol - 01/20/2025</li>
+                      </ul>
+                    </Card>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
-
-        {/* OTHER CARDS */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginTop: 20 }}>
-          <Card title="Recent Visits">
-            {d.visits.length > 0 ? d.visits.map((v, i) => <div key={i}>• {v.type}</div>) : <div>No visits</div>}
-          </Card>
-          <Card title="Care Gaps">
-            {d.careGaps.length > 0 ? d.careGaps.map((g, i) => <div key={i}>• {g}</div>) : <div>No gaps</div>}
-          </Card>
-          <Card title="Allergies">
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-              <div>
-                <div style={{ color: "green", fontWeight: "bold", marginBottom: 4 }}>Reconciled:</div>
-                {d.allergies.reconciled.length > 0 ? d.allergies.reconciled.map((a, i) => <div key={i}>• {a}</div>) : <div>• None</div>}
-              </div>
-              <div>
-                <div style={{ color: "red", fontWeight: "bold", marginBottom: 4 }}>Unreconciled:</div>
-                {d.allergies.unreconciled.length > 0 ? d.allergies.unreconciled.map((a, i) => <div key={i}>• {a}</div>) : <div>• None</div>}
-              </div>
-            </div>
-          </Card>
-          <Card title="Medications">
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-              <div>
-                <div style={{ color: "green", fontWeight: "bold", marginBottom: 4 }}>Reconciled:</div>
-                {d.medications.reconciled.length > 0 ? d.medications.reconciled.map((m, i) => <div key={i}>• {m}</div>) : <div>• None</div>}
-              </div>
-              <div>
-                <div style={{ color: "red", fontWeight: "bold", marginBottom: 4 }}>Unreconciled:</div>
-                {d.medications.unreconciled.length > 0 ? d.medications.unreconciled.map((m, i) => <div key={i}>• {m}</div>) : <div>• None</div>}
-              </div>
-            </div>
-          </Card>
-          <Card title="Immunizations">
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-              <div>
-                <div style={{ color: "green", fontWeight: "bold", marginBottom: 4 }}>Reconciled:</div>
-                {d.immunizations.reconciled.length > 0 ? d.immunizations.reconciled.map((im, i) => <div key={i}>• {im}</div>) : <div>• None</div>}
-              </div>
-              <div>
-                <div style={{ color: "red", fontWeight: "bold", marginBottom: 4 }}>Unreconciled:</div>
-                {d.immunizations.unreconciled.length > 0 ? d.immunizations.unreconciled.map((im, i) => <div key={i}>• {im}</div>) : <div>• None</div>}
-              </div>
-            </div>
-          </Card>
-          <Card title="Nurse Summary">• {d.nurseSummary}</Card>
-        </div>
-
-        {/* ROI TABLE */}
-        <div style={{ ...card, marginTop: 20 }}>
-          <h3 style={{ textAlign: "left", marginTop: 0, marginBottom: 16, fontSize: 16, fontWeight: "700" }}>Requested ROI</h3>
-          <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
-            <thead>
-              <tr>
-                {["ID", "Facility", "Requested Date", "Status"].map(h => (
-                  <th key={h} style={th}>{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {d.roi.map(r => (
-                <tr key={r.id}>
-                  <td style={td}>{r.id}</td>
-                  <td style={td}>{r.facility}</td>
-                  <td style={td}>{r.requestedDate}</td>
-                  <td style={td}>{r.status}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        <button
-          style={{
-            ...primaryBtn,
-            display: "inline-block",
-            alignSelf: "flex-start",
-            minWidth: 0,
-            marginTop: 16,
-            padding: "8px 12px",
-            fontSize: 13
-          }}
-          onClick={onCreateROI}
-        >
-          New ROI Request
-        </button>
       </div>
     </div>
   );
@@ -1091,86 +1497,112 @@ function CreateROIPage({ patient, onBack, onSubmit }: CreateROIPageProps): JSX.E
   });
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 24, maxWidth: 1000, margin: "0 auto", paddingLeft: 24, paddingRight: 24 }}>
-      <button style={backBtn} onClick={onBack}>← Back</button>
-      <h2 style={{ textAlign: "center", marginBottom: 0, color: "#222" }}>New ROI Request</h2>
-      <div style={{ textAlign: "center", color: "#222", marginBottom: 16 }}>
-        Patient Name: <span style={{ color: "#222" }}>{patient.name}</span>
-      </div>
-
-      <div style={card}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16 }}>
-          <div>
-            <label style={{ display: "block", marginBottom: 6, fontSize: 14, fontWeight: "bold" }}>ROI Type</label>
-            <select style={input} value={roiType} onChange={e => setROIType(e.target.value)}>
-              <option>Patient Signature Required</option>
-              <option>Facility To Facility</option>
-            </select>
-          </div>
-          <div>
-            <label style={{ display: "block", marginBottom: 6, fontSize: 14, fontWeight: "bold" }}>Facility Name</label>
-            <input style={input} value={facilityName} onChange={e => setFacilityName(e.target.value)} placeholder="Enter facility name" />
-          </div>
-          <div>
-            <label style={{ display: "block", marginBottom: 6, fontSize: 14, fontWeight: "bold" }}>Facility Fax</label>
-            <input style={input} value={facilityFax} onChange={e => setFacilityFax(e.target.value)} placeholder="Enter facility fax" />
-          </div>
+    <div style={{ display: "flex", flexDirection: "column", gap: 0, minHeight: "100vh" }}>
+      {/* PAGE HEADER */}
+      <div style={{ background: "linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)", padding: "40px 40px", borderBottom: "2px solid #bfdbfe", position: "relative", overflow: "hidden" }}>
+        <button style={{ background: "rgba(0, 0, 0, 0.08)", color: "#0f172a", border: "1px solid rgba(0, 0, 0, 0.12)", borderRadius: 8, padding: "8px 16px", fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6, transition: "all 0.2s", position: "relative", zIndex: 1 }} onClick={onBack} onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "rgba(0, 0, 0, 0.12)"; (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 4px 12px rgba(0,0,0,0.15)"; }} onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "rgba(0, 0, 0, 0.08)"; (e.currentTarget as HTMLButtonElement).style.boxShadow = "none"; }}>← Back</button>
+        <div style={{ marginTop: 32, position: "relative", zIndex: 1 }}>
+          <h2 style={{ color: "#0f172a", textAlign: "left", marginBottom: 6, fontSize: 44, fontWeight: 950, letterSpacing: "-0.025em", lineHeight: 1.1 }}>
+            Release of Information Request
+          </h2>
+          <p style={{ color: "#64748b", fontSize: 16, margin: 0, fontWeight: 500, lineHeight: 1.5 }}>
+            Patient: <span style={{ fontWeight: 700 }}>{patient.name}</span>
+          </p>
         </div>
       </div>
 
-      <SectionCard title="Records to be Released">
-        <div style={grid2}>
-          <Checkbox label="Behavioral Health" obj={records} k="behavioralHealth" set={setRecords}/>
-          <Checkbox label="Emergency Dept" obj={records} k="emergencyDept" set={setRecords}/>
-          <Checkbox label="Operative Notes" obj={records} k="operativeNotes" set={setRecords}/>
-          <Checkbox label="Provider Notes" obj={records} k="providerNotes" set={setRecords}/>
-          <Checkbox label="Therapy Notes" obj={records} k="therapyNotes" set={setRecords}/>
-          <div>
-            <label style={{ display: "block", marginBottom: 4, fontSize: 14 }}>Other</label>
-            <input style={input} value={records.otherDocument} onChange={e => setRecords({ ...records, otherDocument: e.target.value })} placeholder="Specify other records"/>
+      {/* CONTENT AREA */}
+      <div style={{ flex: 1, padding: "40px", background: "linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%)", overflowY: "auto" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto" }}>
+          
+          {/* REQUEST DETAILS SECTION */}
+          <div style={{ background: "#fff", borderRadius: 12, padding: 36, boxShadow: "0 2px 8px rgba(59, 130, 246, 0.08), 0 1px 3px rgba(0,0,0,0.05)", border: "1px solid #dbeafe", borderTop: "4px solid #3b82f6", transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)", marginBottom: 32 }} onMouseEnter={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(59, 130, 246, 0.12)"} onMouseLeave={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 2px 8px rgba(59, 130, 246, 0.08), 0 1px 3px rgba(0,0,0,0.05)"}>
+            <h3 style={{ textAlign: "left", marginTop: 0, marginBottom: 24, fontSize: 16, fontWeight: 700, color: "#1f2937", letterSpacing: "0.3px" }}>Request Details</h3>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 20 }}>
+              <div>
+                <label style={{ display: "block", marginBottom: 8, fontSize: 13, fontWeight: 700, color: "#374151", textTransform: "uppercase", letterSpacing: "0.4px" }}>ROI Type</label>
+                <select style={{ width: "100%", padding: "10px 12px", fontSize: 13, border: "1px solid #e5e7eb", borderRadius: 6, background: "#f9fafb", fontFamily: "inherit", transition: "all 0.2s", outline: "none", cursor: "pointer", color: "#1f2937", fontWeight: 500 }} onFocus={(e) => { (e.currentTarget as HTMLSelectElement).style.borderColor = "#3b82f6"; (e.currentTarget as HTMLSelectElement).style.background = "#fff"; }} onBlur={(e) => { (e.currentTarget as HTMLSelectElement).style.borderColor = "#e5e7eb"; (e.currentTarget as HTMLSelectElement).style.background = "#f9fafb"; }} value={roiType} onChange={e => setROIType(e.target.value)}>
+                  <option>Patient Signature Required</option>
+                  <option>Facility To Facility</option>
+                </select>
+              </div>
+              <div>
+                <label style={{ display: "block", marginBottom: 8, fontSize: 13, fontWeight: 700, color: "#374151", textTransform: "uppercase", letterSpacing: "0.4px" }}>Facility Name</label>
+                <input style={{ width: "100%", padding: "10px 12px", fontSize: 13, border: "1px solid #e5e7eb", borderRadius: 6, background: "#f9fafb", fontFamily: "inherit", transition: "all 0.2s", outline: "none", color: "#1f2937", fontWeight: 500 }} onFocus={(e) => { (e.currentTarget as HTMLInputElement).style.borderColor = "#3b82f6"; (e.currentTarget as HTMLInputElement).style.background = "#fff"; (e.currentTarget as HTMLInputElement).style.boxShadow = "0 0 0 3px rgba(59, 130, 246, 0.1)"; }} onBlur={(e) => { (e.currentTarget as HTMLInputElement).style.borderColor = "#e5e7eb"; (e.currentTarget as HTMLInputElement).style.background = "#f9fafb"; (e.currentTarget as HTMLInputElement).style.boxShadow = "none"; }} value={facilityName} onChange={e => setFacilityName(e.target.value)} placeholder="Medical Center" />
+              </div>
+              <div>
+                <label style={{ display: "block", marginBottom: 8, fontSize: 13, fontWeight: 700, color: "#374151", textTransform: "uppercase", letterSpacing: "0.4px" }}>Facility Fax</label>
+                <input style={{ width: "100%", padding: "10px 12px", fontSize: 13, border: "1px solid #e5e7eb", borderRadius: 6, background: "#f9fafb", fontFamily: "inherit", transition: "all 0.2s", outline: "none", color: "#1f2937", fontWeight: 500 }} onFocus={(e) => { (e.currentTarget as HTMLInputElement).style.borderColor = "#3b82f6"; (e.currentTarget as HTMLInputElement).style.background = "#fff"; (e.currentTarget as HTMLInputElement).style.boxShadow = "0 0 0 3px rgba(59, 130, 246, 0.1)"; }} onBlur={(e) => { (e.currentTarget as HTMLInputElement).style.borderColor = "#e5e7eb"; (e.currentTarget as HTMLInputElement).style.background = "#f9fafb"; (e.currentTarget as HTMLInputElement).style.boxShadow = "none"; }} value={facilityFax} onChange={e => setFacilityFax(e.target.value)} placeholder="(555) 000-0000" />
+              </div>
+            </div>
           </div>
-        </div>
-      </SectionCard>
 
-      <SectionCard title="Additional Records">
-        <div style={grid3}>
-          {(Object.keys(additional) as Array<keyof AdditionalState>).map(key =>
-            <Checkbox key={key} label={String(key).replace(/([A-Z])/g, ' $1')} obj={additional} k={key} set={setAdditional}/>
-          )}
-        </div>
-      </SectionCard>
+          {/* RECORDS SECTIONS */}
+          <SectionCard title="Records to be Released">
+            <div style={grid2}>
+              <Checkbox label="Behavioral Health" obj={records} k="behavioralHealth" set={setRecords}/>
+              <Checkbox label="Emergency Dept" obj={records} k="emergencyDept" set={setRecords}/>
+              <Checkbox label="Operative Notes" obj={records} k="operativeNotes" set={setRecords}/>
+              <Checkbox label="Provider Notes" obj={records} k="providerNotes" set={setRecords}/>
+              <Checkbox label="Therapy Notes" obj={records} k="therapyNotes" set={setRecords}/>
+              <div>
+                <label style={{ display: "block", marginBottom: 8, fontSize: 13, fontWeight: 700, color: "#374151", textTransform: "uppercase", letterSpacing: "0.4px" }}>Other</label>
+                <input style={{ width: "100%", padding: "10px 12px", fontSize: 13, border: "1px solid #e5e7eb", borderRadius: 6, background: "#f9fafb", fontFamily: "inherit", transition: "all 0.2s", outline: "none", color: "#1f2937", fontWeight: 500 }} onFocus={(e) => { (e.currentTarget as HTMLInputElement).style.borderColor = "#3b82f6"; (e.currentTarget as HTMLInputElement).style.background = "#fff"; (e.currentTarget as HTMLInputElement).style.boxShadow = "0 0 0 3px rgba(59, 130, 246, 0.1)"; }} onBlur={(e) => { (e.currentTarget as HTMLInputElement).style.borderColor = "#e5e7eb"; (e.currentTarget as HTMLInputElement).style.background = "#f9fafb"; (e.currentTarget as HTMLInputElement).style.boxShadow = "none"; }} value={records.otherDocument} onChange={e => setRecords({ ...records, otherDocument: e.target.value })} placeholder="Specify other records" />
+              </div>
+            </div>
+          </SectionCard>
 
-      <SectionCard title="Substance Abuse Records">
-        <div style={grid2}>
-          {(Object.keys(substance) as Array<keyof SubstanceState>).map(key =>
-            key === "other"
-              ? <div key={key}><label style={{ display: "block", marginBottom: 4, fontSize: 14 }}>Other</label><input style={input} placeholder="" value={substance[key] as string} onChange={e => setSubstance({ ...substance, other: e.target.value })}/></div>
-              : <Checkbox<SubstanceState> key={key} label={String(key).replace(/([A-Z])/g, ' $1')} obj={substance} k={key} set={setSubstance}/>
-          )}
-        </div>
-      </SectionCard>
+          <SectionCard title="Additional Records">
+            <div style={grid3}>
+              {(Object.keys(additional) as Array<keyof AdditionalState>).map(key =>
+                <Checkbox key={key} label={String(key).replace(/([A-Z])/g, ' $1')} obj={additional} k={key} set={setAdditional}/>
+              )}
+            </div>
+          </SectionCard>
 
-      <button
-        style={{
-          ...primaryBtn,
-          display: "inline-block",
-          alignSelf: "flex-start",
-          minWidth: 0,
-          marginTop: 8,
-          padding: "8px 12px",
-          fontSize: 13
-        }}
-        onClick={() =>
-          onSubmit({
-            id: Date.now(),
-            facility: facilityName,
-            requestedDate: new Date().toISOString().split('T')[0],
-            status: roiType
-          })
-        }
-      >
-        Trigger ROI Request
-      </button>
+          <SectionCard title="Substance Abuse Records">
+            <div style={grid2}>
+              {(Object.keys(substance) as Array<keyof SubstanceState>).map(key =>
+                key === "other"
+                  ? <div key={key}><label style={{ display: "block", marginBottom: 8, fontSize: 13, fontWeight: 700, color: "#374151", textTransform: "uppercase", letterSpacing: "0.4px" }}>Other</label><input style={{ width: "100%", padding: "10px 12px", fontSize: 13, border: "1px solid #e5e7eb", borderRadius: 6, background: "#f9fafb", fontFamily: "inherit", transition: "all 0.2s", outline: "none", color: "#1f2937", fontWeight: 500 }} onFocus={(e) => { (e.currentTarget as HTMLInputElement).style.borderColor = "#3b82f6"; (e.currentTarget as HTMLInputElement).style.background = "#fff"; (e.currentTarget as HTMLInputElement).style.boxShadow = "0 0 0 3px rgba(59, 130, 246, 0.1)"; }} onBlur={(e) => { (e.currentTarget as HTMLInputElement).style.borderColor = "#e5e7eb"; (e.currentTarget as HTMLInputElement).style.background = "#f9fafb"; (e.currentTarget as HTMLInputElement).style.boxShadow = "none"; }} placeholder="Specify other records" value={substance[key] as string} onChange={e => setSubstance({ ...substance, other: e.target.value })}/></div>
+                  : <Checkbox<SubstanceState> key={key} label={String(key).replace(/([A-Z])/g, ' $1')} obj={substance} k={key} set={setSubstance}/>
+              )}
+            </div>
+          </SectionCard>
+
+          {/* ACTION BUTTONS */}
+          <div style={{ display: "flex", gap: 16, paddingTop: 32 }}>
+            <button
+              style={{
+                background: "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)",
+                color: "#fff",
+                border: "none",
+                borderRadius: 8,
+                padding: "12px 24px",
+                fontSize: 14,
+                fontWeight: 700,
+                cursor: "pointer",
+                transition: "all 0.3s ease",
+                boxShadow: "0 4px 12px rgba(59, 130, 246, 0.3)",
+                letterSpacing: "0.3px"
+              }}
+              onClick={() =>
+                onSubmit({
+                  id: Date.now(),
+                  facility: facilityName,
+                  requestedDate: new Date().toISOString().split('T')[0],
+                  status: roiType
+                })
+              }
+              onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = "translateY(-2px)"; (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 8px 20px rgba(59, 130, 246, 0.4)"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 4px 12px rgba(59, 130, 246, 0.3)"; }}
+            >
+              ✓ Trigger ROI Request
+            </button>
+          </div>
+
+        </div>
+      </div>
     </div>
   );
 }
@@ -1203,39 +1635,50 @@ function DashboardPage({ patients, onNavigateToUpcoming, onNavigateToCompleted }
   });
 
   return (
-    <div style={{ paddingBottom: 40 }}>
-      <div style={{ marginBottom: 40, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <h2 style={{ color: "#1f2937", margin: 0, fontSize: 32, fontWeight: "bold", letterSpacing: "-0.5px" }}>Intake Summary</h2>
-        <div style={{ fontSize: 14, color: "#6b7280" }}>Last updated: {new Date().toLocaleDateString()}</div>
+    <div style={{ display: "flex", flexDirection: "column", gap: 0, minHeight: "100vh" }}>
+      {/* PAGE HEADER */}
+      <div style={{ background: "linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)", padding: "40px 40px", marginBottom: "0", borderBottom: "2px solid #bfdbfe", position: "relative", overflow: "hidden" }}>
+        <div>
+          <h2 style={{ color: "#0f172a", textAlign: "left", marginBottom: 6, fontSize: 44, fontWeight: 950, letterSpacing: "-0.025em", position: "relative", zIndex: 1, lineHeight: 1.1 }}>
+            Intake Summary
+          </h2>
+          <p style={{ color: "#64748b", fontSize: 16, margin: 0, fontWeight: 500, position: "relative", zIndex: 1, lineHeight: 1.5 }}>
+            Last updated: {new Date().toLocaleDateString()}
+          </p>
+        </div>
       </div>
+
+      {/* CONTENT AREA */}
+      <div style={{ flex: 1, padding: "40px", background: "linear-gradient(135deg, #f8fafc 0%, #f0f9ff 100%)", overflowY: "auto" }}>
+        <div style={{ maxWidth: 1400, margin: "0 auto" }}>
       
-      {/* THREE COLUMN LAYOUT - TOP ROW */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 32, marginBottom: 48 }}>
-        {/* Left Column: Upcoming and Completed stacked */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          <div style={{ background: "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)", borderRadius: 14, padding: 18, boxShadow: "0 4px 16px rgba(59, 130, 246, 0.15)", border: "1px solid rgba(255,255,255,0.12)", transition: "all 0.3s ease", cursor: "pointer" }} onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(-3px)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(59, 130, 246, 0.25)"; }} onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 4px 16px rgba(59, 130, 246, 0.15)"; }} onClick={() => onNavigateToUpcoming()}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
+          {/* THREE COLUMN LAYOUT - TOP ROW */}
+          <div style={{ display: "grid", gridTemplateColumns: "0.6fr 1fr 1fr", gap: 32, marginBottom: 64 }}>
+          {/* Left Column: Upcoming and Completed stacked */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+            <div style={{ background: "linear-gradient(135deg, #2563eb 0%, #1e40af 100%)", borderRadius: 12, padding: 32, boxShadow: "0 4px 16px rgba(37, 99, 235, 0.3)", border: "1px solid rgba(37, 99, 235, 0.3)", borderTop: "4px solid #1e3a8a", transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)", cursor: "pointer" }} onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(-4px)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 32px rgba(37, 99, 235, 0.4)"; }} onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 4px 16px rgba(37, 99, 235, 0.3)"; }} onClick={() => onNavigateToUpcoming()}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
               <div>
-                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.85)", marginBottom: 8, fontWeight: "600", letterSpacing: "0.4px", textTransform: "uppercase" }}>Upcoming</div>
-                <div style={{ fontSize: 40, fontWeight: "800", color: "#fff", lineHeight: 1 }}>{totalUpcoming}</div>
+                <div style={{ fontSize: 12, color: "rgba(255,255,255,0.85)", marginBottom: 14, fontWeight: 700, letterSpacing: "0.5px", textTransform: "uppercase" }}>Upcoming</div>
+                <div style={{ fontSize: 48, fontWeight: 900, color: "#fff", lineHeight: 1 }}>{totalUpcoming}</div>
               </div>
               <div style={{ fontSize: 44, opacity: 0.15, marginTop: -4 }}>📋</div>
             </div>
-          </div>
-          <div style={{ background: "linear-gradient(135deg, #10b981 0%, #059669 100%)", borderRadius: 14, padding: 18, boxShadow: "0 4px 16px rgba(16, 185, 129, 0.15)", border: "1px solid rgba(255,255,255,0.12)", transition: "all 0.3s ease", cursor: "pointer" }} onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(-3px)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(16, 185, 129, 0.25)"; }} onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 4px 16px rgba(16, 185, 129, 0.15)"; }} onClick={() => onNavigateToCompleted()}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
+            </div>
+            <div style={{ background: "linear-gradient(135deg, #10b981 0%, #059669 100%)", borderRadius: 12, padding: 32, boxShadow: "0 4px 16px rgba(16, 185, 129, 0.3)", border: "1px solid rgba(16, 185, 129, 0.3)", borderTop: "4px solid #047857", transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)", cursor: "pointer" }} onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(-4px)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 32px rgba(16, 185, 129, 0.4)"; }} onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 4px 16px rgba(16, 185, 129, 0.3)"; }} onClick={() => onNavigateToCompleted()}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
               <div>
-                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.85)", marginBottom: 8, fontWeight: "600", letterSpacing: "0.4px", textTransform: "uppercase" }}>Completed</div>
-                <div style={{ fontSize: 40, fontWeight: "800", color: "#fff", lineHeight: 1 }}>{totalCompleted}</div>
+                <div style={{ fontSize: 12, color: "rgba(255,255,255,0.85)", marginBottom: 14, fontWeight: 700, letterSpacing: "0.5px", textTransform: "uppercase" }}>Completed</div>
+                <div style={{ fontSize: 48, fontWeight: 900, color: "#fff", lineHeight: 1 }}>{totalCompleted}</div>
               </div>
               <div style={{ fontSize: 44, opacity: 0.15, marginTop: -4 }}>✅</div>
             </div>
+            </div>
           </div>
-        </div>
 
-        {/* Middle Column: Stage Distribution */}
-        <div style={{ background: "#fff", borderRadius: 14, padding: 20, boxShadow: "0 2px 8px rgba(0,0,0,0.06)", border: "1px solid #eff6fc", display: "flex", flexDirection: "column", justifyContent: "center", transition: "all 0.3s ease" }} onMouseEnter={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(0,0,0,0.12)"} onMouseLeave={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 2px 8px rgba(0,0,0,0.06)"}>
-          <h4 style={{ textAlign: "left", marginTop: 0, marginBottom: 12, fontSize: 14, fontWeight: "700", color: "#1f2937", letterSpacing: "0.2px" }}>Stage Distribution</h4>
+          {/* Middle Column: Stage Distribution */}
+          <div style={{ background: "#fff", borderRadius: 12, padding: 36, boxShadow: "0 2px 8px rgba(59, 130, 246, 0.08), 0 1px 3px rgba(0,0,0,0.05)", border: "1px solid #e0e7ff", borderTop: "4px solid #2563eb", display: "flex", flexDirection: "column", justifyContent: "center", transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)" }} onMouseEnter={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(59, 130, 246, 0.12)"} onMouseLeave={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 2px 8px rgba(59, 130, 246, 0.08), 0 1px 3px rgba(0,0,0,0.05)"}>
+          <h4 style={{ textAlign: "left", marginTop: 0, marginBottom: 24, fontSize: 13, fontWeight: 800, color: "#1e293b", letterSpacing: "0.8px", textTransform: "uppercase", lineHeight: 1.2 }}>Stage Distribution</h4>
           <PieChart data={stages.map((stage, i) => ({
             label: stage,
             value: patients.filter(p => p.stage === stage).length,
@@ -1243,30 +1686,30 @@ function DashboardPage({ patients, onNavigateToUpcoming, onNavigateToCompleted }
           }))}/>
         </div>
 
-        {/* Right Column: Status Overview */}
-        <div style={{ background: "#fff", borderRadius: 14, padding: 20, boxShadow: "0 2px 8px rgba(0,0,0,0.06)", border: "1px solid #eff6fc", display: "flex", flexDirection: "column", justifyContent: "center", transition: "all 0.3s ease" }} onMouseEnter={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(0,0,0,0.12)"} onMouseLeave={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 2px 8px rgba(0,0,0,0.06)"}>
-          <h4 style={{ textAlign: "left", marginTop: 0, marginBottom: 12, fontSize: 14, fontWeight: "700", color: "#1f2937", letterSpacing: "0.2px" }}>Status Overview</h4>
+          {/* Right Column: Status Overview */}
+          <div style={{ background: "#fff", borderRadius: 12, padding: 36, boxShadow: "0 2px 8px rgba(59, 130, 246, 0.08), 0 1px 3px rgba(0,0,0,0.05)", border: "1px solid #e0e7ff", borderTop: "4px solid #16a34a", display: "flex", flexDirection: "column", justifyContent: "center", transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)" }} onMouseEnter={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(59, 130, 246, 0.12)"} onMouseLeave={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 2px 8px rgba(59, 130, 246, 0.08), 0 1px 3px rgba(0,0,0,0.05)"}>
+          <h4 style={{ textAlign: "left", marginTop: 0, marginBottom: 24, fontSize: 13, fontWeight: 800, color: "#1e293b", letterSpacing: "0.8px", textTransform: "uppercase", lineHeight: 1.2 }}>Status Overview</h4>
           <PieChart data={[
             { label: "New", value: newCount, color: "#2563eb" },
             { label: "In Progress", value: inProgressCount, color: "#facc15" },
             { label: "Completed", value: completedCount, color: "#16a34a" }
           ]}/>
-        </div>
-      </div>
+          </div>
+          </div>
 
-      {/* WEEKLY VISITS TREND */}
-      <div style={{ marginBottom: 48 }}>
-        <div style={{ background: "#fff", borderRadius: 14, padding: "28px 28px 28px 24px", boxShadow: "0 2px 8px rgba(0,0,0,0.06)", border: "1px solid #eff6fc", display: "flex", flexDirection: "column", transition: "all 0.3s ease" }} onMouseEnter={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(0,0,0,0.12)"} onMouseLeave={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 2px 8px rgba(0,0,0,0.06)"}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
-            <h4 style={{ textAlign: "left", marginTop: 0, marginBottom: 0, fontSize: 15, fontWeight: "700", color: "#1f2937", letterSpacing: "0.2px" }}>Weekly Visits Trend - YTD</h4>
-            <div style={{ display: "flex", gap: 24, fontSize: 13 }}>
+          {/* WEEKLY VISITS TREND */}
+          <div style={{ marginBottom: 64 }}>
+          <div style={{ background: "#fff", borderRadius: 12, padding: 36, boxShadow: "0 2px 8px rgba(59, 130, 246, 0.08), 0 1px 3px rgba(0,0,0,0.05)", border: "1px solid #e0e7ff", borderTop: "4px solid #06b6d4", display: "flex", flexDirection: "column", transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)" }} onMouseEnter={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(59, 130, 246, 0.12)"} onMouseLeave={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 2px 8px rgba(59, 130, 246, 0.08), 0 1px 3px rgba(0,0,0,0.05)"}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 28 }}>
+            <h4 style={{ textAlign: "left", marginTop: 0, marginBottom: 0, fontSize: 13, fontWeight: 800, color: "#1e293b", letterSpacing: "0.8px", textTransform: "uppercase", lineHeight: 1.2 }}>Weekly Visits Trend - YTD</h4>
+            <div style={{ display: "flex", gap: 28, fontSize: 13 }}>
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <div style={{ width: 16, height: 16, background: "#10b981", opacity: 0.6, borderRadius: 2 }}/>
-                <span style={{ color: "#6b7280" }}>AHT (minutes)</span>
+                <div style={{ width: 16, height: 16, background: "#10b981", opacity: 0.7, borderRadius: 2 }}/>
+                <span style={{ color: "#64748b", fontWeight: 600 }}>AHT (minutes)</span>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <div style={{ width: 16, height: 2, background: "#2563eb" }}/>
-                <span style={{ color: "#6b7280" }}>Visits</span>
+                <div style={{ width: 16, height: 3, background: "#2563eb", borderRadius: 1 }}/>
+                <span style={{ color: "#64748b", fontWeight: 600 }}>Visits</span>
               </div>
             </div>
           </div>
@@ -1340,32 +1783,32 @@ function DashboardPage({ patients, onNavigateToUpcoming, onNavigateToCompleted }
         </div>
       </div>
 
-      {/* TWO COLUMN LAYOUT - NURSE & ROI */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32 }}>
-        {/* Nurse Visit Assignments */}
-        <div style={{ background: "#fff", borderRadius: 14, padding: 28, boxShadow: "0 2px 8px rgba(0,0,0,0.06)", border: "1px solid #eff6fc", transition: "all 0.3s ease" }} onMouseEnter={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(0,0,0,0.12)"} onMouseLeave={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 2px 8px rgba(0,0,0,0.06)"}>
-          <h4 style={{ textAlign: "left", marginTop: 0, marginBottom: 20, fontSize: 15, fontWeight: "700", color: "#1f2937", letterSpacing: "0.2px" }}>Nurse Visit Assignments</h4>
+        {/* TWO COLUMN LAYOUT - NURSE & ROI */}
+        <div style={{ display: "grid", gridTemplateColumns: "0.8fr 1.2fr", gap: 32 }}>
+          {/* Nurse Visit Assignments */}
+          <div style={{ background: "#fff", borderRadius: 12, padding: 36, boxShadow: "0 2px 8px rgba(59, 130, 246, 0.08), 0 1px 3px rgba(0,0,0,0.05)", border: "1px solid #e0e7ff", borderTop: "4px solid #2563eb", transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)" }} onMouseEnter={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(59, 130, 246, 0.12)"} onMouseLeave={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 2px 8px rgba(59, 130, 246, 0.08), 0 1px 3px rgba(0,0,0,0.05)"}>
+          <h4 style={{ textAlign: "left", marginTop: 0, marginBottom: 24, fontSize: 13, fontWeight: 800, color: "#1e293b", letterSpacing: "0.8px", textTransform: "uppercase", lineHeight: 1.2 }} aria-label="Nurse Visit Assignments section" role="heading" aria-level={2}>Nurse Visit Assignments</h4>
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
               <tr style={{ background: "linear-gradient(90deg, #f9fafb 0%, #f3f4f6 100%)", borderBottom: "2px solid #e5e7eb" }}>
-                <th style={{ ...th, fontWeight: "700", color: "#1f2937", padding: 14, fontSize: 12, borderRadius: "6px 0 0 0" }}>Nurse</th>
-                <th style={{ ...th, fontWeight: "700", color: "#1f2937", padding: 14, fontSize: 12 }}>Pending</th>
-                <th style={{ ...th, fontWeight: "700", color: "#1f2937", padding: 14, fontSize: 12 }}>Completed</th>
-                <th style={{ ...th, fontWeight: "700", color: "#1f2937", padding: 14, fontSize: 12, borderRadius: "0 6px 0 0" }}>Total</th>
+                <th style={{ ...th, fontWeight: 850, color: "#1e293b", padding: 14, fontSize: 11, borderRadius: "6px 0 0 0", textTransform: "uppercase", letterSpacing: "0.9px", lineHeight: 1.2 }}>Nurse</th>
+                <th style={{ ...th, fontWeight: 850, color: "#1e293b", padding: 14, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.9px", lineHeight: 1.2 }}>Pending</th>
+                <th style={{ ...th, fontWeight: 850, color: "#1e293b", padding: 14, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.9px", lineHeight: 1.2 }}>Completed</th>
+                <th style={{ ...th, fontWeight: 850, color: "#1e293b", padding: 14, fontSize: 11, borderRadius: "0 6px 0 0", textTransform: "uppercase", letterSpacing: "0.9px", lineHeight: 1.2 }}>Total</th>
               </tr>
             </thead>
             <tbody>
               {Object.entries(aprnStats).map(([nurse, stats], idx) => (
                 <tr key={nurse} onClick={() => onNavigateToUpcoming(nurse)} style={{ background: idx % 2 === 0 ? "#fff" : "#f9fafb", borderBottom: "1px solid #f0f0f0", transition: "background 0.2s", cursor: "pointer" }} onMouseEnter={(e) => (e.currentTarget as HTMLTableRowElement).style.background = "#f0f9ff"} onMouseLeave={(e) => (e.currentTarget as HTMLTableRowElement).style.background = idx % 2 === 0 ? "#fff" : "#f9fafb"}>
-                  <td style={{ ...td, fontSize: 13, padding: 14, fontWeight: "600", color: "#1f2937" }}>{nurse}</td>
+                  <td style={{ ...td, fontSize: 13, padding: 14, fontWeight: 750, color: "#0f172a", letterSpacing: "-0.3px" }}>{nurse}</td>
                   <td style={{ ...td, fontSize: 13, textAlign: "center", color: "#dc2626", fontWeight: "bold", padding: 14 }}>
-                    <div style={{ background: "#fee2e2", padding: "6px 12px", borderRadius: 6, display: "inline-block", minWidth: "30px", fontSize: 12 }}>{stats.pending}</div>
+                    <div style={{ background: "#fee2e2", padding: "6px 12px", borderRadius: 6, display: "inline-block", minWidth: "30px", fontSize: 12, fontWeight: 800 }}>{stats.pending}</div>
                   </td>
-                  <td style={{ ...td, fontSize: 13, textAlign: "center", color: "#16a34a", fontWeight: "bold", padding: 14 }}>
-                    <div style={{ background: "#dcfce7", padding: "6px 12px", borderRadius: 6, display: "inline-block", minWidth: "30px", fontSize: 12 }}>{stats.completed}</div>
+                  <td style={{ ...td, fontSize: 13, textAlign: "center", color: "#16a34a", fontWeight: 800, padding: 14 }}>
+                    <div style={{ background: "#dcfce7", padding: "6px 12px", borderRadius: 6, display: "inline-block", minWidth: "30px", fontSize: 12, fontWeight: 800 }}>{stats.completed}</div>
                   </td>
-                  <td style={{ ...td, fontSize: 13, textAlign: "center", fontWeight: "bold", padding: 14, color: "#2563eb" }}>
-                    <div style={{ background: "#dbeafe", padding: "6px 12px", borderRadius: 6, display: "inline-block", minWidth: "30px", fontSize: 12 }}>{stats.total}</div>
+                  <td style={{ ...td, fontSize: 13, textAlign: "center", fontWeight: 800, padding: 14, color: "#2563eb" }}>
+                    <div style={{ background: "#dbeafe", padding: "6px 12px", borderRadius: 6, display: "inline-block", minWidth: "30px", fontSize: 12, fontWeight: 800 }}>{stats.total}</div>
                   </td>
                 </tr>
               ))}
@@ -1373,32 +1816,35 @@ function DashboardPage({ patients, onNavigateToUpcoming, onNavigateToCompleted }
           </table>
         </div>
 
-        {/* Recent ROI Requests */}
-        <div style={{ background: "#fff", borderRadius: 14, padding: 28, boxShadow: "0 2px 8px rgba(0,0,0,0.06)", border: "1px solid #eff6fc", transition: "all 0.3s ease" }} onMouseEnter={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(0,0,0,0.12)"} onMouseLeave={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 2px 8px rgba(0,0,0,0.06)"}>
-          <h4 style={{ textAlign: "left", marginTop: 0, marginBottom: 20, fontSize: 15, fontWeight: "700", color: "#1f2937", letterSpacing: "0.2px" }}>Recent ROI Requests</h4>
-          <table style={{ width: "100%", borderCollapse: "collapse" }}>
+          {/* Recent ROI Requests */}
+          <div style={{ background: "#fff", borderRadius: 12, padding: 36, boxShadow: "0 2px 8px rgba(59, 130, 246, 0.08), 0 1px 3px rgba(0,0,0,0.05)", border: "1px solid #e0e7ff", borderTop: "4px solid #f59e0b", transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)" }} onMouseEnter={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(59, 130, 246, 0.12)"} onMouseLeave={(e) => (e.currentTarget as HTMLDivElement).style.boxShadow = "0 2px 8px rgba(59, 130, 246, 0.08), 0 1px 3px rgba(0,0,0,0.05)"}>
+            <h4 style={{ textAlign: "left", marginTop: 0, marginBottom: 24, fontSize: 13, fontWeight: 800, color: "#1e293b", letterSpacing: "0.8px", textTransform: "uppercase", lineHeight: 1.2 }} aria-label="Recent ROI Requests section" role="heading" aria-level={2}>Recent ROI Requests</h4>
+            <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
               <tr style={{ background: "linear-gradient(90deg, #f9fafb 0%, #f3f4f6 100%)", borderBottom: "2px solid #e5e7eb" }}>
-                <th style={{ ...th, fontWeight: "700", color: "#1f2937", padding: 14, fontSize: 12, borderRadius: "6px 0 0 0" }}>Patient</th>
-                <th style={{ ...th, fontWeight: "700", color: "#1f2937", padding: 14, fontSize: 12 }}>Facility</th>
-                <th style={{ ...th, fontWeight: "700", color: "#1f2937", padding: 14, fontSize: 12 }}>Date</th>
-                <th style={{ ...th, fontWeight: "700", color: "#1f2937", textAlign: "center", padding: 14, fontSize: 12, borderRadius: "0 6px 0 0" }}>Status</th>
+                <th style={{ ...th, fontWeight: 850, color: "#1e293b", padding: 14, fontSize: 11, borderRadius: "6px 0 0 0", textTransform: "uppercase", letterSpacing: "0.9px", lineHeight: 1.2 }}>Patient</th>
+                <th style={{ ...th, fontWeight: 850, color: "#1e293b", padding: 14, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.9px", lineHeight: 1.2 }}>Facility</th>
+                <th style={{ ...th, fontWeight: 850, color: "#1e293b", padding: 14, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.9px", lineHeight: 1.2 }}>Date</th>
+                <th style={{ ...th, fontWeight: 850, color: "#1e293b", textAlign: "center", padding: 14, fontSize: 11, borderRadius: "0 6px 0 0", textTransform: "uppercase", letterSpacing: "0.9px", lineHeight: 1.2 }}>Status</th>
               </tr>
             </thead>
             <tbody>
               {roiRequests.map((roi, idx) => (
                 <tr key={roi.id} style={{ background: idx % 2 === 0 ? "#fff" : "#f9fafb", borderBottom: "1px solid #f0f0f0", transition: "background 0.2s" }} onMouseEnter={(e) => (e.currentTarget as HTMLTableRowElement).style.background = "#f0f9ff"} onMouseLeave={(e) => (e.currentTarget as HTMLTableRowElement).style.background = idx % 2 === 0 ? "#fff" : "#f9fafb"}>
-                  <td style={{ ...td, fontSize: 13, padding: 14, fontWeight: "600", color: "#1f2937" }}>{roi.patient}</td>
-                  <td style={{ ...td, fontSize: 13, padding: 14, color: "#6b7280" }}>{roi.facility}</td>
-                  <td style={{ ...td, fontSize: 13, padding: 14, color: "#6b7280" }}>{roi.requestedDate}</td>
+                  <td style={{ ...td, fontSize: 13, padding: 14, fontWeight: 750, color: "#0f172a", letterSpacing: "-0.3px" }}>{roi.patient}</td>
+                  <td style={{ ...td, fontSize: 13, padding: 14, color: "#475569", fontWeight: 600 }}>{roi.facility}</td>
+                  <td style={{ ...td, fontSize: 13, padding: 14, color: "#475569", fontWeight: 600 }}>{roi.requestedDate}</td>
                   <td style={{ ...td, fontSize: 12, textAlign: "center", padding: 14 }}>
                     <span style={{ 
-                      padding: "6px 12px", 
-                      borderRadius: "6px", 
+                      padding: "7px 14px", 
+                      borderRadius: "8px", 
                       background: roi.status === "Completed" ? "#dcfce7" : roi.status === "Sent to Facility" ? "#dbeafe" : "#fee2e2",
                       color: roi.status === "Completed" ? "#166534" : roi.status === "Sent to Facility" ? "#1e40af" : "#991b1b",
-                      fontWeight: "600",
+                      fontWeight: 800,
                       fontSize: 11,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.85px",
+                      lineHeight: 1.2,
                       display: "inline-block"
                     }}>
                       {roi.status}
@@ -1407,7 +1853,9 @@ function DashboardPage({ patients, onNavigateToUpcoming, onNavigateToCompleted }
                 </tr>
               ))}
             </tbody>
-          </table>
+            </table>
+          </div>
+        </div>
         </div>
       </div>
     </div>
